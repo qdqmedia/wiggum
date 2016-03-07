@@ -1,13 +1,10 @@
 app:
-  working_dir: /builds/project-24
+  working_dir: "/code"
   hostname: wiggum-ci
   environment:
     DJANGO_SETTINGS_MODULE: wiggum.settings.ci
-
+  command: "/bin/bash -ci '/code/environment/ci/build.sh;/code/environment/ci/run.sh'"
   links:
     - postgres:db
-
   volumes:
-    - $BUILDS_PATH:/builds
-    - $SSH_PATH:/home/wiggum/.ssh
-    - $CACHE_PATH:/cache
+    - ../:/code

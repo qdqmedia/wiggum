@@ -1,6 +1,8 @@
 postgres:
   volumes:
     - ../data/postgres:/var/lib/postgresql/data
+  ports:
+    - "5432:5432"
 
 app:
   ports:
@@ -18,15 +20,3 @@ app:
     - ../:/code
     - ~/.gitconfig:/home/wiggum/.giticonfig:ro
     - ~/.ssh:/home/wiggum/.ssh:ro
-
-sut:
-  extends: app
-  links:
-    - postgres:db
-  environment:
-    DJANGO_SETTINGS_MODULE: wiggum.settings.dev
-
-  command: /bin/bash -ic "sleep 2; ./manage.py test"
-
-  volumes:
-    - ../:/code
