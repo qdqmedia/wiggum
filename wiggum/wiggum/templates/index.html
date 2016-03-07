@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="index-block-header">
+  <div class="container">
+    <i class="fa fa-shield logo"></i>
+    <h1>Welcome to wiggum</h1>
+    <p class="lead">
+      Keep all your applications authentication and authorization centraliced and secure.</br>
+      Use the latest standards to authenticate your users
+    </p>
+  </div><!-- /.container -->
+</div>
+<div class="index-block">
+  <div class="container">
+      <div class="row">
+        <div class="col-md-3 index-block-column">
+          <div class="centered-icon">
+            <i class="fa fa-cog fa-5x"></i>
+          </div>
+          <p>Check out the admin page where you can manage all your applications users and permissions</p>
+          <p><a class="btn btn-default" href="{% url 'admin:index'%}" role="button">View details »</a></p>
+        </div>
+        <div class="col-md-3 index-block-column">
+          <div class="centered-icon">
+            <i class="fa fa-send fa-5x"></i>
+          </div>
+          <p>Watch your REST api endpoints and get information about what fields you need to pass or ask for.</br>
+          Take into account that you will need access to this. Use the Authorization header in the form of: "Bearer {TOKEN}"
+          </p>
+          <p><a class="btn btn-default" href="{% url 'api:api-root'%}" role="button">View details »</a></p>
+       </div>
+        <div class="col-md-3 index-block-column">
+          <div class="centered-icon">
+            <i class="fa fa-lock fa-5x"></i>
+          </div>
+          <p>Login into the application to gain access to a whole new wolrd of applications. Login once and access all</p>
+          <p><a class="btn btn-default" href="{% url 'auth:login'%}" role="button">View details »</a></p>
+        </div>
+        <div class="col-md-3 index-block-column">
+          <div class="centered-icon">
+            <i class="fa fa-asterisk fa-5x"></i>
+          </div>
+          <p>Test your jwt cookie with this simple utility and know if you are signed correctly in all the applications supported by wiggum</p>
+          <p><a class="btn btn-default" href="{% url 'auth:test-jwt'%}" role="button">View details »</a></p>
+        </div>
+      </div>
+  </div><!-- /.container -->
+</div>
+
+{% endblock content %}
+{% block footer %}
+    <!-- Footer
+================================================== -->
+<footer class="bs-docs-footer" role="contentinfo">
+</footer>
+{% endblock footer %}

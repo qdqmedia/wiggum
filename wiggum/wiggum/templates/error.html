@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load pipeline %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+        <!-- muahahaha! -->
+        {% javascript 'default' %}
+        {% javascript 'easter-egg' %}
+		{% stylesheet 'error' %}
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Oswald">
+        <title>{% block title %}{% endblock title %}</title>
+	</head>
+	<body>
+		<div class="error-container">
+			<h1 class="code-title">{% block error-code %}{% endblock error-code %}</h1>
+			<div class="error-message">
+				<h2 class="error-title">{% block error-title %}{% endblock error-title %}</h2>
+				<p class="error-text">{% block error-text %}{% endblock error-text %}</p>
+			</div>
+		</div>
+	</body>
+</html>

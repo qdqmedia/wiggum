@@ -1,0 +1,10 @@
+{
+  "name": "wiggum",
+  "version": "1.0.0",
+  "dependencies": {
+    "bower": "1.4.1",
+    "less": "2.5.1",
+    "yuglify": "0.1.4",
+    "uglify-js": "2.4.24"
+  }
+}

@@ -1,0 +1,126 @@
+{% extends "clancy/authorization/base.html" %}
+{% load date_filters %}
+{% block content %}
+
+<div class="container login-container">
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <span class="label {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} label-danger {% else %} label-success {% endif %}"> {{ message }} </span>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="row">
+    {% if jwt %}
+      <div class="col-md-10 col-md-offset-1">
+      {% if jwt_valid %}
+          {% if jwt_payload.impersonate %}
+          <div class="panel panel-warning">
+            <div class="panel-heading"> <i class="fa fa-warning"></i>CAUTION: Impersonated token (Valid JWT)</div>
+          {% else %}
+            <div class="panel panel-success">
+              <div class="panel-heading"> <i class="fa fa-check"></i> Valid JWT</div>
+          {% endif %}
+      {% else %}
+        <div class="panel panel-danger">
+          <div class="panel-heading"> <i class="fa fa-close"></i> Invalid JWT</div>
+      {% endif %}
+          <div class="panel-body">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseJWT" aria-expanded="false" aria-controls="collapseJWT">
+              Show raw jwt
+            </button>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseDecodedJWT" aria-expanded="false" aria-controls="collapseDecodedJWT">
+              Show decoded jwt
+            </button>
+            <a class="btn btn-danger" href="{% url 'auth:logout' %}" role="button">Logout</a>
+
+            <div class="collapse" id="collapseJWT">
+                <pre>{{ jwt }}</pre>
+            </div>
+            <div class="collapse" id="collapseDecodedJWT">
+                <pre>{{ jwt_payload }}</pre>
+            </div>
+            <table class="table table-striped jwt-table">
+              <tr class="info">
+                <td >Issuer (iss)</td>
+                <td>{{ jwt_payload.iss  }}</td>
+              </tr>
+              <tr class="info">
+                <td>Expiration (exp)</td>
+                <td>{{ jwt_payload.exp|epoch_datetime|date:"r"  }}</td>
+              </tr>
+              <tr class="info">
+                <td>Issued at (iat)</td>
+                <td>{{ jwt_payload.iat|epoch_datetime|date:"r"  }}</td>
+              </tr>
+              <tr class="info">
+                <td>Not before (nbf)</td>
+                <td>{{ jwt_payload.nbf|epoch_datetime|date:"r"  }}</td>
+              </tr>
+            </table>
+            <hr class="gradient">
+            <table class="table table-striped jwt-table">
+              <tr>
+                <td>Id</td>
+                <td>{{ jwt_payload.user.id }}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{{ jwt_payload.user.email }}</td>
+              </tr>
+              <tr>
+                <td>Username</td>
+                <td>{{ jwt_payload.user.username }}</td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td>{{ jwt_payload.user.first_name }}</td>
+              </tr>
+              <tr>
+                <td>Last name</td>
+                <td>{{ jwt_payload.user.last_name }}</td>
+              </tr>
+              <tr>
+                <td>Version</td>
+                <td>{{ jwt_payload.version }}</td>
+              </tr>
+              <tr>
+                <td>Impesonated</td>
+                <td>{{ jwt_payload.impersonate }}</td>
+              </tr>
+              <tr>
+                <td>Real user id</td>
+                <td>{{ jwt_payload.real_user_id }}</td>
+              </tr>
+              <tr {% if not permissions_set and not jwt_payload.permission %} class="danger" {% endif %}>
+                <td>Permissions</td>
+                <td>
+                  {% if jwt_payload.permission %}
+                  <ul>
+                    {% for p in jwt_payload.permission %}
+                    <li>{{ p }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% else %}
+                    Not stored on JWT
+                  {% endif %}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-md-6 col-md-offset-3">
+        <div class="alert alert-warning" role="alert">
+          No jwt token. You need to
+          <a href="{% url 'auth:login' %}" class="alert-link">login first</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}

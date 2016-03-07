@@ -1,0 +1,47 @@
+{% load i18n %}
+{% load pipeline %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% trans "You shouldn't be here ¬¬" %}</title>
+        <style type="text/css">
+          body {
+
+            background-color: #000;
+          }
+          @font-face {
+    	    font-family: 'BDCartoonShoutRegular';
+            src: url('{% static "fonts/BD_Cartoon_Shout-webfont.ttf" %}') format('truetype');
+    	    font-weight: normal;
+    	    font-style: normal;
+          }
+          #pacman {
+            height:450px;
+            width:342px;
+            margin:20px auto;
+          }
+        <style>
+
+        </style>
+	</head>
+	<body>
+        <div id="pacman"></div>
+        {% javascript 'modernizr' %}
+        <script type="text/javascript" src="{% static "js/pacman.js" %}" charset="utf-8"></script>
+        <script>
+
+          var el = document.getElementById("pacman");
+
+          if (Modernizr.canvas && Modernizr.localstorage &&
+              Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+              window.setTimeout(function () { PACMAN.init(el, "{% static "" %}"); }, 0);
+          } else {
+            el.innerHTML = "Sorry, needs a decent browser<br /><small>" +
+              "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+          }
+        </script>
+
+    </body>
+</html>

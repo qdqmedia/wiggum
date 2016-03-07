@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+<style>
+	.index-block-header {
+	    padding: 40px 15px;
+	    background-color: #5e0303;
+	    color: #eae3e3;
+	    text-align: center;
+	}
+
+	.logo {
+	  color: #eae3e3;
+	  font-size: 15em;
+	}
+</style>
+{% endblock head %}
+
+{% block content %}
+
+<div class="index-block-header">
+  <div class="container">
+	<i class="fa fa-ban logo"></i>
+    <h1>Unathorized</h1>
+    <p class="lead">
+      You dont have access to the requested URL.</br>
+      Please <a href="{% url "auth:logout" %}">logout</a> and <a src="{% url "auth:login" %}">login</a> again.
+    </p>
+  </div><!-- /.container -->
+</div>
+{% endblock content %}
+{% block footer %}
+    <!-- Footer
+================================================== -->
+<footer class="bs-docs-footer" role="contentinfo">
+</footer>
+{% endblock footer %}

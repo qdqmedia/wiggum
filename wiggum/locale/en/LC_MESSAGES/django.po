@@ -1,0 +1,273 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-02 10:17+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: applications/models.py:20
+msgid "Application name"
+msgstr ""
+
+#: applications/models.py:25
+msgid "Application token"
+msgstr ""
+
+#: applications/models.py:32
+msgid "Key should be hexadecimal and length 32"
+msgstr ""
+
+#: applications/models.py:35
+msgid "Application description"
+msgstr ""
+
+#: applications/models.py:38
+msgid "Application active"
+msgstr ""
+
+#: applications/models.py:41
+msgid "App associated theme"
+msgstr ""
+
+#: authorization/actions/impersonate.py:33
+msgid "Impersonation not active"
+msgstr ""
+
+#: authorization/actions/impersonate.py:81
+msgid "You don't have impersonation permission"
+msgstr ""
+
+#: authorization/actions/impersonate.py:96
+msgid "Can't impersonate yourself"
+msgstr ""
+
+#: authorization/actions/login_failure.py:19
+msgid "Authentication error"
+msgstr ""
+
+#: authorization/actions/recover_pass_request.py:42
+#, python-brace-format
+msgid "We haven't found any account with email {0}"
+msgstr ""
+
+#: authorization/actions/sfa.py:27
+msgid "SFA not active"
+msgstr ""
+
+#: authorization/forms.py:12
+msgid "Username or email"
+msgstr ""
+
+#: authorization/forms.py:14 authorization/forms.py:49 users/forms.py:22
+#: users/forms.py:79
+msgid "Password"
+msgstr ""
+
+#: authorization/forms.py:16 authorization/forms.py:25
+#: authorization/forms.py:54
+msgid "Redirection uri"
+msgstr ""
+
+#: authorization/forms.py:24
+msgid "Email"
+msgstr ""
+
+#: authorization/forms.py:32
+msgid "The email is not valid"
+msgstr ""
+
+#: authorization/forms.py:51
+msgid "Password validation"
+msgstr ""
+
+#: authorization/forms.py:58 users/forms.py:16 users/forms.py:76
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: authorization/views.py:246
+msgid "Token for password reset expired"
+msgstr ""
+
+#: authorization/views.py:259
+msgid "Password has been reset"
+msgstr ""
+
+#: authorization/views.py:288
+msgid "Password reset denied"
+msgstr ""
+
+#: authorization/views.py:527
+msgid "Invalid user for impersonation"
+msgstr ""
+
+#: authorization/views.py:556
+msgid "SFA link expired"
+msgstr ""
+
+#: authorization/views.py:580
+msgid "Invalid SFA token"
+msgstr ""
+
+#: authorization/views.py:586
+msgid "Invalid user to login"
+msgstr ""
+
+#: themes/templates/clancy/authorization/login.html:58
+msgid "Sign in"
+msgstr ""
+
+#: themes/templates/clancy/authorization/login.html:61
+msgid "Did you forgot your password?"
+msgstr ""
+
+#: themes/templates/clancy/authorization/recover_password.html:44
+msgid "Recover password"
+msgstr ""
+
+#: themes/templates/clancy/authorization/reset_password.html:59
+msgid "reset password"
+msgstr ""
+
+#: users/forms.py:17
+msgid "Email already exists"
+msgstr ""
+
+#: users/forms.py:18
+msgid "Username already exists"
+msgstr ""
+
+#: users/forms.py:24 users/forms.py:82
+msgid "Password confirmation"
+msgstr ""
+
+#: users/forms.py:26 users/forms.py:84
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: users/models.py:47
+msgid "Project permission key"
+msgstr ""
+
+#: users/models.py:52
+msgid "Project permission description"
+msgstr ""
+
+#: users/models.py:55
+msgid "Project permission active"
+msgstr ""
+
+#: users/models.py:67
+msgid "Username"
+msgstr ""
+
+#: users/models.py:70
+msgid ""
+"Required. 39 characters or fewer.  alphanumeric characters or single "
+"hyphens, and cannot begin or end with a hyphen"
+msgstr ""
+
+#: users/models.py:74
+msgid ""
+"Username may only contain alphanumeric characters or single hyphens, and "
+"cannot begin or end with a hyphen"
+msgstr ""
+
+#: users/models.py:78
+msgid "A user with that username already exists."
+msgstr ""
+
+#: users/models.py:82
+msgid "Email address"
+msgstr ""
+
+#: users/models.py:86
+msgid "A user with that email already exists."
+msgstr ""
+
+#: users/models.py:88
+msgid "First name"
+msgstr ""
+
+#: users/models.py:89
+msgid "Last name"
+msgstr ""
+
+#: users/models.py:90
+msgid "Date joined"
+msgstr ""
+
+#: users/models.py:91
+msgid "Active"
+msgstr ""
+
+#: users/models.py:93
+msgid "Password reset token"
+msgstr ""
+
+#: users/models.py:97
+msgid "Password reset token expiration"
+msgstr ""
+
+#: users/models.py:98
+msgid "SFA token expiration"
+msgstr ""
+
+#: users/models.py:100
+msgid "SFA token"
+msgstr ""
+
+#: users/models.py:104
+msgid "External service"
+msgstr ""
+
+#: users/models.py:113
+msgid "User"
+msgstr ""
+
+#: users/models.py:114
+msgid "Users"
+msgstr ""
+
+#: wiggum/templates/404.html:5
+msgid "404 - Error. This page does not exist"
+msgstr ""
+
+#: wiggum/templates/404.html:13
+msgid "We could not find what you where looking for"
+msgstr ""
+
+#: wiggum/templates/404.html:17 wiggum/templates/500.html:17
+msgid "The requested webpage is not available"
+msgstr ""
+
+#: wiggum/templates/500.html:5
+msgid "500 - Error. Internal error"
+msgstr ""
+
+#: wiggum/templates/500.html:13
+msgid "We had an error!"
+msgstr ""
+
+#: wiggum/templates/admin/users/change_form.html:16
+msgid "Impersonate"
+msgstr ""
+
+#: wiggum/templates/base.html:8
+msgid "Client access"
+msgstr ""
+
+#: wiggum/templates/easter-egg.html:8
+msgid "You shouldn't be here ¬¬"
+msgstr ""

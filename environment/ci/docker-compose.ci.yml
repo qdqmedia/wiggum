@@ -1,0 +1,13 @@
+app:
+  working_dir: /builds/project-24
+  hostname: wiggum-ci
+  environment:
+    DJANGO_SETTINGS_MODULE: wiggum.settings.ci
+
+  links:
+    - postgres:db
+
+  volumes:
+    - $BUILDS_PATH:/builds
+    - $SSH_PATH:/home/wiggum/.ssh
+    - $CACHE_PATH:/cache

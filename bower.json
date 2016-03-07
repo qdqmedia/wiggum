@@ -1,0 +1,11 @@
+{
+  "name": "wiggum",
+  "version": "1.0.0",
+  "description": "Authentication and authorization crentralized app based on JWT standard",
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "fontawesome": "~4.4.0",
+    "bootstrap-multiselect": "~0.9.13",
+    "modernizr": "~2.8.3"
+  }
+}

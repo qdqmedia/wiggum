@@ -1,0 +1,38 @@
+site_name: Wiggum
+
+pages:
+- Home: index.md
+- Introduction: introduction.md
+- Quick-start: quick-start.md
+- Installation:
+    - 'Manual': install/manual-install.md
+    - 'Docker': install/docker-install.md
+- Settings:
+    - 'Django': 'settings/django.md'
+    - 'Wiggum': 'settings/wiggum.md'
+- Authentication: authentication.md
+- Authorization: authorization.md
+- Utils:
+    - 'API': utils/api.md
+    - 'Admin panel': utils/admin.md
+    - 'SFA': utils/sfa.md
+    - 'Impersonation': utils/impersonation.md
+- Metrics: metrics.md
+- Customization:
+    - 'Introduction': custom/introduction.md
+#    - 'Actions': custom/actions.md
+#    - 'Middleware': custom/middleware.md
+#    - 'Templates':  custom/templates.md
+#    - 'Translations': custom/translations.md
+#    - 'Settings': custom/settings.md
+#    - 'Run': custom/run.md
+#    - 'Example': custom/example.md
+- Contributing: contributing.md
+- About: about.md
+
+markdown_extensions:
+    - toc:
+        permalink: 
+    - admonition:
+
+theme: readthedocs

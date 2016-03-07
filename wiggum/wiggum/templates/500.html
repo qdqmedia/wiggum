@@ -1,0 +1,18 @@
+{% extends "error.html" %}
+{% load i18n %}
+
+{% block title %}
+	{% trans "500 - Error. Internal error" %}
+{% endblock title %}
+
+{% block error-code %}
+	500
+{% endblock error-code %}
+
+{% block error-title %}
+	{% trans "We had an error!" %}
+{% endblock error-title %}
+
+{% block error-text %}
+	{% trans "The requested webpage is not available" %}
+{% endblock error-text %}

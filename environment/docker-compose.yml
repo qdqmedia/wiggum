@@ -1,0 +1,16 @@
+app:
+  build: ../
+  dockerfile: Dockerfile
+  dns:
+    - 172.16.114.43
+    - 172.16.114.44
+  command: "/bin/true"
+  user: wiggum
+
+postgres:
+  image: "postgres:9.4"
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: clancy_wiggum
+    POSTGRES_USER: wiggum

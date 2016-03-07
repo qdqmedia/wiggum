@@ -1,0 +1,57 @@
+body {
+  padding-top: 170px;
+  background-color: #0F233F;
+  color: #87919F;
+}
+
+.form-resetpass,
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-resetpass,
+.form-signin .form-signin-heading{
+  margin-bottom: 10px;
+}
+
+.form-resetpass,
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-resetpass,
+.form-signin input[type="email"] {
+  margin-bottom: 20px;
+}
+
+.form-resetpass,
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+}
+
+.form-resetpass,
+.form-signin h2 {
+    text-align: center;
+}
+
+.forgot-password {
+  text-align: center;
+  font-size: 90%;
+}
+
+.btn-default {
+  margin-top: 10px;
+}
+
+.messages{
+  text-align: center;
+  padding-left: 0px;
+}

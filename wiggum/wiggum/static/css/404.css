@@ -1,0 +1,27 @@
+.error-container{
+	margin: 0 auto;
+	padding-top: 100px;
+	width: 100%;
+	text-align: center;
+	background: url("../img/404background.png") top center no-repeat;
+	font-family: "Oswald";
+}
+.code-title{
+	color: white;
+	font-size: 200px;
+	margin: 0 0 100px;
+    font-weight: bold;
+}
+.error-message{
+	position: relative;
+	bottom: 0px;
+	padding: 50px;
+}
+.error-title{
+	font-size: 50px;
+    font-weight: lighter;
+}
+.error-text{
+	font-size: 24px;
+    font-weight: lighter;
+}

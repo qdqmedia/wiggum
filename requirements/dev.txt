@@ -1,0 +1,7 @@
+-r test.txt
+
+django-extensions==1.5.5
+colorlog==2.6.0
+ipdb==0.8.1
+django-debug-toolbar==1.4
+mkdocs==0.15.3

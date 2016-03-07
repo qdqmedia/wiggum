@@ -1,0 +1,32 @@
+postgres:
+  volumes:
+    - ../data/postgres:/var/lib/postgresql/data
+
+app:
+  ports:
+    - "8009:8009"
+
+  links:
+    - postgres:db
+
+  command: "/bin/true"
+
+  environment:
+    DJANGO_SETTINGS_MODULE: wiggum.settings.dev
+
+  volumes:
+    - ../:/code
+    - ~/.gitconfig:/home/wiggum/.giticonfig:ro
+    - ~/.ssh:/home/wiggum/.ssh:ro
+
+sut:
+  extends: app
+  links:
+    - postgres:db
+  environment:
+    DJANGO_SETTINGS_MODULE: wiggum.settings.dev
+
+  command: /bin/bash -ic "sleep 2; ./manage.py test"
+
+  volumes:
+    - ../:/code

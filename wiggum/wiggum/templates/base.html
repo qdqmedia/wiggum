@@ -1,0 +1,29 @@
+{# base.html #}
+{% load pipeline %}
+{% load i18n %}
+{% load static %}
+
+<html>
+  <head>
+    <title>{% block title %} {% trans 'Client access' %} {% endblock %}</title>
+    <link rel="shortcut icon" href="{% static "img/favicon.png" %}" type="image/x-icon">
+    {% stylesheet 'default' %}
+    {% stylesheet 'wiggum' %}
+    {% javascript 'default' %}
+
+    <!-- muahahaha! -->
+    {% javascript 'easter-egg' %}
+
+    {% block head %}
+    {% endblock head %}
+
+  </head>
+
+  <body>
+  {% block content %}
+  {% endblock content %}
+  {% block footer%}
+  {% endblock footer %}
+  </body>
+
+</html>
