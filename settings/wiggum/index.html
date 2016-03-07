@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Wiggum - Wiggum</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Wiggum";
+    var mkdocs_page_input_path = "settings/wiggum.md";
+    var mkdocs_page_url = "/settings/wiggum/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Wiggum</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../introduction/">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../quick-start/">Quick-start</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../install/manual-install/">Manual</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../install/docker-install/">Docker</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Settings</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../django/">Django</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Wiggum</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#jwt-authorization-settings">JWT authorization settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_secret_key">JWT_SECRET_KEY</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_verification_key">JWT_VERIFICATION_KEY</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_sign_algorithm">JWT_SIGN_ALGORITHM</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_transition_enable">JWT_TRANSITION_ENABLE</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_transition_verification_key">JWT_TRANSITION_VERIFICATION_KEY</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_sign_valid_algorithms">JWT_SIGN_VALID_ALGORITHMS</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_expiration_time_delta">JWT_EXPIRATION_TIME_DELTA</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_nbf_leeway_seconds">JWT_NBF_LEEWAY_SECONDS</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_issuer">JWT_ISSUER</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#jwt-cookie-settings">JWT cookie settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_cookie_name">JWT_COOKIE_NAME</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_cookie_expiration_time_delta">JWT_COOKIE_EXPIRATION_TIME_DELTA</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_cookie_only_https">JWT_COOKIE_ONLY_HTTPS</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_cookie_domain">JWT_COOKIE_DOMAIN</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_cookie_domain_auto">JWT_COOKIE_DOMAIN_AUTO</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_cookie_domain_auto_level">JWT_COOKIE_DOMAIN_AUTO_LEVEL</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_cookie_clone">JWT_COOKIE_CLONE</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_cookie_clone_domains_endpoint">JWT_COOKIE_CLONE_DOMAINS_ENDPOINT</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_set_permission_on_token">JWT_SET_PERMISSION_ON_TOKEN</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_version">JWT_VERSION</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_minimum_version">JWT_MINIMUM_VERSION</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_destroy_token_on_lesser_version">JWT_DESTROY_TOKEN_ON_LESSER_VERSION</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#jwt-miscelanea-settings">JWT miscelanea settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_impersonate_enable">JWT_IMPERSONATE_ENABLE</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_impersonate_expiration_time_delta">JWT_IMPERSONATE_EXPIRATION_TIME_DELTA</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_impersonate_cookie_expiration_time_delta">JWT_IMPERSONATE_COOKIE_EXPIRATION_TIME_DELTA</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_sfa_enable">JWT_SFA_ENABLE</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_sfa_expire_delta">JWT_SFA_EXPIRE_DELTA</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#app-permission-settings">App permission settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#app_permission_keys">APP_PERMISSION_KEYS</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#api-settings">API settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#api_version">API_VERSION</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#action-settings">Action settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#login_pre_check">LOGIN_PRE_CHECK</a></li>
+                
+                    <li><a class="toctree-l4" href="#login_success_actions">LOGIN_SUCCESS_ACTIONS</a></li>
+                
+                    <li><a class="toctree-l4" href="#login_failure_actions">LOGIN_FAILURE_ACTIONS</a></li>
+                
+                    <li><a class="toctree-l4" href="#logout_actions">LOGOUT_ACTIONS</a></li>
+                
+                    <li><a class="toctree-l4" href="#clone_actions">CLONE_ACTIONS</a></li>
+                
+                    <li><a class="toctree-l4" href="#recover_pass_request_actions">RECOVER_PASS_REQUEST_ACTIONS</a></li>
+                
+                    <li><a class="toctree-l4" href="#reset_pass_actions">RESET_PASS_ACTIONS</a></li>
+                
+                    <li><a class="toctree-l4" href="#impersonate_actions">IMPERSONATE_ACTIONS</a></li>
+                
+                    <li><a class="toctree-l4" href="#sfa_actions">SFA_ACTIONS</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#default-redirections-settings">Default redirections settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#login_success_redirect">LOGIN_SUCCESS_REDIRECT</a></li>
+                
+                    <li><a class="toctree-l4" href="#logout_success_redirect">LOGOUT_SUCCESS_REDIRECT</a></li>
+                
+                    <li><a class="toctree-l4" href="#clone_success_redirect">CLONE_SUCCESS_REDIRECT</a></li>
+                
+                    <li><a class="toctree-l4" href="#recover_pass_request_success_redirect">RECOVER_PASS_REQUEST_SUCCESS_REDIRECT</a></li>
+                
+                    <li><a class="toctree-l4" href="#reset_pass_success_redirect">RESET_PASS_SUCCESS_REDIRECT</a></li>
+                
+                    <li><a class="toctree-l4" href="#impersonate_success_redirect">IMPERSONATE_SUCCESS_REDIRECT</a></li>
+                
+                    <li><a class="toctree-l4" href="#sfa_success_redirect">SFA_SUCCESS_REDIRECT</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#password-reset-settings">Password reset settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#password_reset_expire_delta">PASSWORD_RESET_EXPIRE_DELTA</a></li>
+                
+                    <li><a class="toctree-l4" href="#login_on_password_reset">LOGIN_ON_PASSWORD_RESET</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#authentication-backends-settings">Authentication backends settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#wiggum_authentication_backends">WIGGUM_AUTHENTICATION_BACKENDS</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#miscelanea-settings">Miscelanea settings</a></li>
+                
+                    <li><a class="toctree-l4" href="#force_login_form">FORCE_LOGIN_FORM</a></li>
+                
+                    <li><a class="toctree-l4" href="#wiggum_default_theme">WIGGUM_DEFAULT_THEME</a></li>
+                
+                    <li><a class="toctree-l4" href="#redirect_url_valid_params">REDIRECT_URL_VALID_PARAMS</a></li>
+                
+                    <li><a class="toctree-l4" href="#admin_unathorized_redirection_url">ADMIN_UNATHORIZED_REDIRECTION_URL</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt_set_django_session_urls">JWT_SET_DJANGO_SESSION_URLS</a></li>
+                
+                    <li><a class="toctree-l4" href="#exclude_domain_check_urls">EXCLUDE_DOMAIN_CHECK_URLS</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../authentication/">Authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../authorization/">Authorization</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Utils</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../utils/api/">API</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../utils/admin/">Admin panel</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../utils/sfa/">SFA</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../utils/impersonation/">Impersonation</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../metrics/">Metrics</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Customization</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../custom/introduction/">Introduction</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../contributing/">Contributing</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../about/">About</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Wiggum</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Settings &raquo;</li>
+        
+      
+    
+    <li>Wiggum</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>Settings in Wiggum use the default Django system settings, this is a python file.
+with key-values. Settings can inherit from other settings and thats how we would
+extend wiggum as you will see in the <a href="../../custom/introduction/">customization section</a></p>
+<p>The main wiggum settings are in <a href="../../wiggum/wiggum/settings/wiggum.py">wiggum.py</a>.</p>
+<h1 id="jwt-authorization-settings">JWT authorization settings<a class="headerlink" href="#jwt-authorization-settings" title="Permanent link"></a></h1>
+<p>In these settings are the common security settings as keys and algorithms to
+sign the JWT token.</p>
+<h2 id="jwt_secret_key">JWT_SECRET_KEY<a class="headerlink" href="#jwt_secret_key" title="Permanent link"></a></h2>
+<p>This is the key used to sign the JWT token. This needs to be a valid &amp; supported key
+for the JWT stardard supported algorithms, check <a href="http://pyjwt.readthedocs.org/en/latest/algorithms.html#digital-signature-algorithms">PyJWT</a> library for the supported ones.</p>
+<p>The algorithms can be of two types, symmetric and asymmetric, for the first one theres only one key, so this key will be place it here. In case of using an asymmetric one there will be 2 keys and here will be placed the private key.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can be set with <code>JWT_SECRET_KEY</code> env var</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This key is secret! don't share with anybody</p>
+</div>
+<h2 id="jwt_verification_key">JWT_VERIFICATION_KEY<a class="headerlink" href="#jwt_verification_key" title="Permanent link"></a></h2>
+<p>This is the key used to verificate signed JWT tokens. As with <code>JWT_SECRET_KEY</code> this key
+needs to be a valid ans supported key by the standard. In case a symmetric key is used
+then this will be set to the same key as the JWT_SECRET_KEY, in case of using asymmetric
+keys then this will be set with the public key</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can be set with <code>JWT_VERIFICATION_KEY</code> env var</p>
+</div>
+<h2 id="jwt_sign_algorithm">JWT_SIGN_ALGORITHM<a class="headerlink" href="#jwt_sign_algorithm" title="Permanent link"></a></h2>
+<p>This will be the algorithm used to sign the JWT token, Could be asymmetric or symmetric.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to symmetric algorithm <code>HS256</code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can be set with <code>JWT_SIGN_ALGORITHM</code> env var</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This setting needs valid <code>JWT_SECRET_KEY</code> &amp; <code>JWT_VERIFICATION_KEY</code></p>
+</div>
+<h2 id="jwt_transition_enable">JWT_TRANSITION_ENABLE<a class="headerlink" href="#jwt_transition_enable" title="Permanent link"></a></h2>
+<p>This setting (True/False) enables a second verification key for JWT tokens (usually an old key).
+This is used because when we change our singing keys sometimes the old keys need to
+be valid on little period of time while the transition occurs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default deactivated</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can be activated  settin <code>JWT_TRANSITION_ENABLE</code> env var to one of this: <code>True</code>, <code>true</code>, <code>Yes</code>, <code>yes</code>, or <code>y</code></p>
+</div>
+<h2 id="jwt_transition_verification_key">JWT_TRANSITION_VERIFICATION_KEY<a class="headerlink" href="#jwt_transition_verification_key" title="Permanent link"></a></h2>
+<p>Applies the same as <code>JWT_VERIFICATION_KEY</code> but for the transition verification key</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can be set with <code>JWT_TRANSITION_VERIFICATION_KEY</code> env var</p>
+</div>
+<h2 id="jwt_sign_valid_algorithms">JWT_SIGN_VALID_ALGORITHMS<a class="headerlink" href="#jwt_sign_valid_algorithms" title="Permanent link"></a></h2>
+<p>An array of the valid algorithms in order to check the JWT tokens with the keys.
+The algorithms need to be JWT standard valid ones.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can be set with <code>JWT_SIGN_VALID_ALGORITHMS</code> env var, the values are set
+space separated, for example: <code>JWT_SIGN_VALID_ALGORITHMS="HS256 RS256"</code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default valid algorithms are <code>HS256</code> &amp; <code>RS256</code></p>
+</div>
+<h2 id="jwt_expiration_time_delta">JWT_EXPIRATION_TIME_DELTA<a class="headerlink" href="#jwt_expiration_time_delta" title="Permanent link"></a></h2>
+<p>An integer that describes the maximum time (in seconds) a token will be valid
+after creating it</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to 15 days</p>
+</div>
+<h2 id="jwt_nbf_leeway_seconds">JWT_NBF_LEEWAY_SECONDS<a class="headerlink" href="#jwt_nbf_leeway_seconds" title="Permanent link"></a></h2>
+<p>An integer that describes the maximum time (in seconds) a token creation time
+can be valid. Used normally when multiple instances of wiggum are deployed and
+They have small time offset making the token to be invalid when a machine created the token and then is validated in another machine with the timestamp in the future making
+the token creation timestamp be in the future. Used by JWT <code>ǸBF</code> attribute</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to 15 seconds</p>
+</div>
+<h2 id="jwt_issuer">JWT_ISSUER<a class="headerlink" href="#jwt_issuer" title="Permanent link"></a></h2>
+<p>An string that describes the issuer of the JWT token. Used by JWT <code>ìss</code> attribute</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>wiggumio</code></p>
+</div>
+<p>!! note
+    This can be set with <code>JWT_ISSUER</code> env var</p>
+<h1 id="jwt-cookie-settings">JWT cookie settings<a class="headerlink" href="#jwt-cookie-settings" title="Permanent link"></a></h1>
+<p>These settings are the ones that will determine how the JWT cookie is created and
+set.</p>
+<h2 id="jwt_cookie_name">JWT_COOKIE_NAME<a class="headerlink" href="#jwt_cookie_name" title="Permanent link"></a></h2>
+<p>An string with the name of the cookie</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>wiggumio_jwt</code></p>
+</div>
+<h2 id="jwt_cookie_expiration_time_delta">JWT_COOKIE_EXPIRATION_TIME_DELTA<a class="headerlink" href="#jwt_cookie_expiration_time_delta" title="Permanent link"></a></h2>
+<p>The time in seconds where the cookie will be valid. Usually this is set to the
+same time as the <code>JWT_EXPIRATION_TIME_DELTA</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to same as <code>JWT_EXPIRATION_TIME_DELTA</code></p>
+</div>
+<h2 id="jwt_cookie_only_https">JWT_COOKIE_ONLY_HTTPS<a class="headerlink" href="#jwt_cookie_only_https" title="Permanent link"></a></h2>
+<p>A boolean value, if enabled the cookie that is set will only be valid in https</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Deactivated by default</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If active be sure that all the applications using wiggum generated cookies are in HTTPS</p>
+</div>
+<h2 id="jwt_cookie_domain">JWT_COOKIE_DOMAIN<a class="headerlink" href="#jwt_cookie_domain" title="Permanent link"></a></h2>
+<p>The domain/subdomain/domain-wilcard  where the cookie will be sent.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>.wiggum.io</code></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This setting usually isn't used in favor of <code>JWT_COOKIE_DOMAIN_AUTO</code>, this last setting has priority</p>
+</div>
+<h2 id="jwt_cookie_domain_auto">JWT_COOKIE_DOMAIN_AUTO<a class="headerlink" href="#jwt_cookie_domain_auto" title="Permanent link"></a></h2>
+<p>A boolean value that if is enabled will set the cookie valid for the domain/subdomain/wildcard where wiggum is listening.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Active by default</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The way the domain/subdomain/wildcard is obtained is based on <code>JWT_COOKIE_DOMAIN_AUTO_LEVEL</code></p>
+</div>
+<h2 id="jwt_cookie_domain_auto_level">JWT_COOKIE_DOMAIN_AUTO_LEVEL<a class="headerlink" href="#jwt_cookie_domain_auto_level" title="Permanent link"></a></h2>
+<p>An integer value specifying the level of the domain that will be obtained where
+wiggum is listening based on the request. For example.</p>
+<p>User request from: <code>login.production.wiggum.org</code></p>
+<ul>
+<li>level 2 : <code>.wiggum.org</code></li>
+<li>level 3: <code>.production.wiggum.org</code></li>
+</ul>
+<p>User request from: login.staging.wiggum2.com</p>
+<ul>
+<li>level 4: <code>.login.staging.wiggum2.com</code></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If level is less or equal to <code>1</code> then the domain will be the request domain</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default value to <code>2</code></p>
+</div>
+<h2 id="jwt_cookie_clone">JWT_COOKIE_CLONE<a class="headerlink" href="#jwt_cookie_clone" title="Permanent link"></a></h2>
+<p>A boolean value. If activated then cloning the cookie is allowed to wiggum. This
+works by cloning the cookie to a list of described domains when the user logs in.</p>
+<p>For example if we have  3 applications that need to authenticate with wiggum token:</p>
+<ul>
+<li>app1.company.org</li>
+<li>app2.company.com</li>
+<li>app3.comp.com</li>
+</ul>
+<p>Wiggum should set the cookie on the <code>.company.org</code>, <code>.company.com</code> and <code>.comp.com</code>
+domains, this is done by cloning the cookie.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Activated by default</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This can be activated  settin <code>JWT_COOKIE_CLONE</code> env var to one of this: <code>True</code>, <code>true</code>, <code>Yes</code>, <code>yes</code>, or <code>y</code></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To use the cookie cloning mechanism you should use <code>JWT_COOKIE_CLONE_DOMAINS_ENDPOINT</code>, <code>JWT_COOKIE_DOMAIN_AUTO</code> &amp; <code>JWT_COOKIE_DOMAIN_AUTO_LEVEL</code></p>
+</div>
+<h2 id="jwt_cookie_clone_domains_endpoint">JWT_COOKIE_CLONE_DOMAINS_ENDPOINT<a class="headerlink" href="#jwt_cookie_clone_domains_endpoint" title="Permanent link"></a></h2>
+<p>A list of strings containing the clone domains where wiggum is listening. Taking
+<code>JWT_COOKIE_CLONE</code> example. We should set wiggum listening on these domains (can be the same wiggum instance, and point all these domains to the same one):</p>
+<pre><code class="python">JWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (
+    &quot;login.company.org&quot;,
+    &quot;login.company.com&quot;,
+    &quot;login.comp.com&quot;,
+)
+</code></pre>
+
+<h2 id="jwt_set_permission_on_token">JWT_SET_PERMISSION_ON_TOKEN<a class="headerlink" href="#jwt_set_permission_on_token" title="Permanent link"></a></h2>
+<p>A boolean value that sets the permissions of a user on the token. This is useful
+when you don't want to check by API each user authorization.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you need real time permissions check you should avoid using this and check in wiggum (by API) each time you want to know a users permissions.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Deactivated by default</p>
+</div>
+<h2 id="jwt_version">JWT_VERSION<a class="headerlink" href="#jwt_version" title="Permanent link"></a></h2>
+<p>A float setting that will be set on each JWT token generation. Useful to identify
+the version of the JWT issued token. Useful when an JWT is updated with new or
+modified content.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default &amp; initial version is <code>1.1</code></p>
+</div>
+<h2 id="jwt_minimum_version">JWT_MINIMUM_VERSION<a class="headerlink" href="#jwt_minimum_version" title="Permanent link"></a></h2>
+<p>A float settings that will specify which versión on JWT tokens are valid or invalid,
+for example a 1.4 versioned JWT and a 1.5 of minimim JWT version, when validated on wiggum will be identify as an invalid token</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default minimum version is <code>1</code></p>
+</div>
+<h2 id="jwt_destroy_token_on_lesser_version">JWT_DESTROY_TOKEN_ON_LESSER_VERSION<a class="headerlink" href="#jwt_destroy_token_on_lesser_version" title="Permanent link"></a></h2>
+<p>A boolean value than specifies if the action to be done on not version valid tokens
+need to be deleted from the client</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Activated by default</p>
+</div>
+<h1 id="jwt-miscelanea-settings">JWT miscelanea settings<a class="headerlink" href="#jwt-miscelanea-settings" title="Permanent link"></a></h1>
+<p>These settings don't alow to any type of JWT group of settings</p>
+<h2 id="jwt_impersonate_enable">JWT_IMPERSONATE_ENABLE<a class="headerlink" href="#jwt_impersonate_enable" title="Permanent link"></a></h2>
+<p>A boolean value that specifies if wiggum should allow impersonating users. Check
+<a href="../utils/impersonation">impersonation</a> section to understand how it works.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Activated by default</p>
+</div>
+<h2 id="jwt_impersonate_expiration_time_delta">JWT_IMPERSONATE_EXPIRATION_TIME_DELTA<a class="headerlink" href="#jwt_impersonate_expiration_time_delta" title="Permanent link"></a></h2>
+<p>An integer value specifying the number of seconds the JWT impersonated token is valid</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>1 hour</code></p>
+</div>
+<h2 id="jwt_impersonate_cookie_expiration_time_delta">JWT_IMPERSONATE_COOKIE_EXPIRATION_TIME_DELTA<a class="headerlink" href="#jwt_impersonate_cookie_expiration_time_delta" title="Permanent link"></a></h2>
+<p>An integer value specifying the number of seconds the cookie is valid</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>JWT_IMPERSONATE_EXPIRATION_TIME_DELTA</code> value</p>
+</div>
+<h2 id="jwt_sfa_enable">JWT_SFA_ENABLE<a class="headerlink" href="#jwt_sfa_enable" title="Permanent link"></a></h2>
+<p>A boolean value that specifies if wigum should allow SFA logins. Check <a href="../utils/SFA">SFA</a> section
+for more information</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Activated by default</p>
+</div>
+<h2 id="jwt_sfa_expire_delta">JWT_SFA_EXPIRE_DELTA<a class="headerlink" href="#jwt_sfa_expire_delta" title="Permanent link"></a></h2>
+<p>An integer value specifying the number of seconds the SFA token (link) will be valid</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>1 hour</code></p>
+</div>
+<h1 id="app-permission-settings">App permission settings<a class="headerlink" href="#app-permission-settings" title="Permanent link"></a></h1>
+<p>Settings for authorization  stuff</p>
+<h2 id="app_permission_keys">APP_PERMISSION_KEYS<a class="headerlink" href="#app_permission_keys" title="Permanent link"></a></h2>
+<p>A dictionary/map of settings specifying the application used permissions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default defined permissions <code>wiggum.all</code> &amp; <code>wiggum.impersonate</code></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This shouldn't be changed</p>
+</div>
+<h1 id="api-settings">API settings<a class="headerlink" href="#api-settings" title="Permanent link"></a></h1>
+<p>API settings, no more no less</p>
+<h2 id="api_version">API_VERSION<a class="headerlink" href="#api_version" title="Permanent link"></a></h2>
+<p>A string defining the api prefix version.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to "v1"</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This shouldn't be changed</p>
+</div>
+<h1 id="action-settings">Action settings<a class="headerlink" href="#action-settings" title="Permanent link"></a></h1>
+<p>Action settings specify the flow of actions for each of the events that occur.
+Check <a href="../customization/actions">actions</a> section to learn more about Wiggum actions</p>
+<h2 id="login_pre_check">LOGIN_PRE_CHECK<a class="headerlink" href="#login_pre_check" title="Permanent link"></a></h2>
+<p>List of actions that occur when a login is submitted and checked.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.login_pre_check.ForceLoginFormAction",
+"authorization.actions.login_pre_check.CheckUserAuthenticatedAlreadyAction",
+"authorization.actions.login_pre_check.CheckValidJWTVersionAction",</p>
+</div>
+<h2 id="login_success_actions">LOGIN_SUCCESS_ACTIONS<a class="headerlink" href="#login_success_actions" title="Permanent link"></a></h2>
+<p>List of actions that occur when a login succeeds.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.login_success.CreateJWTAction",
+"authorization.actions.login_success.RedirectToCloneJWTSessionAction",
+"authorization.actions.login_success.SetJWTOnCookieAction",
+"authorization.actions.login_success.LoginSuccessMetricAction",</p>
+</div>
+<h2 id="login_failure_actions">LOGIN_FAILURE_ACTIONS<a class="headerlink" href="#login_failure_actions" title="Permanent link"></a></h2>
+<p>List of actions that occur when a login fails</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.login_failure.AuthenticationErrorMessageAction",
+"authorization.actions.login_failure.LoginFailureMetricAction",</p>
+</div>
+<h2 id="logout_actions">LOGOUT_ACTIONS<a class="headerlink" href="#logout_actions" title="Permanent link"></a></h2>
+<p>List of actions that occur when a logout is done.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.logout.DeleteDjangoAuthSessionAction",
+"authorization.actions.logout.JWTDeleteCookieAction",
+"authorization.actions.logout.LogoutMetricsAction",</p>
+</div>
+<h2 id="clone_actions">CLONE_ACTIONS<a class="headerlink" href="#clone_actions" title="Permanent link"></a></h2>
+<p>List of actions that occur when a cookie clone is done.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.login_success.SetJWTOnCookieAction",</p>
+</div>
+<h2 id="recover_pass_request_actions">RECOVER_PASS_REQUEST_ACTIONS<a class="headerlink" href="#recover_pass_request_actions" title="Permanent link"></a></h2>
+<p>List of actions that occur when a password recover request is done.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.recover_pass_request.LoadUserFromDatabaseAction",
+"authorization.actions.recover_pass_request.CheckUserCorrectAction",
+"authorization.actions.recover_pass_request.CreateRecoverPasswordTokenAction",
+"authorization.actions.recover_pass_request.PasswordResetRequestMetricAction",</p>
+</div>
+<h2 id="reset_pass_actions">RESET_PASS_ACTIONS<a class="headerlink" href="#reset_pass_actions" title="Permanent link"></a></h2>
+<p>List of actions that occur when a password recover is done.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.reset_pass.CreateJwtOnViewOnPassResetAction",
+"authorization.actions.reset_pass.RedirectToCloneJWTSessionOnPassResetAction",
+"authorization.actions.reset_pass.SetJWTOnCookieOnPassResetAction",
+"authorization.actions.reset_pass.PasswordResetMetricAction",</p>
+</div>
+<h2 id="impersonate_actions">IMPERSONATE_ACTIONS<a class="headerlink" href="#impersonate_actions" title="Permanent link"></a></h2>
+<p>List of actions that occur when a user impersonation occurs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.impersonate.CheckImpersonateActiveAction",
+"authorization.actions.impersonate.RedirectToLoginIfNotAuthenticatedAction",
+"authorization.actions.login_pre_check.CheckValidJWTVersionAction",
+"authorization.actions.impersonate.CheckImpersonatePermissionAction",
+"authorization.actions.impersonate.CheckImpersonateSameUserAction",
+"authorization.actions.impersonate.CreateImpersonateJWTAction",
+"authorization.actions.login_success.RedirectToCloneJWTSessionAction",
+"authorization.actions.impersonate.SetImpersonateJWTOnCookieAction",
+"authorization.actions.impersonate.ImpersonationMetricAction",</p>
+</div>
+<h2 id="sfa_actions">SFA_ACTIONS<a class="headerlink" href="#sfa_actions" title="Permanent link"></a></h2>
+<p>List of actions that occur when a SFA login occurs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default action flow:</p>
+<p>"authorization.actions.sfa.CheckSFAActiveAction",
+"authorization.actions.login_success.CreateJWTAction",
+"authorization.actions.login_success.RedirectToCloneJWTSessionAction",
+"authorization.actions.login_success.SetJWTOnCookieAction",
+"authorization.actions.sfa.ResetSFATokenAction",</p>
+</div>
+<h1 id="default-redirections-settings">Default redirections settings<a class="headerlink" href="#default-redirections-settings" title="Permanent link"></a></h1>
+<p>Default redirections are the urls where the user will be redirected after the
+action was successfully finished</p>
+<h2 id="login_success_redirect">LOGIN_SUCCESS_REDIRECT<a class="headerlink" href="#login_success_redirect" title="Permanent link"></a></h2>
+<p>Default url where the user will be redirected after successful login</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/a/test/jwt</code></p>
+</div>
+<h2 id="logout_success_redirect">LOGOUT_SUCCESS_REDIRECT<a class="headerlink" href="#logout_success_redirect" title="Permanent link"></a></h2>
+<p>Default url where the user will be redirected after successful logout</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/a/test/jwt</code></p>
+</div>
+<h2 id="clone_success_redirect">CLONE_SUCCESS_REDIRECT<a class="headerlink" href="#clone_success_redirect" title="Permanent link"></a></h2>
+<p>Default url where the user will be redirected after successful final clone chain</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/a/test/jwt</code></p>
+</div>
+<h2 id="recover_pass_request_success_redirect">RECOVER_PASS_REQUEST_SUCCESS_REDIRECT<a class="headerlink" href="#recover_pass_request_success_redirect" title="Permanent link"></a></h2>
+<p>Default url where the user will be redirected after successful password reset request</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/a/login</code></p>
+</div>
+<h2 id="reset_pass_success_redirect">RESET_PASS_SUCCESS_REDIRECT<a class="headerlink" href="#reset_pass_success_redirect" title="Permanent link"></a></h2>
+<p>Default url where the user will be redirected after successful password reset</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/a/login</code></p>
+</div>
+<h2 id="impersonate_success_redirect">IMPERSONATE_SUCCESS_REDIRECT<a class="headerlink" href="#impersonate_success_redirect" title="Permanent link"></a></h2>
+<p>Default url where the user will be redirected after successful impersonation</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/a/test/jwt</code></p>
+</div>
+<h2 id="sfa_success_redirect">SFA_SUCCESS_REDIRECT<a class="headerlink" href="#sfa_success_redirect" title="Permanent link"></a></h2>
+<p>Default url where the user will be redirected after successful SFA login</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/a/login</code></p>
+</div>
+<h1 id="password-reset-settings">Password reset settings<a class="headerlink" href="#password-reset-settings" title="Permanent link"></a></h1>
+<p>Settings related with the password reset</p>
+<h2 id="password_reset_expire_delta">PASSWORD_RESET_EXPIRE_DELTA<a class="headerlink" href="#password_reset_expire_delta" title="Permanent link"></a></h2>
+<p>Integer value expressed in seconds that specifies how long the reset password
+link will be valid</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default value is <code>12 hours</code></p>
+</div>
+<h2 id="login_on_password_reset">LOGIN_ON_PASSWORD_RESET<a class="headerlink" href="#login_on_password_reset" title="Permanent link"></a></h2>
+<p>Boolean value that specifies if the user needs to be logged-in after a password reset</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Activated by default</p>
+</div>
+<h1 id="authentication-backends-settings">Authentication backends settings<a class="headerlink" href="#authentication-backends-settings" title="Permanent link"></a></h1>
+<p>Settings related with wiggu authentication system</p>
+<h2 id="wiggum_authentication_backends">WIGGUM_AUTHENTICATION_BACKENDS<a class="headerlink" href="#wiggum_authentication_backends" title="Permanent link"></a></h2>
+<p>A list specifying the authentication backends used by wiggum to login the user
+on wiggum appplication.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default:</p>
+<p>"authorization.backends.JWTAuthentication",
+"authorization.backends.RegularDatabaseAuthentication",</p>
+</div>
+<p>)</p>
+<h1 id="miscelanea-settings">Miscelanea settings<a class="headerlink" href="#miscelanea-settings" title="Permanent link"></a></h1>
+<p>Settings that don't fit in any section</p>
+<h2 id="force_login_form">FORCE_LOGIN_FORM<a class="headerlink" href="#force_login_form" title="Permanent link"></a></h2>
+<p>A boolean value that specifies if wiggum should ask for the login form always. Useful when developing</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Deactivated by default</p>
+</div>
+<h2 id="wiggum_default_theme">WIGGUM_DEFAULT_THEME<a class="headerlink" href="#wiggum_default_theme" title="Permanent link"></a></h2>
+<p>A setting specifying the theme that will be loaded by default</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default theme is <code>clancy</code></p>
+</div>
+<h2 id="redirect_url_valid_params">REDIRECT_URL_VALID_PARAMS<a class="headerlink" href="#redirect_url_valid_params" title="Permanent link"></a></h2>
+<p>A list that specifies the valid querystring for url redirect forcing. For example
+when we want to redirect to <code>mysite.com/something</code> after a successful login we
+could use <code>wiggum.io/login?redirect_uri=mysite.com/something</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default ones are <code>next</code> &amp; <code>redirect_uri</code></p>
+</div>
+<h2 id="admin_unathorized_redirection_url">ADMIN_UNATHORIZED_REDIRECTION_URL<a class="headerlink" href="#admin_unathorized_redirection_url" title="Permanent link"></a></h2>
+<p>A string specifying the url that will be a user redirected when tries to access
+wiggum admin panel and that used doesn't have permissions to enter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/unauthorized/</code></p>
+</div>
+<h2 id="jwt_set_django_session_urls">JWT_SET_DJANGO_SESSION_URLS<a class="headerlink" href="#jwt_set_django_session_urls" title="Permanent link"></a></h2>
+<p>A list containing the urls regexes where the Django session middleware will be applied</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default to <code>/admin/.*</code></p>
+</div>
+<h2 id="exclude_domain_check_urls">EXCLUDE_DOMAIN_CHECK_URLS<a class="headerlink" href="#exclude_domain_check_urls" title="Permanent link"></a></h2>
+<p>Wiggum checks if the domain where the request is accessing is a valid one (this
+valid domains are the ones that appear on <code>JWT_COOKIE_CLONE_DOMAINS_ENDPOINT</code>)
+This setting is a list of regexes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only applied when <code>JWT_COOKIE_CLONE</code> is enabled</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Default ones:<code>/api/.*</code>, <code>/metrics/?</code>, <code>/?$</code> and <code>/robots.txt</code></p>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../authentication/" class="btn btn-neutral float-right" title="Authentication">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../django/" class="btn btn-neutral" title="Django"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../django/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../authentication/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

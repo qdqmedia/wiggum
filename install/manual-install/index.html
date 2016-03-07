@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Manual - Wiggum</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Manual";
+    var mkdocs_page_input_path = "install/manual-install.md";
+    var mkdocs_page_url = "/install/manual-install/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Wiggum</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../introduction/">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../quick-start/">Quick-start</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Installation</span></li>
+
+        
+            
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Manual</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#installation">Installation</a></li>
+                
+                    <li><a class="toctree-l4" href="#system-dependencies">System dependencies</a></li>
+                
+                    <li><a class="toctree-l4" href="#database">Database</a></li>
+                
+                    <li><a class="toctree-l4" href="#jwt-keys">JWT keys</a></li>
+                
+                    <li><a class="toctree-l4" href="#get-wiggum">Get Wiggum</a></li>
+                
+                    <li><a class="toctree-l4" href="#app-dependencies">App dependencies</a></li>
+                
+                    <li><a class="toctree-l4" href="#create-own-settings">Create own settings</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#python-path">Python path</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#migrations-and-admin-user">Migrations and admin user</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#generate-statics-and-translations">Generate statics and translations</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#uwsgi">uwsgi</a></li>
+                
+            
+            </ul>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../docker-install/">Docker</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Settings</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../settings/django/">Django</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../settings/wiggum/">Wiggum</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../authentication/">Authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../authorization/">Authorization</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Utils</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../utils/api/">API</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../utils/admin/">Admin panel</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../utils/sfa/">SFA</a>
+        
+    </li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../utils/impersonation/">Impersonation</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../metrics/">Metrics</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <ul class="subnav">
+    <li><span>Customization</span></li>
+
+        
+            
+    <li class="toctree-l1 ">
+        <a class="" href="../../custom/introduction/">Introduction</a>
+        
+    </li>
+
+        
+    </ul>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../contributing/">Contributing</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../../about/">About</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Wiggum</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Installation &raquo;</li>
+        
+      
+    
+    <li>Manual</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>This is a common example to set up and running a personal Wiggum application. We
+are assuming that we have these services.</p>
+<pre><code class="text">http://mycompany.io
+http://documents.mycompany.io
+http://backoffice.mycompany.com
+http://deployments.mycompany.com
+http://logs.mycompany.com
+</code></pre>
+
+<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link"></a></h1>
+<p>We are setting on <code>/home/wiggumuser/apps</code> to do all the stuff.</p>
+<h2 id="system-dependencies">System dependencies<a class="headerlink" href="#system-dependencies" title="Permanent link"></a></h2>
+<p>Wiggum is a Python3 application so you will need a python3 installation. Apart
+from this, you will need some dependecies: <code>node</code>, <code>gettext</code>, <code>libffi</code>, <code>libssl</code> and <code>libpq</code>. In
+apt based systems you will do:</p>
+<pre><code># apt-get update
+# apt-get install -y libffi-dev libssl-dev libpq-dev postgresql-client gettext node
+</code></pre>
+
+<h2 id="database">Database<a class="headerlink" href="#database" title="Permanent link"></a></h2>
+<p>We need a ready PostgreSQL with a database, user and stuff.</p>
+<h2 id="jwt-keys">JWT keys<a class="headerlink" href="#jwt-keys" title="Permanent link"></a></h2>
+<p>We are going to use asymmetric keys this time, exactly we will use <code>RS256</code>
+algorithm to sign the Token. We create the keys.</p>
+<pre><code class="bash">$ mkdir ./wiggum-keys &amp;&amp; cd ./wiggum-keys
+$ ssh-keygen  -t rsa -b 2048 -q -N &quot;&quot; -f ./wiggu
+</code></pre>
+
+<p>Now we have the private <code>wiggum</code> and the public <code>wiggum.pub</code> keys</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Private keys mean private! Don't share :)</p>
+</div>
+<h2 id="get-wiggum">Get Wiggum<a class="headerlink" href="#get-wiggum" title="Permanent link"></a></h2>
+<pre><code class="bash">$ cd ..
+$ git clone https://github.com/qdqmedia/wiggum.git
+</code></pre>
+
+<p>At this moment we have <code>wiggum</code> and <code>wiggum-keys</code> directories.</p>
+<h2 id="app-dependencies">App dependencies<a class="headerlink" href="#app-dependencies" title="Permanent link"></a></h2>
+<p>We install the dependencies in the system or in a virtualenv, for this example we
+will create a virtualenv named wiggumapp</p>
+<pre><code class="bash">$ mkvirtualenv wiggumapp
+</code></pre>
+
+<p>And install wiggum dependencies in this virtualenv</p>
+<pre><code class="bash">$ pip install -r ./wiggum/requirements/base.txt
+</code></pre>
+
+<p>Install node depdencies from wiggum project</p>
+<pre><code class="bash">$ cd ./wiggum
+$ npm install
+$ node_modules/.bin/bower install
+</code></pre>
+
+<h2 id="create-own-settings">Create own settings<a class="headerlink" href="#create-own-settings" title="Permanent link"></a></h2>
+<p>We need to create our own settings, we will set the least neccessary settings to
+have a Personal wiggum app. We will create a directory where we will place all
+of our custom configuration</p>
+<pre><code class="bash">$ cd -
+$ mkdir ./wiggum-prod &amp;&amp; ./wiggum-prod
+$ touch ./conf.py
+</code></pre>
+
+<p>And start putting the settings on the <code>conf.py</code> file</p>
+<h3 id="import-from-base-settings">Import from base settings<a class="headerlink" href="#import-from-base-settings" title="Permanent link"></a></h3>
+<p>Inherit from wiggum default settings</p>
+<pre><code class="python">import os
+from wiggum.settings.wiggum import *
+</code></pre>
+
+<h3 id="common-django-stuff">Common Django stuff<a class="headerlink" href="#common-django-stuff" title="Permanent link"></a></h3>
+<p>We set the Django sessión key to a random hash and Debug to false</p>
+<pre><code class="python">SECRET_KEY = &quot;32f&amp;7^ih2&amp;lc0&amp;)enip3e_i^@8v2!(n1z4sx9fe@0shh2*e)=*&quot;
+DEBUG = False
+</code></pre>
+
+<p>The place the static and media files will be generated and placed</p>
+<pre><code class="python">MEDIA_ROOT = &quot;/home/wiggumuser/media&quot;
+STATIC_ROOT = &quot;/home/wiggumuser/static&quot;
+</code></pre>
+
+<h3 id="database-caches">Database &amp; caches<a class="headerlink" href="#database-caches" title="Permanent link"></a></h3>
+<p>Set the database settings to point to our postgres and use the local memory cache
+Wiggum doesn't need to cache so we don't need something like Redis or memcached.</p>
+<pre><code class="python">DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('PG_DATABASE'),
+        'USER': os.getenv('PG_USER'),
+        'PASSWORD': os.getenv('PG_PASSWORD',),
+        'HOST': os.getenv('PG_HOST', &quot;127.0.0.1&quot;),
+        'PORT': os.getenv('PG_PORT', '5432'),
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'wiggum',
+    }
+}
+</code></pre>
+
+<h3 id="static-stuff">Static stuff<a class="headerlink" href="#static-stuff" title="Permanent link"></a></h3>
+<p>Wiggum uses [Django pipeline] to manage the assets so we need to point where
+these binaries are</p>
+<pre><code class="python">PIPELINE_LESS_BINARY = os.path.join(NODE_MODULES_PATH, &quot;less&quot;)
+PIPELINE_UGLIFYJS_BINARY = os.path.join(NODE_MODULES_PATH, &quot;uglifyjs&quot;)
+PIPELINE_YUGLIFY_BINARY = os.path.join(NODE_MODULES_PATH, &quot;yuglify&quot;)
+</code></pre>
+
+<h3 id="wiggum">Wiggum<a class="headerlink" href="#wiggum" title="Permanent link"></a></h3>
+<p>We set the issuer to our company wiggum and the name of the cookie</p>
+<pre><code class="python">JWT_ISSUER = &quot;wiggum-mycompany&quot;
+JWT_COOKIE_NAME = &quot;wiggum-mycompany&quot;
+</code></pre>
+
+<p>Disable the transition keys, only need one key valid at a time.</p>
+<pre><code class="python">JWT_TRANSITION_ENABLE = False
+</code></pre>
+
+<p>As we saw at the beginning, we have apps on <code>mycompany.io</code> and <code>mycompany.com</code> domains
+So we will need to clone the cookie. We are placing wiggum on <code>https://login.mycompany.com</code>
+and <code>https://login.mycompany.io</code>, so this would use a level 2 autodomain:</p>
+<pre><code class="python">JWT_COOKIE_DOMAIN_AUTO = True
+JWT_COOKIE_DOMAIN_AUTO_LEVEL = 2
+JWT_COOKIE_CLONE = True
+JWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (
+    &quot;login.mycompany.io&quot;,
+    &quot;login.mycompany.com&quot;,
+)
+</code></pre>
+
+<p>We set some default redirects.</p>
+<pre><code class="python">LOGIN_SUCCESS_REDIRECT = &quot;http://mycompany.io&quot;
+LOGOUT_SUCCESS_REDIRECT = &quot;/a/login&quot;
+</code></pre>
+
+<p>Finally set the generated keys</p>
+<p>First we set the content of the public key from <code>wiggum-keys/wiggum.pub</code></p>
+<pre><code class="python">JWT_VERIFICATION_KEY = &quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmFPuwTx+EsF5BOoFVqcVgDUdszogmk9yGsJFATdZZr3eYXIeZYJJOqOL2VZsepJfTjVJn6hNl57cpCjB39JpBja+GrSS1LRexIyPpyIkswhulSWOcb6rnIpIXuWpWXW/syT0jBOdRJZIH6HBIqC/et2IAoCtjHRZrsoympECQfk40tjUBctTv0RrmC8ouiWMyR67nhPJCcZFNVqtvR6BRrlg2iQOwj0h59/Z3hFNPZVPeAi0TwPDhs3HF3Gv/q84w5auFx7B3m32eHvMqzYVatUcRbkPskQVCh2Qbp2wFLraPaiHLHPXKMdVcUvoMpmjfi24HP6EeLBF2qy3kVWez wiggum@59448fc67e05&quot;
+</code></pre>
+
+<p>Then the private key from <code>wiggum-keys/wiggum</code></p>
+<pre><code class="python">JWT_SECRET_KEY = &quot;&quot;&quot;-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAphT7sE8fhLBeQTqBVanFYA1HbM6IJpPchrCRQE3WWa93mFyH
+mWCSTqji9lWbHqSX041SZ+oTZee3KQowd/SaQY2vhq0ktS0XsSMj6ciJLMIbpUlj
+nG+q5yKSF7lqVl1v7Mk9IwTnUSWSB+hwSKgv3rdiAKArYx0Wa7KMpqRAkH5ONLY1
+AXLU79Ea5gvKLoljMkeu54TyQnGRTVarb0egUa5YNokDsI9Ieff2d4RTT2VT3gIt
+E8Dw4bNxxdxr/6vOMOWrhcewd5t9nh7zKs2FWrVHEW5D7JEFQodkG6dsBS62j2oh
+yxz1yjHVXFL6DKZo34tuBz+hHiwRdqst5FVnswIDAQABAoIBAQCP3g9k3DWeWLVd
+ZdPRo/4RRY+AxqwUVvOqTVuVy5eKG0DLYCQqjghPUWdCIkf8VHIc1Qf0ckWZeg8k
+4um3j9DsRlMto+DvfP9P9/PNOWTyu7b9CETcp7LxA/ZvzLM72zbwdCacpkvG9He6
+l/RkTCUjldG0XwsWkYTxiDrkw9YWE55Mbm/5dHPGj75oaJZWhJRPV/g0S+okKLlR
+7y/uBB8ZgmdobTkN0XkR2vjLtCr8u+y4GPVcO/9JdjPsXxZbDD4GosAWoTR2oVR9
+/MnbtwoECf0aVb22LAuE0wIrTIXIFIj+/I5/K7gan/6RucM2nqZq/og8iH9Kjnba
+eu8ZqOXRAoGBANNeNzVnKMyS3S2wPjY6BMiLdEPhWJgtdw+t/b01c1Cq52aEYh0X
+vcO6AqdERxH6IKF/fnOJ1bf5JeiZdZKDChfRlwhGylw7duNxe5JMw3DG/y7BgxFT
+7P7AO0X4IKmhROS0+cPfVD/DxRiC183IBmZdrDB+PTy1vAIB1e4vXv8ZAoGBAMkm
+xKORRMF1Rh5aMYdZ3tGe9K5XyY8m73Onb1MYMaP5LuFgmiTYAED//aF04cjYBY4L
+3BZ638HXc4PiyonzTlD1Ks/rHUudIqmk/chM6BXsyMyROCGgw13kQq4A5omWfkWC
+16kGgDxQ+1hHZRmWsPOD7bNnl3++TR/oHq9341KrAoGATHcwJ9yrEN8sruOsjfeN
+VXPF2uzCHUONaBm8yt90WUGKtza7O+Uj3JQFc7eqsmE3vtUdzPSXYZf709r4gslv
+NFC5f+AEQzur9fpPBw1IQxtqo+KT5QfknAC1MMnkHxndj5O9K9Q2aV8MhaKIKcTs
+M8o9icmRo83nNx6s4x82EbkCgYAKqm6UybgelexQ4bFsntxMuyP4NpluaL8bn84s
+VsUTD7xnoOqrd3ST/b7iF8N9Fc89l+1kl8FTkuwCGz1oESme61EI00urXbqfyirW
+uxU3TGXdSvnx9odFbDwI4+1VcFBjuStcQAb+q8CYDrkSoUXis6Uf9Sc4U8vdHD68
+SRwZnwKBgEb9WeG2faQ2z/yVS/GackxoOu1Iuva2Mm6iRjW5RN+aKoz9j1S/1///
+baIuTGlMpuHGwD+E8t1OPZ4ePCtHBKBogNefwBt+2bB40nZTzON+SX2JgdOEmo8z
+DryNZ5s3VOt7bQrz97xSM8II7JuUVHCf5vB1DXGeDVccY2N+Bj+6
+-----END RSA PRIVATE KEY-----&quot;&quot;&quot;
+</code></pre>
+
+<p>The sign algorithm and verification one, they are the same</p>
+<pre><code class="python">JWT_SIGN_ALGORITHM = &quot;RS256&quot;
+JWT_SIGN_VALID_ALGORITHMS =[JWT_SIGN_ALGORITHM, ]
+</code></pre>
+
+<h3 id="allowed-hosts">Allowed hosts<a class="headerlink" href="#allowed-hosts" title="Permanent link"></a></h3>
+<p>We said that wiggum will be on <code>https://login.mycompany.com</code>
+and <code>https://login.mycompany.io</code>, we enable seving on this hosts:</p>
+<pre><code class="python">ALLOWED_HOSTS = [
+                 &quot;login.mycompany.com&quot;,
+                 &quot;login.mycompany.io&quot;,
+                 &quot;127.0.0.1&quot;,
+                 &quot;localhost&quot;]
+</code></pre>
+
+<h3 id="all-in-one-file">All in one file<a class="headerlink" href="#all-in-one-file" title="Permanent link"></a></h3>
+<p>This is the result of our configuration</p>
+<pre><code class="python">import os
+from wiggum.settings.wiggum import *
+
+
+SECRET_KEY = &quot;32f&amp;7^ih2&amp;lc0&amp;)enip3e_i^@8v2!(n1z4sx9fe@0shh2*e)=*&quot;
+DEBUG = False
+
+MEDIA_ROOT = &quot;/media&quot;
+STATIC_ROOT = &quot;/static&quot;
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('PG_DATABASE'),
+        'USER': os.getenv('PG_USER'),
+        'PASSWORD': os.getenv('PG_PASSWORD',),
+        'HOST': os.getenv('PG_HOST', &quot;127.0.0.1&quot;),
+        'PORT': os.getenv('PG_PORT', '5432'),
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'wiggum',
+    }
+}
+
+PIPELINE_LESS_BINARY = os.path.join(NODE_MODULES_PATH, &quot;less&quot;)
+PIPELINE_UGLIFYJS_BINARY = os.path.join(NODE_MODULES_PATH, &quot;uglifyjs&quot;)
+PIPELINE_YUGLIFY_BINARY = os.path.join(NODE_MODULES_PATH, &quot;yuglify&quot;)
+
+JWT_ISSUER = &quot;wiggum-mycompany&quot;
+JWT_COOKIE_NAME = &quot;wiggum-mycompany&quot;
+JWT_TRANSITION_ENABLE = False
+JWT_COOKIE_DOMAIN_AUTO = True
+JWT_COOKIE_DOMAIN_AUTO_LEVEL = 2
+JWT_COOKIE_CLONE = True
+JWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (
+    &quot;login.mycompany.io&quot;,
+    &quot;login.mycompany.com&quot;,
+)
+
+LOGIN_SUCCESS_REDIRECT = &quot;http://mycompany.io&quot;
+LOGOUT_SUCCESS_REDIRECT = &quot;/a/login&quot;
+
+JWT_VERIFICATION_KEY = &quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmFPuwTx+EsF5BOoFVqcVgDUdszogmk9yGsJFATdZZr3eYXIeZYJJOqOL2VZsepJfTjVJn6hNl57cpCjB39JpBja+GrSS1LRexIyPpyIkswhulSWOcb6rnIpIXuWpWXW/syT0jBOdRJZIH6HBIqC/et2IAoCtjHRZrsoympECQfk40tjUBctTv0RrmC8ouiWMyR67nhPJCcZFNVqtvR6BRrlg2iQOwj0h59/Z3hFNPZVPeAi0TwPDhs3HF3Gv/q84w5auFx7B3m32eHvMqzYVatUcRbkPskQVCh2Qbp2wFLraPaiHLHPXKMdVcUvoMpmjfi24HP6EeLBF2qy3kVWez wiggum@59448fc67e05&quot;
+JWT_SECRET_KEY = &quot;&quot;&quot;-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAphT7sE8fhLBeQTqBVanFYA1HbM6IJpPchrCRQE3WWa93mFyH
+mWCSTqji9lWbHqSX041SZ+oTZee3KQowd/SaQY2vhq0ktS0XsSMj6ciJLMIbpUlj
+nG+q5yKSF7lqVl1v7Mk9IwTnUSWSB+hwSKgv3rdiAKArYx0Wa7KMpqRAkH5ONLY1
+AXLU79Ea5gvKLoljMkeu54TyQnGRTVarb0egUa5YNokDsI9Ieff2d4RTT2VT3gIt
+E8Dw4bNxxdxr/6vOMOWrhcewd5t9nh7zKs2FWrVHEW5D7JEFQodkG6dsBS62j2oh
+yxz1yjHVXFL6DKZo34tuBz+hHiwRdqst5FVnswIDAQABAoIBAQCP3g9k3DWeWLVd
+ZdPRo/4RRY+AxqwUVvOqTVuVy5eKG0DLYCQqjghPUWdCIkf8VHIc1Qf0ckWZeg8k
+4um3j9DsRlMto+DvfP9P9/PNOWTyu7b9CETcp7LxA/ZvzLM72zbwdCacpkvG9He6
+l/RkTCUjldG0XwsWkYTxiDrkw9YWE55Mbm/5dHPGj75oaJZWhJRPV/g0S+okKLlR
+7y/uBB8ZgmdobTkN0XkR2vjLtCr8u+y4GPVcO/9JdjPsXxZbDD4GosAWoTR2oVR9
+/MnbtwoECf0aVb22LAuE0wIrTIXIFIj+/I5/K7gan/6RucM2nqZq/og8iH9Kjnba
+eu8ZqOXRAoGBANNeNzVnKMyS3S2wPjY6BMiLdEPhWJgtdw+t/b01c1Cq52aEYh0X
+vcO6AqdERxH6IKF/fnOJ1bf5JeiZdZKDChfRlwhGylw7duNxe5JMw3DG/y7BgxFT
+7P7AO0X4IKmhROS0+cPfVD/DxRiC183IBmZdrDB+PTy1vAIB1e4vXv8ZAoGBAMkm
+xKORRMF1Rh5aMYdZ3tGe9K5XyY8m73Onb1MYMaP5LuFgmiTYAED//aF04cjYBY4L
+3BZ638HXc4PiyonzTlD1Ks/rHUudIqmk/chM6BXsyMyROCGgw13kQq4A5omWfkWC
+16kGgDxQ+1hHZRmWsPOD7bNnl3++TR/oHq9341KrAoGATHcwJ9yrEN8sruOsjfeN
+VXPF2uzCHUONaBm8yt90WUGKtza7O+Uj3JQFc7eqsmE3vtUdzPSXYZf709r4gslv
+NFC5f+AEQzur9fpPBw1IQxtqo+KT5QfknAC1MMnkHxndj5O9K9Q2aV8MhaKIKcTs
+M8o9icmRo83nNx6s4x82EbkCgYAKqm6UybgelexQ4bFsntxMuyP4NpluaL8bn84s
+VsUTD7xnoOqrd3ST/b7iF8N9Fc89l+1kl8FTkuwCGz1oESme61EI00urXbqfyirW
+uxU3TGXdSvnx9odFbDwI4+1VcFBjuStcQAb+q8CYDrkSoUXis6Uf9Sc4U8vdHD68
+SRwZnwKBgEb9WeG2faQ2z/yVS/GackxoOu1Iuva2Mm6iRjW5RN+aKoz9j1S/1///
+baIuTGlMpuHGwD+E8t1OPZ4ePCtHBKBogNefwBt+2bB40nZTzON+SX2JgdOEmo8z
+DryNZ5s3VOt7bQrz97xSM8II7JuUVHCf5vB1DXGeDVccY2N+Bj+6
+-----END RSA PRIVATE KEY-----&quot;&quot;&quot;
+
+JWT_SIGN_ALGORITHM = &quot;RS256&quot;
+JWT_SIGN_VALID_ALGORITHMS =[JWT_SIGN_ALGORITHM, ]
+
+ALLOWED_HOSTS = [
+                 &quot;login.mycompany.com&quot;,
+                 &quot;login.mycompany.io&quot;,
+                 &quot;127.0.0.1&quot;,
+                 &quot;localhost&quot;]
+</code></pre>
+
+<h1 id="python-path">Python path<a class="headerlink" href="#python-path" title="Permanent link"></a></h1>
+<p>we are using <code>django-admin</code> command, to get this command working we will need to
+add wiggum project path and configuration path to the <code>PYTHONPATH</code></p>
+<pre><code class="bash">export PYTHONPATH=$PYTHONPATH:/home/wiggumuser/apps/wiggum-prod:/home/wiggumuser/apps/wiggum/wiggum
+</code></pre>
+
+<h1 id="migrations-and-admin-user">Migrations and admin user<a class="headerlink" href="#migrations-and-admin-user" title="Permanent link"></a></h1>
+<p>Apply database migrations.</p>
+<pre><code class="bash">$ django-admin migrate --settings=&quot;conf&quot;
+</code></pre>
+
+<p>Create the admin user</p>
+<pre><code class="bash">$ django-admin createsuperuser --settings=&quot;conf&quot;
+</code></pre>
+
+<h1 id="generate-statics-and-translations">Generate statics and translations<a class="headerlink" href="#generate-statics-and-translations" title="Permanent link"></a></h1>
+<p>Generate statics</p>
+<pre><code class="bash">$ mkdir /home/wiggumuser/static
+$ mkdir /home/wiggumuser/media
+$ django-admin collectstatic --settings=&quot;conf&quot;
+</code></pre>
+
+<p>Generate  translations
+The translations are placed by default in wiggum project root in <code>locale</code> directory
+this would be: <code>/home/wiggumuser/wiggum/wiggum/locale</code></p>
+<pre><code class="bash">$ mkdir -p home/wiggumuser/wiggum/wiggum/locale
+$ django-admin compilemessages --settings=&quot;conf&quot;
+</code></pre>
+
+<h1 id="uwsgi">uwsgi<a class="headerlink" href="#uwsgi" title="Permanent link"></a></h1>
+<p>We are using <a href="https://uwsgi-docs.readthedocs.org/en/latest/">uwsgi</a> to run wiggum, and <a href="https://github.com/evansd/whitenoise">whitenoise</a> to serve the few statics from uwsgi,
+this could be done with an Nginx, but this is out of the scope. Install both dependencies</p>
+<pre><code class="bash">$ pip install uwsgi whitenoise
+</code></pre>
+
+<p>We create the Django wsgi module in <code>/home/wiggumuser/apps/wiggum-prod</code></p>
+<pre><code class="bash">$ touch /home/wiggumuser/apps/wiggum-prod/wsgi.py
+</code></pre>
+
+<p>with the content</p>
+<pre><code class="python">from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+
+application = DjangoWhiteNoise(application)
+
+</code></pre>
+
+<p>We create a uwsgi.ini in <code>/home/wiggumuser/apps/wiggum-prod</code> file with the configuration</p>
+<pre><code class="ini">[uwsgi]
+pythonpath = &quot;/home/wiggumuser/apps/wiggum-prod:/home/wiggumuser/apps/wiggum/wiggum&quot;
+http = 0.0.0.0:8000
+module = wsgi
+stats = /tmp/uwsig_stats.socket
+
+# Delete all sockets created
+vacuum = true
+
+# Do not let block our process if an external service is taking to much time
+harakiri = 10
+</code></pre>
+
+<p>Lets run wiggum!</p>
+<pre><code class="bash">DJANGO_SETTINGS_MODULE=&quot;conf&quot; uwsgi --ini /home/wiggumuser/apps/wiggum-prod/uwsgi.ini
+</code></pre>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You should set HAProxy, Nginx or similar in front of the uwsgi, but again this is out of the scope</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Wiggum always uses https, if <code>DEBUG=True</code> http is enabled. To keep things simple I
+would suggest setting an HAProxy or similar in front of wiggum to handle the
+TLS connection.</p>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../docker-install/" class="btn btn-neutral float-right" title="Docker">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../quick-start/" class="btn btn-neutral" title="Quick-start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../quick-start/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../docker-install/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

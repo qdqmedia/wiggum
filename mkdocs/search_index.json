@@ -1,0 +1,654 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Welcome to Wiggum\n\uf0c1\n\n\nWiggum is an open source authentication \n authorization (auth) centralized system,\nThe aim of wiggum is to allow users to login once and authenticate in all your\naplications based on \nJWT\n standard and cookies. Also has an authorization system\nbased on permissions that applications can check with its API.\n\n\nWiggum is a Django project, if you already know how Django works then \nsetting up and running\n will be very easy, wiggum is very easy to customize as you will see in \ncustomization\n section.\n\n\nAt this moment Wiggum can do a little bit more than login and logout:\n\n\n\n\nLogin\n\n\nLogout\n\n\nJWT based authentication\n\n\nUser, apps \n permission models and API\n\n\nAdmin panel\n\n\nLogin/logout endpoints\n\n\nDefault theme (clancy)\n\n\nPassword reset links (expiration included)\n\n\nSFA (Single factor authentication) login with a link\n\n\nTheme selector based on ID, theme name or appID\n\n\nRedirect param on important URIs like login or logout\n\n\nDev and CI environment based on docker and docker compose\n\n\nImpersonation of users\n\n\nJWT versioning (used for invalidation)\n\n\nJWT transition keys (two valid jwt keys at a time)\n\n\nPrometheus metrics",
+            "title": "Home"
+        },
+        {
+            "location": "/#welcome-to-wiggum",
+            "text": "Wiggum is an open source authentication   authorization (auth) centralized system,\nThe aim of wiggum is to allow users to login once and authenticate in all your\naplications based on  JWT  standard and cookies. Also has an authorization system\nbased on permissions that applications can check with its API.  Wiggum is a Django project, if you already know how Django works then  setting up and running  will be very easy, wiggum is very easy to customize as you will see in  customization  section.  At this moment Wiggum can do a little bit more than login and logout:   Login  Logout  JWT based authentication  User, apps   permission models and API  Admin panel  Login/logout endpoints  Default theme (clancy)  Password reset links (expiration included)  SFA (Single factor authentication) login with a link  Theme selector based on ID, theme name or appID  Redirect param on important URIs like login or logout  Dev and CI environment based on docker and docker compose  Impersonation of users  JWT versioning (used for invalidation)  JWT transition keys (two valid jwt keys at a time)  Prometheus metrics",
+            "title": "Welcome to Wiggum"
+        },
+        {
+            "location": "/introduction/",
+            "text": "Flow\n\uf0c1\n\n\nWiggum has a simple objective, the flow is very easy to understand as you see\nin this image, the user logins on wiggum and then a cookie is set to that user\nfor a domain or wildcard domain. Now the user has a valid JWT token that\napplications can check if the user is authenticated. So the user authentication\nis stateless\n\n\n\n\nWhen wiggum authenticates a user the applications that use wiggum as a login system\nmust trust wiggum, this means that if a user has a wiggum JWT valid token, we can say\nthat the user is logged in.\n\n\nUsers\n\uf0c1\n\n\nWiggum login is based on users, to be more exact, wiggum has a model named \nUser\n\nThe user has very few attributes:\n\n\n\n\nID: A wiggum ID (unique) (must)\n\n\nUsername: A user username (unique) (must)\n\n\nemail: A user email (unique) (must)\n\n\nFirst name: A user first name (not needed)\n\n\nLast name: A user last name (not needed)\n\n\nPassword: The user password (must)\n\n\n\n\nYou can create a new user with the [admin] panel that wiggum has or with the\nwiggum [API]\n\n\n[admin] utils/admin\n[API] utils/api\n\n\nPermissions\n\uf0c1\n\n\nPermissions are linked with the User model, ths model specifies what are the user\nrights.\n\n\nSometimes may only be needed that the user is authenticated, but other times we\nneed to difference an user from other user. The system used in Wiggum is simple,\na right or permission is a simple string. Usually with dotted notation. For example:\n\n\nbackoffice.user\nbackoffice.editor\nwiggum.all\nwiggum.impersonate\nphotos.production.editor\nphotos.internal.admin\n\n\n\n\nA user has a list of permission linked to it.\n\n\nApps\n\uf0c1\n\n\nApps are mainly used to use the API, it has nothing to do with . Apps have a token linked to it, this token is used as the API authentication mechanism.\n\n\nWiggum philosophy\n\uf0c1\n\n\nMany people can be tempted to start adding stuff to the user model, but this is\nwrong. Wiggum is only an auth system, Wiggum doesn't need to know anything else\nabout the user, so, your user profile should reside in a centralized app, in\nmultiple apps... depends on the architecture that you have.\n\n\nIn order to link in a way the wiggum user and the user information (profile) of\nother applications, you will need to use one of the unique fields that wiggum users\nhave: \nemail\n or \nusername\n\n\nWiggum token\n\uf0c1\n\n\nThe signed wiggum token is a standard JWT\n\n\neyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLjEsImlzcyI6IndpZ2d1bS1iZXRhIiwiZXhwIjoxNDU3MjgwNDg3LCJuYmYiOjE0NTcwMjEyNzIsInVzZXIiOnsidXNlcm5hbWUiOiJzbG9rIiwiZW1haWwiOiJzbG9rNjlAZ21haWwuY29tIiwiaWQiOjEsImZpcnN0X25hbWUiOiJYYWJpZXIiLCJsYXN0X25hbWUiOiJMYXJyYWtvZXR4ZWEifSwiaWF0IjoxNDU3MDIxMjg3fQ.RrU09evYLEXvMbLqSzsbA4EqCnYH4PFQy3Jlm6MRNelIam_oEVMn5qpcQHcno9RhqL4wO6BrTu6gHPfjnZzmPA6k5RX8fQE3pdN1yfwWiLJFQ4vPTcYcV2wr24xJ7Ye8H3OVdoMkhn98M1lgQ-UcFoNMkWsDhgn8-k31IamhO6yrvEjj_l1-CWIeUBJ_Q5tCRHea0QW3mIkXCtAhjhUhp0ZnNGo52fmc2X7NqKiKJMjSYYh7DH-skd_hUtE4PiFZfHwgbvb49CiKx0PEd4vyEqpf1qiMpkT-wRVIKzFmxoQ-qiW8Dedb4WNBjGKvXWshd21VuctshpdcVbpPLnJG1A\n\n\n\n\nDecoded\n\n\n{\n    \nversion\n: 1.1,\n    \niss\n: \nwiggum-beta\n,\n    \nexp\n: 1457280487,\n    \nnbf\n: 1457021272,\n    \nuser\n: {\n        \nusername\n: \nslok\n,\n        \nemail\n: \nslok69@gmail.com\n,\n        \nid\n: 1,\n        \nfirst_name\n: \nXabier\n,\n        \nlast_name\n: \nLarrakoetxea\n\n    },\n    \niat\n: 1457021287\n}\n\n\n\n\nThis object above will be the source of information the apps that trust wiggum will\nuse to obtain the logged user\n\n\nApplications\n\uf0c1\n\n\nOnce the cookie with the JWT token is on users browser, the cookie will be\nattached on each request, this stateless authentication system makes that applications\ndon't need to maintain anything about user authentication in its session.\n\n\nWith the JWT cookie on users session is job of the application to check the\ncookie token signature and the user permissions so it can deny the access to the user or not,\nWe will see this in an \nexample",
+            "title": "Introduction"
+        },
+        {
+            "location": "/introduction/#flow",
+            "text": "Wiggum has a simple objective, the flow is very easy to understand as you see\nin this image, the user logins on wiggum and then a cookie is set to that user\nfor a domain or wildcard domain. Now the user has a valid JWT token that\napplications can check if the user is authenticated. So the user authentication\nis stateless   When wiggum authenticates a user the applications that use wiggum as a login system\nmust trust wiggum, this means that if a user has a wiggum JWT valid token, we can say\nthat the user is logged in.",
+            "title": "Flow"
+        },
+        {
+            "location": "/introduction/#users",
+            "text": "Wiggum login is based on users, to be more exact, wiggum has a model named  User \nThe user has very few attributes:   ID: A wiggum ID (unique) (must)  Username: A user username (unique) (must)  email: A user email (unique) (must)  First name: A user first name (not needed)  Last name: A user last name (not needed)  Password: The user password (must)   You can create a new user with the [admin] panel that wiggum has or with the\nwiggum [API]  [admin] utils/admin\n[API] utils/api",
+            "title": "Users"
+        },
+        {
+            "location": "/introduction/#permissions",
+            "text": "Permissions are linked with the User model, ths model specifies what are the user\nrights.  Sometimes may only be needed that the user is authenticated, but other times we\nneed to difference an user from other user. The system used in Wiggum is simple,\na right or permission is a simple string. Usually with dotted notation. For example:  backoffice.user\nbackoffice.editor\nwiggum.all\nwiggum.impersonate\nphotos.production.editor\nphotos.internal.admin  A user has a list of permission linked to it.",
+            "title": "Permissions"
+        },
+        {
+            "location": "/introduction/#apps",
+            "text": "Apps are mainly used to use the API, it has nothing to do with . Apps have a token linked to it, this token is used as the API authentication mechanism.",
+            "title": "Apps"
+        },
+        {
+            "location": "/introduction/#wiggum-philosophy",
+            "text": "Many people can be tempted to start adding stuff to the user model, but this is\nwrong. Wiggum is only an auth system, Wiggum doesn't need to know anything else\nabout the user, so, your user profile should reside in a centralized app, in\nmultiple apps... depends on the architecture that you have.  In order to link in a way the wiggum user and the user information (profile) of\nother applications, you will need to use one of the unique fields that wiggum users\nhave:  email  or  username",
+            "title": "Wiggum philosophy"
+        },
+        {
+            "location": "/introduction/#wiggum-token",
+            "text": "The signed wiggum token is a standard JWT  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLjEsImlzcyI6IndpZ2d1bS1iZXRhIiwiZXhwIjoxNDU3MjgwNDg3LCJuYmYiOjE0NTcwMjEyNzIsInVzZXIiOnsidXNlcm5hbWUiOiJzbG9rIiwiZW1haWwiOiJzbG9rNjlAZ21haWwuY29tIiwiaWQiOjEsImZpcnN0X25hbWUiOiJYYWJpZXIiLCJsYXN0X25hbWUiOiJMYXJyYWtvZXR4ZWEifSwiaWF0IjoxNDU3MDIxMjg3fQ.RrU09evYLEXvMbLqSzsbA4EqCnYH4PFQy3Jlm6MRNelIam_oEVMn5qpcQHcno9RhqL4wO6BrTu6gHPfjnZzmPA6k5RX8fQE3pdN1yfwWiLJFQ4vPTcYcV2wr24xJ7Ye8H3OVdoMkhn98M1lgQ-UcFoNMkWsDhgn8-k31IamhO6yrvEjj_l1-CWIeUBJ_Q5tCRHea0QW3mIkXCtAhjhUhp0ZnNGo52fmc2X7NqKiKJMjSYYh7DH-skd_hUtE4PiFZfHwgbvb49CiKx0PEd4vyEqpf1qiMpkT-wRVIKzFmxoQ-qiW8Dedb4WNBjGKvXWshd21VuctshpdcVbpPLnJG1A  Decoded  {\n     version : 1.1,\n     iss :  wiggum-beta ,\n     exp : 1457280487,\n     nbf : 1457021272,\n     user : {\n         username :  slok ,\n         email :  slok69@gmail.com ,\n         id : 1,\n         first_name :  Xabier ,\n         last_name :  Larrakoetxea \n    },\n     iat : 1457021287\n}  This object above will be the source of information the apps that trust wiggum will\nuse to obtain the logged user",
+            "title": "Wiggum token"
+        },
+        {
+            "location": "/introduction/#applications",
+            "text": "Once the cookie with the JWT token is on users browser, the cookie will be\nattached on each request, this stateless authentication system makes that applications\ndon't need to maintain anything about user authentication in its session.  With the JWT cookie on users session is job of the application to check the\ncookie token signature and the user permissions so it can deny the access to the user or not,\nWe will see this in an  example",
+            "title": "Applications"
+        },
+        {
+            "location": "/quick-start/",
+            "text": "Running on dev mode\n\uf0c1\n\n\nAs a quick-start we will run our project on local development mode.\n\n\nFirst you will need to clone the wiggum project in a place where an application\nwill suited well (for example /opt)\n\n\ncd /opt\ngit clone https://github.com/qdqmedia/wiggum.git wiggum\n\n\n\n\nEdit your hosts files (\n/etc/hosts\n) so we set the JWT token for our fake domain\n\n\n127.0.0.1       dev.login.wiggum.com\n127.0.0.1       dev.login.wiggum.io\n127.0.0.1       dev.login.wiggum.org\n\n\n\n\nWe are ready!\n\n\nThe prerequesites to run wiggum with docker is Make, \nDocker\n and \nDocker compose\n. Just do \nmake up\n in projects root path. This will set you inside the project, run it on port \n8009\n\n\n./manage.py runserver 0.0.0.0:8009\n\n\n\n\nThis will load dev settings by default\n\n\nGo to \nhttp://dev.login.wiggum.com:8009\n and login with \nadmin\n user and \nadmin\n password\n\n\n\n\nInfo\n\n\nYou need to have in mind that you are running this in dev mode and that you are\nusing the default dev settings (keys and stuff)",
+            "title": "Quick-start"
+        },
+        {
+            "location": "/quick-start/#running-on-dev-mode",
+            "text": "As a quick-start we will run our project on local development mode.  First you will need to clone the wiggum project in a place where an application\nwill suited well (for example /opt)  cd /opt\ngit clone https://github.com/qdqmedia/wiggum.git wiggum  Edit your hosts files ( /etc/hosts ) so we set the JWT token for our fake domain  127.0.0.1       dev.login.wiggum.com\n127.0.0.1       dev.login.wiggum.io\n127.0.0.1       dev.login.wiggum.org  We are ready!  The prerequesites to run wiggum with docker is Make,  Docker  and  Docker compose . Just do  make up  in projects root path. This will set you inside the project, run it on port  8009  ./manage.py runserver 0.0.0.0:8009  This will load dev settings by default  Go to  http://dev.login.wiggum.com:8009  and login with  admin  user and  admin  password   Info  You need to have in mind that you are running this in dev mode and that you are\nusing the default dev settings (keys and stuff)",
+            "title": "Running on dev mode"
+        },
+        {
+            "location": "/install/manual-install/",
+            "text": "This is a common example to set up and running a personal Wiggum application. We\nare assuming that we have these services.\n\n\nhttp://mycompany.io\nhttp://documents.mycompany.io\nhttp://backoffice.mycompany.com\nhttp://deployments.mycompany.com\nhttp://logs.mycompany.com\n\n\n\n\nInstallation\n\uf0c1\n\n\nWe are setting on \n/home/wiggumuser/apps\n to do all the stuff.\n\n\nSystem dependencies\n\uf0c1\n\n\nWiggum is a Python3 application so you will need a python3 installation. Apart\nfrom this, you will need some dependecies: \nnode\n, \ngettext\n, \nlibffi\n, \nlibssl\n and \nlibpq\n. In\napt based systems you will do:\n\n\n# apt-get update\n# apt-get install -y libffi-dev libssl-dev libpq-dev postgresql-client gettext node\n\n\n\n\nDatabase\n\uf0c1\n\n\nWe need a ready PostgreSQL with a database, user and stuff.\n\n\nJWT keys\n\uf0c1\n\n\nWe are going to use asymmetric keys this time, exactly we will use \nRS256\n\nalgorithm to sign the Token. We create the keys.\n\n\n$ mkdir ./wiggum-keys \n cd ./wiggum-keys\n$ ssh-keygen  -t rsa -b 2048 -q -N \n -f ./wiggu\n\n\n\n\nNow we have the private \nwiggum\n and the public \nwiggum.pub\n keys\n\n\n\n\nWarning\n\n\nPrivate keys mean private! Don't share :)\n\n\n\n\nGet Wiggum\n\uf0c1\n\n\n$ cd ..\n$ git clone https://github.com/qdqmedia/wiggum.git\n\n\n\n\nAt this moment we have \nwiggum\n and \nwiggum-keys\n directories.\n\n\nApp dependencies\n\uf0c1\n\n\nWe install the dependencies in the system or in a virtualenv, for this example we\nwill create a virtualenv named wiggumapp\n\n\n$ mkvirtualenv wiggumapp\n\n\n\n\nAnd install wiggum dependencies in this virtualenv\n\n\n$ pip install -r ./wiggum/requirements/base.txt\n\n\n\n\nInstall node depdencies from wiggum project\n\n\n$ cd ./wiggum\n$ npm install\n$ node_modules/.bin/bower install\n\n\n\n\nCreate own settings\n\uf0c1\n\n\nWe need to create our own settings, we will set the least neccessary settings to\nhave a Personal wiggum app. We will create a directory where we will place all\nof our custom configuration\n\n\n$ cd -\n$ mkdir ./wiggum-prod \n ./wiggum-prod\n$ touch ./conf.py\n\n\n\n\nAnd start putting the settings on the \nconf.py\n file\n\n\nImport from base settings\n\uf0c1\n\n\nInherit from wiggum default settings\n\n\nimport os\nfrom wiggum.settings.wiggum import *\n\n\n\n\nCommon Django stuff\n\uf0c1\n\n\nWe set the Django sessi\u00f3n key to a random hash and Debug to false\n\n\nSECRET_KEY = \n32f\n7^ih2\nlc0\n)enip3e_i^@8v2!(n1z4sx9fe@0shh2*e)=*\n\nDEBUG = False\n\n\n\n\nThe place the static and media files will be generated and placed\n\n\nMEDIA_ROOT = \n/home/wiggumuser/media\n\nSTATIC_ROOT = \n/home/wiggumuser/static\n\n\n\n\n\nDatabase \n caches\n\uf0c1\n\n\nSet the database settings to point to our postgres and use the local memory cache\nWiggum doesn't need to cache so we don't need something like Redis or memcached.\n\n\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql_psycopg2',\n        'NAME': os.getenv('PG_DATABASE'),\n        'USER': os.getenv('PG_USER'),\n        'PASSWORD': os.getenv('PG_PASSWORD',),\n        'HOST': os.getenv('PG_HOST', \n127.0.0.1\n),\n        'PORT': os.getenv('PG_PORT', '5432'),\n    }\n}\n\nCACHES = {\n    'default': {\n        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',\n        'LOCATION': 'wiggum',\n    }\n}\n\n\n\n\nStatic stuff\n\uf0c1\n\n\nWiggum uses [Django pipeline] to manage the assets so we need to point where\nthese binaries are\n\n\nPIPELINE_LESS_BINARY = os.path.join(NODE_MODULES_PATH, \nless\n)\nPIPELINE_UGLIFYJS_BINARY = os.path.join(NODE_MODULES_PATH, \nuglifyjs\n)\nPIPELINE_YUGLIFY_BINARY = os.path.join(NODE_MODULES_PATH, \nyuglify\n)\n\n\n\n\nWiggum\n\uf0c1\n\n\nWe set the issuer to our company wiggum and the name of the cookie\n\n\nJWT_ISSUER = \nwiggum-mycompany\n\nJWT_COOKIE_NAME = \nwiggum-mycompany\n\n\n\n\n\nDisable the transition keys, only need one key valid at a time.\n\n\nJWT_TRANSITION_ENABLE = False\n\n\n\n\nAs we saw at the beginning, we have apps on \nmycompany.io\n and \nmycompany.com\n domains\nSo we will need to clone the cookie. We are placing wiggum on \nhttps://login.mycompany.com\n\nand \nhttps://login.mycompany.io\n, so this would use a level 2 autodomain:\n\n\nJWT_COOKIE_DOMAIN_AUTO = True\nJWT_COOKIE_DOMAIN_AUTO_LEVEL = 2\nJWT_COOKIE_CLONE = True\nJWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (\n    \nlogin.mycompany.io\n,\n    \nlogin.mycompany.com\n,\n)\n\n\n\n\nWe set some default redirects.\n\n\nLOGIN_SUCCESS_REDIRECT = \nhttp://mycompany.io\n\nLOGOUT_SUCCESS_REDIRECT = \n/a/login\n\n\n\n\n\nFinally set the generated keys\n\n\nFirst we set the content of the public key from \nwiggum-keys/wiggum.pub\n\n\nJWT_VERIFICATION_KEY = \nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmFPuwTx+EsF5BOoFVqcVgDUdszogmk9yGsJFATdZZr3eYXIeZYJJOqOL2VZsepJfTjVJn6hNl57cpCjB39JpBja+GrSS1LRexIyPpyIkswhulSWOcb6rnIpIXuWpWXW/syT0jBOdRJZIH6HBIqC/et2IAoCtjHRZrsoympECQfk40tjUBctTv0RrmC8ouiWMyR67nhPJCcZFNVqtvR6BRrlg2iQOwj0h59/Z3hFNPZVPeAi0TwPDhs3HF3Gv/q84w5auFx7B3m32eHvMqzYVatUcRbkPskQVCh2Qbp2wFLraPaiHLHPXKMdVcUvoMpmjfi24HP6EeLBF2qy3kVWez wiggum@59448fc67e05\n\n\n\n\n\nThen the private key from \nwiggum-keys/wiggum\n\n\nJWT_SECRET_KEY = \n-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAphT7sE8fhLBeQTqBVanFYA1HbM6IJpPchrCRQE3WWa93mFyH\nmWCSTqji9lWbHqSX041SZ+oTZee3KQowd/SaQY2vhq0ktS0XsSMj6ciJLMIbpUlj\nnG+q5yKSF7lqVl1v7Mk9IwTnUSWSB+hwSKgv3rdiAKArYx0Wa7KMpqRAkH5ONLY1\nAXLU79Ea5gvKLoljMkeu54TyQnGRTVarb0egUa5YNokDsI9Ieff2d4RTT2VT3gIt\nE8Dw4bNxxdxr/6vOMOWrhcewd5t9nh7zKs2FWrVHEW5D7JEFQodkG6dsBS62j2oh\nyxz1yjHVXFL6DKZo34tuBz+hHiwRdqst5FVnswIDAQABAoIBAQCP3g9k3DWeWLVd\nZdPRo/4RRY+AxqwUVvOqTVuVy5eKG0DLYCQqjghPUWdCIkf8VHIc1Qf0ckWZeg8k\n4um3j9DsRlMto+DvfP9P9/PNOWTyu7b9CETcp7LxA/ZvzLM72zbwdCacpkvG9He6\nl/RkTCUjldG0XwsWkYTxiDrkw9YWE55Mbm/5dHPGj75oaJZWhJRPV/g0S+okKLlR\n7y/uBB8ZgmdobTkN0XkR2vjLtCr8u+y4GPVcO/9JdjPsXxZbDD4GosAWoTR2oVR9\n/MnbtwoECf0aVb22LAuE0wIrTIXIFIj+/I5/K7gan/6RucM2nqZq/og8iH9Kjnba\neu8ZqOXRAoGBANNeNzVnKMyS3S2wPjY6BMiLdEPhWJgtdw+t/b01c1Cq52aEYh0X\nvcO6AqdERxH6IKF/fnOJ1bf5JeiZdZKDChfRlwhGylw7duNxe5JMw3DG/y7BgxFT\n7P7AO0X4IKmhROS0+cPfVD/DxRiC183IBmZdrDB+PTy1vAIB1e4vXv8ZAoGBAMkm\nxKORRMF1Rh5aMYdZ3tGe9K5XyY8m73Onb1MYMaP5LuFgmiTYAED//aF04cjYBY4L\n3BZ638HXc4PiyonzTlD1Ks/rHUudIqmk/chM6BXsyMyROCGgw13kQq4A5omWfkWC\n16kGgDxQ+1hHZRmWsPOD7bNnl3++TR/oHq9341KrAoGATHcwJ9yrEN8sruOsjfeN\nVXPF2uzCHUONaBm8yt90WUGKtza7O+Uj3JQFc7eqsmE3vtUdzPSXYZf709r4gslv\nNFC5f+AEQzur9fpPBw1IQxtqo+KT5QfknAC1MMnkHxndj5O9K9Q2aV8MhaKIKcTs\nM8o9icmRo83nNx6s4x82EbkCgYAKqm6UybgelexQ4bFsntxMuyP4NpluaL8bn84s\nVsUTD7xnoOqrd3ST/b7iF8N9Fc89l+1kl8FTkuwCGz1oESme61EI00urXbqfyirW\nuxU3TGXdSvnx9odFbDwI4+1VcFBjuStcQAb+q8CYDrkSoUXis6Uf9Sc4U8vdHD68\nSRwZnwKBgEb9WeG2faQ2z/yVS/GackxoOu1Iuva2Mm6iRjW5RN+aKoz9j1S/1///\nbaIuTGlMpuHGwD+E8t1OPZ4ePCtHBKBogNefwBt+2bB40nZTzON+SX2JgdOEmo8z\nDryNZ5s3VOt7bQrz97xSM8II7JuUVHCf5vB1DXGeDVccY2N+Bj+6\n-----END RSA PRIVATE KEY-----\n\n\n\n\n\nThe sign algorithm and verification one, they are the same\n\n\nJWT_SIGN_ALGORITHM = \nRS256\n\nJWT_SIGN_VALID_ALGORITHMS =[JWT_SIGN_ALGORITHM, ]\n\n\n\n\nAllowed hosts\n\uf0c1\n\n\nWe said that wiggum will be on \nhttps://login.mycompany.com\n\nand \nhttps://login.mycompany.io\n, we enable seving on this hosts:\n\n\nALLOWED_HOSTS = [\n                 \nlogin.mycompany.com\n,\n                 \nlogin.mycompany.io\n,\n                 \n127.0.0.1\n,\n                 \nlocalhost\n]\n\n\n\n\nAll in one file\n\uf0c1\n\n\nThis is the result of our configuration\n\n\nimport os\nfrom wiggum.settings.wiggum import *\n\n\nSECRET_KEY = \n32f\n7^ih2\nlc0\n)enip3e_i^@8v2!(n1z4sx9fe@0shh2*e)=*\n\nDEBUG = False\n\nMEDIA_ROOT = \n/media\n\nSTATIC_ROOT = \n/static\n\n\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql_psycopg2',\n        'NAME': os.getenv('PG_DATABASE'),\n        'USER': os.getenv('PG_USER'),\n        'PASSWORD': os.getenv('PG_PASSWORD',),\n        'HOST': os.getenv('PG_HOST', \n127.0.0.1\n),\n        'PORT': os.getenv('PG_PORT', '5432'),\n    }\n}\n\nCACHES = {\n    'default': {\n        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',\n        'LOCATION': 'wiggum',\n    }\n}\n\nPIPELINE_LESS_BINARY = os.path.join(NODE_MODULES_PATH, \nless\n)\nPIPELINE_UGLIFYJS_BINARY = os.path.join(NODE_MODULES_PATH, \nuglifyjs\n)\nPIPELINE_YUGLIFY_BINARY = os.path.join(NODE_MODULES_PATH, \nyuglify\n)\n\nJWT_ISSUER = \nwiggum-mycompany\n\nJWT_COOKIE_NAME = \nwiggum-mycompany\n\nJWT_TRANSITION_ENABLE = False\nJWT_COOKIE_DOMAIN_AUTO = True\nJWT_COOKIE_DOMAIN_AUTO_LEVEL = 2\nJWT_COOKIE_CLONE = True\nJWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (\n    \nlogin.mycompany.io\n,\n    \nlogin.mycompany.com\n,\n)\n\nLOGIN_SUCCESS_REDIRECT = \nhttp://mycompany.io\n\nLOGOUT_SUCCESS_REDIRECT = \n/a/login\n\n\nJWT_VERIFICATION_KEY = \nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmFPuwTx+EsF5BOoFVqcVgDUdszogmk9yGsJFATdZZr3eYXIeZYJJOqOL2VZsepJfTjVJn6hNl57cpCjB39JpBja+GrSS1LRexIyPpyIkswhulSWOcb6rnIpIXuWpWXW/syT0jBOdRJZIH6HBIqC/et2IAoCtjHRZrsoympECQfk40tjUBctTv0RrmC8ouiWMyR67nhPJCcZFNVqtvR6BRrlg2iQOwj0h59/Z3hFNPZVPeAi0TwPDhs3HF3Gv/q84w5auFx7B3m32eHvMqzYVatUcRbkPskQVCh2Qbp2wFLraPaiHLHPXKMdVcUvoMpmjfi24HP6EeLBF2qy3kVWez wiggum@59448fc67e05\n\nJWT_SECRET_KEY = \n-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAphT7sE8fhLBeQTqBVanFYA1HbM6IJpPchrCRQE3WWa93mFyH\nmWCSTqji9lWbHqSX041SZ+oTZee3KQowd/SaQY2vhq0ktS0XsSMj6ciJLMIbpUlj\nnG+q5yKSF7lqVl1v7Mk9IwTnUSWSB+hwSKgv3rdiAKArYx0Wa7KMpqRAkH5ONLY1\nAXLU79Ea5gvKLoljMkeu54TyQnGRTVarb0egUa5YNokDsI9Ieff2d4RTT2VT3gIt\nE8Dw4bNxxdxr/6vOMOWrhcewd5t9nh7zKs2FWrVHEW5D7JEFQodkG6dsBS62j2oh\nyxz1yjHVXFL6DKZo34tuBz+hHiwRdqst5FVnswIDAQABAoIBAQCP3g9k3DWeWLVd\nZdPRo/4RRY+AxqwUVvOqTVuVy5eKG0DLYCQqjghPUWdCIkf8VHIc1Qf0ckWZeg8k\n4um3j9DsRlMto+DvfP9P9/PNOWTyu7b9CETcp7LxA/ZvzLM72zbwdCacpkvG9He6\nl/RkTCUjldG0XwsWkYTxiDrkw9YWE55Mbm/5dHPGj75oaJZWhJRPV/g0S+okKLlR\n7y/uBB8ZgmdobTkN0XkR2vjLtCr8u+y4GPVcO/9JdjPsXxZbDD4GosAWoTR2oVR9\n/MnbtwoECf0aVb22LAuE0wIrTIXIFIj+/I5/K7gan/6RucM2nqZq/og8iH9Kjnba\neu8ZqOXRAoGBANNeNzVnKMyS3S2wPjY6BMiLdEPhWJgtdw+t/b01c1Cq52aEYh0X\nvcO6AqdERxH6IKF/fnOJ1bf5JeiZdZKDChfRlwhGylw7duNxe5JMw3DG/y7BgxFT\n7P7AO0X4IKmhROS0+cPfVD/DxRiC183IBmZdrDB+PTy1vAIB1e4vXv8ZAoGBAMkm\nxKORRMF1Rh5aMYdZ3tGe9K5XyY8m73Onb1MYMaP5LuFgmiTYAED//aF04cjYBY4L\n3BZ638HXc4PiyonzTlD1Ks/rHUudIqmk/chM6BXsyMyROCGgw13kQq4A5omWfkWC\n16kGgDxQ+1hHZRmWsPOD7bNnl3++TR/oHq9341KrAoGATHcwJ9yrEN8sruOsjfeN\nVXPF2uzCHUONaBm8yt90WUGKtza7O+Uj3JQFc7eqsmE3vtUdzPSXYZf709r4gslv\nNFC5f+AEQzur9fpPBw1IQxtqo+KT5QfknAC1MMnkHxndj5O9K9Q2aV8MhaKIKcTs\nM8o9icmRo83nNx6s4x82EbkCgYAKqm6UybgelexQ4bFsntxMuyP4NpluaL8bn84s\nVsUTD7xnoOqrd3ST/b7iF8N9Fc89l+1kl8FTkuwCGz1oESme61EI00urXbqfyirW\nuxU3TGXdSvnx9odFbDwI4+1VcFBjuStcQAb+q8CYDrkSoUXis6Uf9Sc4U8vdHD68\nSRwZnwKBgEb9WeG2faQ2z/yVS/GackxoOu1Iuva2Mm6iRjW5RN+aKoz9j1S/1///\nbaIuTGlMpuHGwD+E8t1OPZ4ePCtHBKBogNefwBt+2bB40nZTzON+SX2JgdOEmo8z\nDryNZ5s3VOt7bQrz97xSM8II7JuUVHCf5vB1DXGeDVccY2N+Bj+6\n-----END RSA PRIVATE KEY-----\n\n\nJWT_SIGN_ALGORITHM = \nRS256\n\nJWT_SIGN_VALID_ALGORITHMS =[JWT_SIGN_ALGORITHM, ]\n\nALLOWED_HOSTS = [\n                 \nlogin.mycompany.com\n,\n                 \nlogin.mycompany.io\n,\n                 \n127.0.0.1\n,\n                 \nlocalhost\n]\n\n\n\n\nPython path\n\uf0c1\n\n\nwe are using \ndjango-admin\n command, to get this command working we will need to\nadd wiggum project path and configuration path to the \nPYTHONPATH\n\n\nexport PYTHONPATH=$PYTHONPATH:/home/wiggumuser/apps/wiggum-prod:/home/wiggumuser/apps/wiggum/wiggum\n\n\n\n\nMigrations and admin user\n\uf0c1\n\n\nApply database migrations.\n\n\n$ django-admin migrate --settings=\nconf\n\n\n\n\n\nCreate the admin user\n\n\n$ django-admin createsuperuser --settings=\nconf\n\n\n\n\n\nGenerate statics and translations\n\uf0c1\n\n\nGenerate statics\n\n\n$ mkdir /home/wiggumuser/static\n$ mkdir /home/wiggumuser/media\n$ django-admin collectstatic --settings=\nconf\n\n\n\n\n\nGenerate  translations\nThe translations are placed by default in wiggum project root in \nlocale\n directory\nthis would be: \n/home/wiggumuser/wiggum/wiggum/locale\n\n\n$ mkdir -p home/wiggumuser/wiggum/wiggum/locale\n$ django-admin compilemessages --settings=\nconf\n\n\n\n\n\nuwsgi\n\uf0c1\n\n\nWe are using \nuwsgi\n to run wiggum, and \nwhitenoise\n to serve the few statics from uwsgi,\nthis could be done with an Nginx, but this is out of the scope. Install both dependencies\n\n\n$ pip install uwsgi whitenoise\n\n\n\n\nWe create the Django wsgi module in \n/home/wiggumuser/apps/wiggum-prod\n\n\n$ touch /home/wiggumuser/apps/wiggum-prod/wsgi.py\n\n\n\n\nwith the content\n\n\nfrom django.core.wsgi import get_wsgi_application\nfrom whitenoise.django import DjangoWhiteNoise\n\napplication = get_wsgi_application()\n\napplication = DjangoWhiteNoise(application)\n\n\n\n\n\nWe create a uwsgi.ini in \n/home/wiggumuser/apps/wiggum-prod\n file with the configuration\n\n\n[uwsgi]\npythonpath = \n/home/wiggumuser/apps/wiggum-prod:/home/wiggumuser/apps/wiggum/wiggum\n\nhttp = 0.0.0.0:8000\nmodule = wsgi\nstats = /tmp/uwsig_stats.socket\n\n# Delete all sockets created\nvacuum = true\n\n# Do not let block our process if an external service is taking to much time\nharakiri = 10\n\n\n\n\nLets run wiggum!\n\n\nDJANGO_SETTINGS_MODULE=\nconf\n uwsgi --ini /home/wiggumuser/apps/wiggum-prod/uwsgi.ini\n\n\n\n\n\n\nWarning\n\n\nYou should set HAProxy, Nginx or similar in front of the uwsgi, but again this is out of the scope\n\n\n\n\n\n\nWarning\n\n\nWiggum always uses https, if \nDEBUG=True\n http is enabled. To keep things simple I\nwould suggest setting an HAProxy or similar in front of wiggum to handle the\nTLS connection.",
+            "title": "Manual"
+        },
+        {
+            "location": "/install/manual-install/#installation",
+            "text": "We are setting on  /home/wiggumuser/apps  to do all the stuff.",
+            "title": "Installation"
+        },
+        {
+            "location": "/install/manual-install/#system-dependencies",
+            "text": "Wiggum is a Python3 application so you will need a python3 installation. Apart\nfrom this, you will need some dependecies:  node ,  gettext ,  libffi ,  libssl  and  libpq . In\napt based systems you will do:  # apt-get update\n# apt-get install -y libffi-dev libssl-dev libpq-dev postgresql-client gettext node",
+            "title": "System dependencies"
+        },
+        {
+            "location": "/install/manual-install/#database",
+            "text": "We need a ready PostgreSQL with a database, user and stuff.",
+            "title": "Database"
+        },
+        {
+            "location": "/install/manual-install/#jwt-keys",
+            "text": "We are going to use asymmetric keys this time, exactly we will use  RS256 \nalgorithm to sign the Token. We create the keys.  $ mkdir ./wiggum-keys   cd ./wiggum-keys\n$ ssh-keygen  -t rsa -b 2048 -q -N   -f ./wiggu  Now we have the private  wiggum  and the public  wiggum.pub  keys   Warning  Private keys mean private! Don't share :)",
+            "title": "JWT keys"
+        },
+        {
+            "location": "/install/manual-install/#get-wiggum",
+            "text": "$ cd ..\n$ git clone https://github.com/qdqmedia/wiggum.git  At this moment we have  wiggum  and  wiggum-keys  directories.",
+            "title": "Get Wiggum"
+        },
+        {
+            "location": "/install/manual-install/#app-dependencies",
+            "text": "We install the dependencies in the system or in a virtualenv, for this example we\nwill create a virtualenv named wiggumapp  $ mkvirtualenv wiggumapp  And install wiggum dependencies in this virtualenv  $ pip install -r ./wiggum/requirements/base.txt  Install node depdencies from wiggum project  $ cd ./wiggum\n$ npm install\n$ node_modules/.bin/bower install",
+            "title": "App dependencies"
+        },
+        {
+            "location": "/install/manual-install/#create-own-settings",
+            "text": "We need to create our own settings, we will set the least neccessary settings to\nhave a Personal wiggum app. We will create a directory where we will place all\nof our custom configuration  $ cd -\n$ mkdir ./wiggum-prod   ./wiggum-prod\n$ touch ./conf.py  And start putting the settings on the  conf.py  file",
+            "title": "Create own settings"
+        },
+        {
+            "location": "/install/manual-install/#import-from-base-settings",
+            "text": "Inherit from wiggum default settings  import os\nfrom wiggum.settings.wiggum import *",
+            "title": "Import from base settings"
+        },
+        {
+            "location": "/install/manual-install/#common-django-stuff",
+            "text": "We set the Django sessi\u00f3n key to a random hash and Debug to false  SECRET_KEY =  32f 7^ih2 lc0 )enip3e_i^@8v2!(n1z4sx9fe@0shh2*e)=* \nDEBUG = False  The place the static and media files will be generated and placed  MEDIA_ROOT =  /home/wiggumuser/media \nSTATIC_ROOT =  /home/wiggumuser/static",
+            "title": "Common Django stuff"
+        },
+        {
+            "location": "/install/manual-install/#database-caches",
+            "text": "Set the database settings to point to our postgres and use the local memory cache\nWiggum doesn't need to cache so we don't need something like Redis or memcached.  DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql_psycopg2',\n        'NAME': os.getenv('PG_DATABASE'),\n        'USER': os.getenv('PG_USER'),\n        'PASSWORD': os.getenv('PG_PASSWORD',),\n        'HOST': os.getenv('PG_HOST',  127.0.0.1 ),\n        'PORT': os.getenv('PG_PORT', '5432'),\n    }\n}\n\nCACHES = {\n    'default': {\n        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',\n        'LOCATION': 'wiggum',\n    }\n}",
+            "title": "Database &amp; caches"
+        },
+        {
+            "location": "/install/manual-install/#static-stuff",
+            "text": "Wiggum uses [Django pipeline] to manage the assets so we need to point where\nthese binaries are  PIPELINE_LESS_BINARY = os.path.join(NODE_MODULES_PATH,  less )\nPIPELINE_UGLIFYJS_BINARY = os.path.join(NODE_MODULES_PATH,  uglifyjs )\nPIPELINE_YUGLIFY_BINARY = os.path.join(NODE_MODULES_PATH,  yuglify )",
+            "title": "Static stuff"
+        },
+        {
+            "location": "/install/manual-install/#wiggum",
+            "text": "We set the issuer to our company wiggum and the name of the cookie  JWT_ISSUER =  wiggum-mycompany \nJWT_COOKIE_NAME =  wiggum-mycompany   Disable the transition keys, only need one key valid at a time.  JWT_TRANSITION_ENABLE = False  As we saw at the beginning, we have apps on  mycompany.io  and  mycompany.com  domains\nSo we will need to clone the cookie. We are placing wiggum on  https://login.mycompany.com \nand  https://login.mycompany.io , so this would use a level 2 autodomain:  JWT_COOKIE_DOMAIN_AUTO = True\nJWT_COOKIE_DOMAIN_AUTO_LEVEL = 2\nJWT_COOKIE_CLONE = True\nJWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (\n     login.mycompany.io ,\n     login.mycompany.com ,\n)  We set some default redirects.  LOGIN_SUCCESS_REDIRECT =  http://mycompany.io \nLOGOUT_SUCCESS_REDIRECT =  /a/login   Finally set the generated keys  First we set the content of the public key from  wiggum-keys/wiggum.pub  JWT_VERIFICATION_KEY =  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmFPuwTx+EsF5BOoFVqcVgDUdszogmk9yGsJFATdZZr3eYXIeZYJJOqOL2VZsepJfTjVJn6hNl57cpCjB39JpBja+GrSS1LRexIyPpyIkswhulSWOcb6rnIpIXuWpWXW/syT0jBOdRJZIH6HBIqC/et2IAoCtjHRZrsoympECQfk40tjUBctTv0RrmC8ouiWMyR67nhPJCcZFNVqtvR6BRrlg2iQOwj0h59/Z3hFNPZVPeAi0TwPDhs3HF3Gv/q84w5auFx7B3m32eHvMqzYVatUcRbkPskQVCh2Qbp2wFLraPaiHLHPXKMdVcUvoMpmjfi24HP6EeLBF2qy3kVWez wiggum@59448fc67e05   Then the private key from  wiggum-keys/wiggum  JWT_SECRET_KEY =  -----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAphT7sE8fhLBeQTqBVanFYA1HbM6IJpPchrCRQE3WWa93mFyH\nmWCSTqji9lWbHqSX041SZ+oTZee3KQowd/SaQY2vhq0ktS0XsSMj6ciJLMIbpUlj\nnG+q5yKSF7lqVl1v7Mk9IwTnUSWSB+hwSKgv3rdiAKArYx0Wa7KMpqRAkH5ONLY1\nAXLU79Ea5gvKLoljMkeu54TyQnGRTVarb0egUa5YNokDsI9Ieff2d4RTT2VT3gIt\nE8Dw4bNxxdxr/6vOMOWrhcewd5t9nh7zKs2FWrVHEW5D7JEFQodkG6dsBS62j2oh\nyxz1yjHVXFL6DKZo34tuBz+hHiwRdqst5FVnswIDAQABAoIBAQCP3g9k3DWeWLVd\nZdPRo/4RRY+AxqwUVvOqTVuVy5eKG0DLYCQqjghPUWdCIkf8VHIc1Qf0ckWZeg8k\n4um3j9DsRlMto+DvfP9P9/PNOWTyu7b9CETcp7LxA/ZvzLM72zbwdCacpkvG9He6\nl/RkTCUjldG0XwsWkYTxiDrkw9YWE55Mbm/5dHPGj75oaJZWhJRPV/g0S+okKLlR\n7y/uBB8ZgmdobTkN0XkR2vjLtCr8u+y4GPVcO/9JdjPsXxZbDD4GosAWoTR2oVR9\n/MnbtwoECf0aVb22LAuE0wIrTIXIFIj+/I5/K7gan/6RucM2nqZq/og8iH9Kjnba\neu8ZqOXRAoGBANNeNzVnKMyS3S2wPjY6BMiLdEPhWJgtdw+t/b01c1Cq52aEYh0X\nvcO6AqdERxH6IKF/fnOJ1bf5JeiZdZKDChfRlwhGylw7duNxe5JMw3DG/y7BgxFT\n7P7AO0X4IKmhROS0+cPfVD/DxRiC183IBmZdrDB+PTy1vAIB1e4vXv8ZAoGBAMkm\nxKORRMF1Rh5aMYdZ3tGe9K5XyY8m73Onb1MYMaP5LuFgmiTYAED//aF04cjYBY4L\n3BZ638HXc4PiyonzTlD1Ks/rHUudIqmk/chM6BXsyMyROCGgw13kQq4A5omWfkWC\n16kGgDxQ+1hHZRmWsPOD7bNnl3++TR/oHq9341KrAoGATHcwJ9yrEN8sruOsjfeN\nVXPF2uzCHUONaBm8yt90WUGKtza7O+Uj3JQFc7eqsmE3vtUdzPSXYZf709r4gslv\nNFC5f+AEQzur9fpPBw1IQxtqo+KT5QfknAC1MMnkHxndj5O9K9Q2aV8MhaKIKcTs\nM8o9icmRo83nNx6s4x82EbkCgYAKqm6UybgelexQ4bFsntxMuyP4NpluaL8bn84s\nVsUTD7xnoOqrd3ST/b7iF8N9Fc89l+1kl8FTkuwCGz1oESme61EI00urXbqfyirW\nuxU3TGXdSvnx9odFbDwI4+1VcFBjuStcQAb+q8CYDrkSoUXis6Uf9Sc4U8vdHD68\nSRwZnwKBgEb9WeG2faQ2z/yVS/GackxoOu1Iuva2Mm6iRjW5RN+aKoz9j1S/1///\nbaIuTGlMpuHGwD+E8t1OPZ4ePCtHBKBogNefwBt+2bB40nZTzON+SX2JgdOEmo8z\nDryNZ5s3VOt7bQrz97xSM8II7JuUVHCf5vB1DXGeDVccY2N+Bj+6\n-----END RSA PRIVATE KEY-----   The sign algorithm and verification one, they are the same  JWT_SIGN_ALGORITHM =  RS256 \nJWT_SIGN_VALID_ALGORITHMS =[JWT_SIGN_ALGORITHM, ]",
+            "title": "Wiggum"
+        },
+        {
+            "location": "/install/manual-install/#allowed-hosts",
+            "text": "We said that wiggum will be on  https://login.mycompany.com \nand  https://login.mycompany.io , we enable seving on this hosts:  ALLOWED_HOSTS = [\n                  login.mycompany.com ,\n                  login.mycompany.io ,\n                  127.0.0.1 ,\n                  localhost ]",
+            "title": "Allowed hosts"
+        },
+        {
+            "location": "/install/manual-install/#all-in-one-file",
+            "text": "This is the result of our configuration  import os\nfrom wiggum.settings.wiggum import *\n\n\nSECRET_KEY =  32f 7^ih2 lc0 )enip3e_i^@8v2!(n1z4sx9fe@0shh2*e)=* \nDEBUG = False\n\nMEDIA_ROOT =  /media \nSTATIC_ROOT =  /static \n\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql_psycopg2',\n        'NAME': os.getenv('PG_DATABASE'),\n        'USER': os.getenv('PG_USER'),\n        'PASSWORD': os.getenv('PG_PASSWORD',),\n        'HOST': os.getenv('PG_HOST',  127.0.0.1 ),\n        'PORT': os.getenv('PG_PORT', '5432'),\n    }\n}\n\nCACHES = {\n    'default': {\n        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',\n        'LOCATION': 'wiggum',\n    }\n}\n\nPIPELINE_LESS_BINARY = os.path.join(NODE_MODULES_PATH,  less )\nPIPELINE_UGLIFYJS_BINARY = os.path.join(NODE_MODULES_PATH,  uglifyjs )\nPIPELINE_YUGLIFY_BINARY = os.path.join(NODE_MODULES_PATH,  yuglify )\n\nJWT_ISSUER =  wiggum-mycompany \nJWT_COOKIE_NAME =  wiggum-mycompany \nJWT_TRANSITION_ENABLE = False\nJWT_COOKIE_DOMAIN_AUTO = True\nJWT_COOKIE_DOMAIN_AUTO_LEVEL = 2\nJWT_COOKIE_CLONE = True\nJWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (\n     login.mycompany.io ,\n     login.mycompany.com ,\n)\n\nLOGIN_SUCCESS_REDIRECT =  http://mycompany.io \nLOGOUT_SUCCESS_REDIRECT =  /a/login \n\nJWT_VERIFICATION_KEY =  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmFPuwTx+EsF5BOoFVqcVgDUdszogmk9yGsJFATdZZr3eYXIeZYJJOqOL2VZsepJfTjVJn6hNl57cpCjB39JpBja+GrSS1LRexIyPpyIkswhulSWOcb6rnIpIXuWpWXW/syT0jBOdRJZIH6HBIqC/et2IAoCtjHRZrsoympECQfk40tjUBctTv0RrmC8ouiWMyR67nhPJCcZFNVqtvR6BRrlg2iQOwj0h59/Z3hFNPZVPeAi0TwPDhs3HF3Gv/q84w5auFx7B3m32eHvMqzYVatUcRbkPskQVCh2Qbp2wFLraPaiHLHPXKMdVcUvoMpmjfi24HP6EeLBF2qy3kVWez wiggum@59448fc67e05 \nJWT_SECRET_KEY =  -----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAphT7sE8fhLBeQTqBVanFYA1HbM6IJpPchrCRQE3WWa93mFyH\nmWCSTqji9lWbHqSX041SZ+oTZee3KQowd/SaQY2vhq0ktS0XsSMj6ciJLMIbpUlj\nnG+q5yKSF7lqVl1v7Mk9IwTnUSWSB+hwSKgv3rdiAKArYx0Wa7KMpqRAkH5ONLY1\nAXLU79Ea5gvKLoljMkeu54TyQnGRTVarb0egUa5YNokDsI9Ieff2d4RTT2VT3gIt\nE8Dw4bNxxdxr/6vOMOWrhcewd5t9nh7zKs2FWrVHEW5D7JEFQodkG6dsBS62j2oh\nyxz1yjHVXFL6DKZo34tuBz+hHiwRdqst5FVnswIDAQABAoIBAQCP3g9k3DWeWLVd\nZdPRo/4RRY+AxqwUVvOqTVuVy5eKG0DLYCQqjghPUWdCIkf8VHIc1Qf0ckWZeg8k\n4um3j9DsRlMto+DvfP9P9/PNOWTyu7b9CETcp7LxA/ZvzLM72zbwdCacpkvG9He6\nl/RkTCUjldG0XwsWkYTxiDrkw9YWE55Mbm/5dHPGj75oaJZWhJRPV/g0S+okKLlR\n7y/uBB8ZgmdobTkN0XkR2vjLtCr8u+y4GPVcO/9JdjPsXxZbDD4GosAWoTR2oVR9\n/MnbtwoECf0aVb22LAuE0wIrTIXIFIj+/I5/K7gan/6RucM2nqZq/og8iH9Kjnba\neu8ZqOXRAoGBANNeNzVnKMyS3S2wPjY6BMiLdEPhWJgtdw+t/b01c1Cq52aEYh0X\nvcO6AqdERxH6IKF/fnOJ1bf5JeiZdZKDChfRlwhGylw7duNxe5JMw3DG/y7BgxFT\n7P7AO0X4IKmhROS0+cPfVD/DxRiC183IBmZdrDB+PTy1vAIB1e4vXv8ZAoGBAMkm\nxKORRMF1Rh5aMYdZ3tGe9K5XyY8m73Onb1MYMaP5LuFgmiTYAED//aF04cjYBY4L\n3BZ638HXc4PiyonzTlD1Ks/rHUudIqmk/chM6BXsyMyROCGgw13kQq4A5omWfkWC\n16kGgDxQ+1hHZRmWsPOD7bNnl3++TR/oHq9341KrAoGATHcwJ9yrEN8sruOsjfeN\nVXPF2uzCHUONaBm8yt90WUGKtza7O+Uj3JQFc7eqsmE3vtUdzPSXYZf709r4gslv\nNFC5f+AEQzur9fpPBw1IQxtqo+KT5QfknAC1MMnkHxndj5O9K9Q2aV8MhaKIKcTs\nM8o9icmRo83nNx6s4x82EbkCgYAKqm6UybgelexQ4bFsntxMuyP4NpluaL8bn84s\nVsUTD7xnoOqrd3ST/b7iF8N9Fc89l+1kl8FTkuwCGz1oESme61EI00urXbqfyirW\nuxU3TGXdSvnx9odFbDwI4+1VcFBjuStcQAb+q8CYDrkSoUXis6Uf9Sc4U8vdHD68\nSRwZnwKBgEb9WeG2faQ2z/yVS/GackxoOu1Iuva2Mm6iRjW5RN+aKoz9j1S/1///\nbaIuTGlMpuHGwD+E8t1OPZ4ePCtHBKBogNefwBt+2bB40nZTzON+SX2JgdOEmo8z\nDryNZ5s3VOt7bQrz97xSM8II7JuUVHCf5vB1DXGeDVccY2N+Bj+6\n-----END RSA PRIVATE KEY----- \n\nJWT_SIGN_ALGORITHM =  RS256 \nJWT_SIGN_VALID_ALGORITHMS =[JWT_SIGN_ALGORITHM, ]\n\nALLOWED_HOSTS = [\n                  login.mycompany.com ,\n                  login.mycompany.io ,\n                  127.0.0.1 ,\n                  localhost ]",
+            "title": "All in one file"
+        },
+        {
+            "location": "/install/manual-install/#python-path",
+            "text": "we are using  django-admin  command, to get this command working we will need to\nadd wiggum project path and configuration path to the  PYTHONPATH  export PYTHONPATH=$PYTHONPATH:/home/wiggumuser/apps/wiggum-prod:/home/wiggumuser/apps/wiggum/wiggum",
+            "title": "Python path"
+        },
+        {
+            "location": "/install/manual-install/#migrations-and-admin-user",
+            "text": "Apply database migrations.  $ django-admin migrate --settings= conf   Create the admin user  $ django-admin createsuperuser --settings= conf",
+            "title": "Migrations and admin user"
+        },
+        {
+            "location": "/install/manual-install/#generate-statics-and-translations",
+            "text": "Generate statics  $ mkdir /home/wiggumuser/static\n$ mkdir /home/wiggumuser/media\n$ django-admin collectstatic --settings= conf   Generate  translations\nThe translations are placed by default in wiggum project root in  locale  directory\nthis would be:  /home/wiggumuser/wiggum/wiggum/locale  $ mkdir -p home/wiggumuser/wiggum/wiggum/locale\n$ django-admin compilemessages --settings= conf",
+            "title": "Generate statics and translations"
+        },
+        {
+            "location": "/install/manual-install/#uwsgi",
+            "text": "We are using  uwsgi  to run wiggum, and  whitenoise  to serve the few statics from uwsgi,\nthis could be done with an Nginx, but this is out of the scope. Install both dependencies  $ pip install uwsgi whitenoise  We create the Django wsgi module in  /home/wiggumuser/apps/wiggum-prod  $ touch /home/wiggumuser/apps/wiggum-prod/wsgi.py  with the content  from django.core.wsgi import get_wsgi_application\nfrom whitenoise.django import DjangoWhiteNoise\n\napplication = get_wsgi_application()\n\napplication = DjangoWhiteNoise(application)  We create a uwsgi.ini in  /home/wiggumuser/apps/wiggum-prod  file with the configuration  [uwsgi]\npythonpath =  /home/wiggumuser/apps/wiggum-prod:/home/wiggumuser/apps/wiggum/wiggum \nhttp = 0.0.0.0:8000\nmodule = wsgi\nstats = /tmp/uwsig_stats.socket\n\n# Delete all sockets created\nvacuum = true\n\n# Do not let block our process if an external service is taking to much time\nharakiri = 10  Lets run wiggum!  DJANGO_SETTINGS_MODULE= conf  uwsgi --ini /home/wiggumuser/apps/wiggum-prod/uwsgi.ini   Warning  You should set HAProxy, Nginx or similar in front of the uwsgi, but again this is out of the scope    Warning  Wiggum always uses https, if  DEBUG=True  http is enabled. To keep things simple I\nwould suggest setting an HAProxy or similar in front of wiggum to handle the\nTLS connection.",
+            "title": "uwsgi"
+        },
+        {
+            "location": "/install/docker-install/",
+            "text": "TODO",
+            "title": "Docker"
+        },
+        {
+            "location": "/settings/django/",
+            "text": "This will be the description of django main settings that need to be edited\nin order to run the project. You can check [wiggum django settings] and \nDjango docs\n in order to change\nother common Django settings not listed in this document.\n\n\n[wiggum django settings]: [base.py]: ../wiggum/wiggum/settings/base.py\n\n\nDATABASES\n\uf0c1\n\n\nWiggum was implemented with Postgresql in mind and is the only database tested, but\nDjango allows more databases, you choose what to use but have in mind that Postgres\nis the recommended one.\n\n\nSet the databases settings with this schema\n\n\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql_psycopg2',\n        'NAME': 'postgres',\n        'USER': 'XXXXXXX',\n        'PASSWORD': 'XXXXXXXXX',\n        'HOST': \nXXXXXXXXXXX\n,\n        'PORT': 5432,\n    },\n}\n\n\n\n\nALLOWED_HOSTS\n\uf0c1\n\n\nIn this setting ou will need to set the hosts where your wiggum instances will be\nlistening, private and public ones. For example:\n\n\nALLOWED_HOSTS = [\n    'login.wiggum.io',\n    'login.priv.wiggum.io',\n    '127.0.0.1',\n]\n\n\n\n\nDEBUG\n\uf0c1\n\n\nSet wiggum app in debug mode\n\n\nDEBUG = True\n\n\n\n\n\n\nNote\n\n\nDeactivated by default\n\n\n\n\nSECRET_KEY\n\uf0c1\n\n\nThe Django secret key for singing sessions\n\n\nSECRET_KEY = '8hcmch1@o\na5bjsx_56x5e4(gmc-6!g48x**usqelv_r9ok_-!'\n\n\n\n\n\n\nWarning\n\n\nThis setting should be private!",
+            "title": "Django"
+        },
+        {
+            "location": "/settings/django/#databases",
+            "text": "Wiggum was implemented with Postgresql in mind and is the only database tested, but\nDjango allows more databases, you choose what to use but have in mind that Postgres\nis the recommended one.  Set the databases settings with this schema  DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql_psycopg2',\n        'NAME': 'postgres',\n        'USER': 'XXXXXXX',\n        'PASSWORD': 'XXXXXXXXX',\n        'HOST':  XXXXXXXXXXX ,\n        'PORT': 5432,\n    },\n}",
+            "title": "DATABASES"
+        },
+        {
+            "location": "/settings/django/#allowed_hosts",
+            "text": "In this setting ou will need to set the hosts where your wiggum instances will be\nlistening, private and public ones. For example:  ALLOWED_HOSTS = [\n    'login.wiggum.io',\n    'login.priv.wiggum.io',\n    '127.0.0.1',\n]",
+            "title": "ALLOWED_HOSTS"
+        },
+        {
+            "location": "/settings/django/#debug",
+            "text": "Set wiggum app in debug mode  DEBUG = True   Note  Deactivated by default",
+            "title": "DEBUG"
+        },
+        {
+            "location": "/settings/django/#secret_key",
+            "text": "The Django secret key for singing sessions  SECRET_KEY = '8hcmch1@o a5bjsx_56x5e4(gmc-6!g48x**usqelv_r9ok_-!'   Warning  This setting should be private!",
+            "title": "SECRET_KEY"
+        },
+        {
+            "location": "/settings/wiggum/",
+            "text": "Settings in Wiggum use the default Django system settings, this is a python file.\nwith key-values. Settings can inherit from other settings and thats how we would\nextend wiggum as you will see in the \ncustomization section\n\n\nThe main wiggum settings are in \nwiggum.py\n.\n\n\nJWT authorization settings\n\uf0c1\n\n\nIn these settings are the common security settings as keys and algorithms to\nsign the JWT token.\n\n\nJWT_SECRET_KEY\n\uf0c1\n\n\nThis is the key used to sign the JWT token. This needs to be a valid \n supported key\nfor the JWT stardard supported algorithms, check \nPyJWT\n library for the supported ones.\n\n\nThe algorithms can be of two types, symmetric and asymmetric, for the first one theres only one key, so this key will be place it here. In case of using an asymmetric one there will be 2 keys and here will be placed the private key.\n\n\n\n\nNote\n\n\nThis can be set with \nJWT_SECRET_KEY\n env var\n\n\n\n\n\n\nWarning\n\n\nThis key is secret! don't share with anybody\n\n\n\n\nJWT_VERIFICATION_KEY\n\uf0c1\n\n\nThis is the key used to verificate signed JWT tokens. As with \nJWT_SECRET_KEY\n this key\nneeds to be a valid ans supported key by the standard. In case a symmetric key is used\nthen this will be set to the same key as the JWT_SECRET_KEY, in case of using asymmetric\nkeys then this will be set with the public key\n\n\n\n\nNote\n\n\nThis can be set with \nJWT_VERIFICATION_KEY\n env var\n\n\n\n\nJWT_SIGN_ALGORITHM\n\uf0c1\n\n\nThis will be the algorithm used to sign the JWT token, Could be asymmetric or symmetric.\n\n\n\n\nNote\n\n\nDefault to symmetric algorithm \nHS256\n\n\n\n\n\n\nNote\n\n\nThis can be set with \nJWT_SIGN_ALGORITHM\n env var\n\n\n\n\n\n\nWarning\n\n\nThis setting needs valid \nJWT_SECRET_KEY\n \n \nJWT_VERIFICATION_KEY\n\n\n\n\nJWT_TRANSITION_ENABLE\n\uf0c1\n\n\nThis setting (True/False) enables a second verification key for JWT tokens (usually an old key).\nThis is used because when we change our singing keys sometimes the old keys need to\nbe valid on little period of time while the transition occurs.\n\n\n\n\nNote\n\n\nDefault deactivated\n\n\n\n\n\n\nNote\n\n\nThis can be activated  settin \nJWT_TRANSITION_ENABLE\n env var to one of this: \nTrue\n, \ntrue\n, \nYes\n, \nyes\n, or \ny\n\n\n\n\nJWT_TRANSITION_VERIFICATION_KEY\n\uf0c1\n\n\nApplies the same as \nJWT_VERIFICATION_KEY\n but for the transition verification key\n\n\n\n\nNote\n\n\nThis can be set with \nJWT_TRANSITION_VERIFICATION_KEY\n env var\n\n\n\n\nJWT_SIGN_VALID_ALGORITHMS\n\uf0c1\n\n\nAn array of the valid algorithms in order to check the JWT tokens with the keys.\nThe algorithms need to be JWT standard valid ones.\n\n\n\n\nNote\n\n\nThis can be set with \nJWT_SIGN_VALID_ALGORITHMS\n env var, the values are set\nspace separated, for example: \nJWT_SIGN_VALID_ALGORITHMS=\"HS256 RS256\"\n\n\n\n\n\n\nNote\n\n\nDefault valid algorithms are \nHS256\n \n \nRS256\n\n\n\n\nJWT_EXPIRATION_TIME_DELTA\n\uf0c1\n\n\nAn integer that describes the maximum time (in seconds) a token will be valid\nafter creating it\n\n\n\n\nNote\n\n\nDefault to 15 days\n\n\n\n\nJWT_NBF_LEEWAY_SECONDS\n\uf0c1\n\n\nAn integer that describes the maximum time (in seconds) a token creation time\ncan be valid. Used normally when multiple instances of wiggum are deployed and\nThey have small time offset making the token to be invalid when a machine created the token and then is validated in another machine with the timestamp in the future making\nthe token creation timestamp be in the future. Used by JWT \n\u01f8BF\n attribute\n\n\n\n\nNote\n\n\nDefault to 15 seconds\n\n\n\n\nJWT_ISSUER\n\uf0c1\n\n\nAn string that describes the issuer of the JWT token. Used by JWT \n\u00ecss\n attribute\n\n\n\n\nNote\n\n\nDefault to \nwiggumio\n\n\n\n\n!! note\n    This can be set with \nJWT_ISSUER\n env var\n\n\nJWT cookie settings\n\uf0c1\n\n\nThese settings are the ones that will determine how the JWT cookie is created and\nset.\n\n\nJWT_COOKIE_NAME\n\uf0c1\n\n\nAn string with the name of the cookie\n\n\n\n\nNote\n\n\nDefault to \nwiggumio_jwt\n\n\n\n\nJWT_COOKIE_EXPIRATION_TIME_DELTA\n\uf0c1\n\n\nThe time in seconds where the cookie will be valid. Usually this is set to the\nsame time as the \nJWT_EXPIRATION_TIME_DELTA\n\n\n\n\nNote\n\n\nDefault to same as \nJWT_EXPIRATION_TIME_DELTA\n\n\n\n\nJWT_COOKIE_ONLY_HTTPS\n\uf0c1\n\n\nA boolean value, if enabled the cookie that is set will only be valid in https\n\n\n\n\nNote\n\n\nDeactivated by default\n\n\n\n\n\n\nWarning\n\n\nIf active be sure that all the applications using wiggum generated cookies are in HTTPS\n\n\n\n\nJWT_COOKIE_DOMAIN\n\uf0c1\n\n\nThe domain/subdomain/domain-wilcard  where the cookie will be sent.\n\n\n\n\nNote\n\n\nDefault to \n.wiggum.io\n\n\n\n\n\n\nNote\n\n\nThis setting usually isn't used in favor of \nJWT_COOKIE_DOMAIN_AUTO\n, this last setting has priority\n\n\n\n\nJWT_COOKIE_DOMAIN_AUTO\n\uf0c1\n\n\nA boolean value that if is enabled will set the cookie valid for the domain/subdomain/wildcard where wiggum is listening.\n\n\n\n\nNote\n\n\nActive by default\n\n\n\n\n\n\nNote\n\n\nThe way the domain/subdomain/wildcard is obtained is based on \nJWT_COOKIE_DOMAIN_AUTO_LEVEL\n\n\n\n\nJWT_COOKIE_DOMAIN_AUTO_LEVEL\n\uf0c1\n\n\nAn integer value specifying the level of the domain that will be obtained where\nwiggum is listening based on the request. For example.\n\n\nUser request from: \nlogin.production.wiggum.org\n\n\n\n\nlevel 2 : \n.wiggum.org\n\n\nlevel 3: \n.production.wiggum.org\n\n\n\n\nUser request from: login.staging.wiggum2.com\n\n\n\n\nlevel 4: \n.login.staging.wiggum2.com\n\n\n\n\n\n\nNote\n\n\nIf level is less or equal to \n1\n then the domain will be the request domain\n\n\n\n\n\n\nNote\n\n\nDefault value to \n2\n\n\n\n\nJWT_COOKIE_CLONE\n\uf0c1\n\n\nA boolean value. If activated then cloning the cookie is allowed to wiggum. This\nworks by cloning the cookie to a list of described domains when the user logs in.\n\n\nFor example if we have  3 applications that need to authenticate with wiggum token:\n\n\n\n\napp1.company.org\n\n\napp2.company.com\n\n\napp3.comp.com\n\n\n\n\nWiggum should set the cookie on the \n.company.org\n, \n.company.com\n and \n.comp.com\n\ndomains, this is done by cloning the cookie.\n\n\n\n\nNote\n\n\nActivated by default\n\n\n\n\n\n\nNote\n\n\nThis can be activated  settin \nJWT_COOKIE_CLONE\n env var to one of this: \nTrue\n, \ntrue\n, \nYes\n, \nyes\n, or \ny\n\n\n\n\n\n\nWarning\n\n\nTo use the cookie cloning mechanism you should use \nJWT_COOKIE_CLONE_DOMAINS_ENDPOINT\n, \nJWT_COOKIE_DOMAIN_AUTO\n \n \nJWT_COOKIE_DOMAIN_AUTO_LEVEL\n\n\n\n\nJWT_COOKIE_CLONE_DOMAINS_ENDPOINT\n\uf0c1\n\n\nA list of strings containing the clone domains where wiggum is listening. Taking\n\nJWT_COOKIE_CLONE\n example. We should set wiggum listening on these domains (can be the same wiggum instance, and point all these domains to the same one):\n\n\nJWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (\n    \nlogin.company.org\n,\n    \nlogin.company.com\n,\n    \nlogin.comp.com\n,\n)\n\n\n\n\nJWT_SET_PERMISSION_ON_TOKEN\n\uf0c1\n\n\nA boolean value that sets the permissions of a user on the token. This is useful\nwhen you don't want to check by API each user authorization.\n\n\n\n\nWarning\n\n\nIf you need real time permissions check you should avoid using this and check in wiggum (by API) each time you want to know a users permissions.\n\n\n\n\n\n\nNote\n\n\nDeactivated by default\n\n\n\n\nJWT_VERSION\n\uf0c1\n\n\nA float setting that will be set on each JWT token generation. Useful to identify\nthe version of the JWT issued token. Useful when an JWT is updated with new or\nmodified content.\n\n\n\n\nNote\n\n\nThe default \n initial version is \n1.1\n\n\n\n\nJWT_MINIMUM_VERSION\n\uf0c1\n\n\nA float settings that will specify which versi\u00f3n on JWT tokens are valid or invalid,\nfor example a 1.4 versioned JWT and a 1.5 of minimim JWT version, when validated on wiggum will be identify as an invalid token\n\n\n\n\nNote\n\n\nThe default minimum version is \n1\n\n\n\n\nJWT_DESTROY_TOKEN_ON_LESSER_VERSION\n\uf0c1\n\n\nA boolean value than specifies if the action to be done on not version valid tokens\nneed to be deleted from the client\n\n\n\n\nNote\n\n\nActivated by default\n\n\n\n\nJWT miscelanea settings\n\uf0c1\n\n\nThese settings don't alow to any type of JWT group of settings\n\n\nJWT_IMPERSONATE_ENABLE\n\uf0c1\n\n\nA boolean value that specifies if wiggum should allow impersonating users. Check\n\nimpersonation\n section to understand how it works.\n\n\n\n\nNote\n\n\nActivated by default\n\n\n\n\nJWT_IMPERSONATE_EXPIRATION_TIME_DELTA\n\uf0c1\n\n\nAn integer value specifying the number of seconds the JWT impersonated token is valid\n\n\n\n\nNote\n\n\nDefault to \n1 hour\n\n\n\n\nJWT_IMPERSONATE_COOKIE_EXPIRATION_TIME_DELTA\n\uf0c1\n\n\nAn integer value specifying the number of seconds the cookie is valid\n\n\n\n\nNote\n\n\nDefault to \nJWT_IMPERSONATE_EXPIRATION_TIME_DELTA\n value\n\n\n\n\nJWT_SFA_ENABLE\n\uf0c1\n\n\nA boolean value that specifies if wigum should allow SFA logins. Check \nSFA\n section\nfor more information\n\n\n\n\nNote\n\n\nActivated by default\n\n\n\n\nJWT_SFA_EXPIRE_DELTA\n\uf0c1\n\n\nAn integer value specifying the number of seconds the SFA token (link) will be valid\n\n\n\n\nNote\n\n\nDefault to \n1 hour\n\n\n\n\nApp permission settings\n\uf0c1\n\n\nSettings for authorization  stuff\n\n\nAPP_PERMISSION_KEYS\n\uf0c1\n\n\nA dictionary/map of settings specifying the application used permissions.\n\n\n\n\nNote\n\n\nDefault defined permissions \nwiggum.all\n \n \nwiggum.impersonate\n\n\n\n\n\n\nWarning\n\n\nThis shouldn't be changed\n\n\n\n\nAPI settings\n\uf0c1\n\n\nAPI settings, no more no less\n\n\nAPI_VERSION\n\uf0c1\n\n\nA string defining the api prefix version.\n\n\n\n\nNote\n\n\nDefault to \"v1\"\n\n\n\n\n\n\nWarning\n\n\nThis shouldn't be changed\n\n\n\n\nAction settings\n\uf0c1\n\n\nAction settings specify the flow of actions for each of the events that occur.\nCheck \nactions\n section to learn more about Wiggum actions\n\n\nLOGIN_PRE_CHECK\n\uf0c1\n\n\nList of actions that occur when a login is submitted and checked.\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.login_pre_check.ForceLoginFormAction\",\n\"authorization.actions.login_pre_check.CheckUserAuthenticatedAlreadyAction\",\n\"authorization.actions.login_pre_check.CheckValidJWTVersionAction\",\n\n\n\n\nLOGIN_SUCCESS_ACTIONS\n\uf0c1\n\n\nList of actions that occur when a login succeeds.\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.login_success.CreateJWTAction\",\n\"authorization.actions.login_success.RedirectToCloneJWTSessionAction\",\n\"authorization.actions.login_success.SetJWTOnCookieAction\",\n\"authorization.actions.login_success.LoginSuccessMetricAction\",\n\n\n\n\nLOGIN_FAILURE_ACTIONS\n\uf0c1\n\n\nList of actions that occur when a login fails\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.login_failure.AuthenticationErrorMessageAction\",\n\"authorization.actions.login_failure.LoginFailureMetricAction\",\n\n\n\n\nLOGOUT_ACTIONS\n\uf0c1\n\n\nList of actions that occur when a logout is done.\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.logout.DeleteDjangoAuthSessionAction\",\n\"authorization.actions.logout.JWTDeleteCookieAction\",\n\"authorization.actions.logout.LogoutMetricsAction\",\n\n\n\n\nCLONE_ACTIONS\n\uf0c1\n\n\nList of actions that occur when a cookie clone is done.\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.login_success.SetJWTOnCookieAction\",\n\n\n\n\nRECOVER_PASS_REQUEST_ACTIONS\n\uf0c1\n\n\nList of actions that occur when a password recover request is done.\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.recover_pass_request.LoadUserFromDatabaseAction\",\n\"authorization.actions.recover_pass_request.CheckUserCorrectAction\",\n\"authorization.actions.recover_pass_request.CreateRecoverPasswordTokenAction\",\n\"authorization.actions.recover_pass_request.PasswordResetRequestMetricAction\",\n\n\n\n\nRESET_PASS_ACTIONS\n\uf0c1\n\n\nList of actions that occur when a password recover is done.\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.reset_pass.CreateJwtOnViewOnPassResetAction\",\n\"authorization.actions.reset_pass.RedirectToCloneJWTSessionOnPassResetAction\",\n\"authorization.actions.reset_pass.SetJWTOnCookieOnPassResetAction\",\n\"authorization.actions.reset_pass.PasswordResetMetricAction\",\n\n\n\n\nIMPERSONATE_ACTIONS\n\uf0c1\n\n\nList of actions that occur when a user impersonation occurs.\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.impersonate.CheckImpersonateActiveAction\",\n\"authorization.actions.impersonate.RedirectToLoginIfNotAuthenticatedAction\",\n\"authorization.actions.login_pre_check.CheckValidJWTVersionAction\",\n\"authorization.actions.impersonate.CheckImpersonatePermissionAction\",\n\"authorization.actions.impersonate.CheckImpersonateSameUserAction\",\n\"authorization.actions.impersonate.CreateImpersonateJWTAction\",\n\"authorization.actions.login_success.RedirectToCloneJWTSessionAction\",\n\"authorization.actions.impersonate.SetImpersonateJWTOnCookieAction\",\n\"authorization.actions.impersonate.ImpersonationMetricAction\",\n\n\n\n\nSFA_ACTIONS\n\uf0c1\n\n\nList of actions that occur when a SFA login occurs.\n\n\n\n\nNote\n\n\nDefault action flow:\n\n\n\"authorization.actions.sfa.CheckSFAActiveAction\",\n\"authorization.actions.login_success.CreateJWTAction\",\n\"authorization.actions.login_success.RedirectToCloneJWTSessionAction\",\n\"authorization.actions.login_success.SetJWTOnCookieAction\",\n\"authorization.actions.sfa.ResetSFATokenAction\",\n\n\n\n\nDefault redirections settings\n\uf0c1\n\n\nDefault redirections are the urls where the user will be redirected after the\naction was successfully finished\n\n\nLOGIN_SUCCESS_REDIRECT\n\uf0c1\n\n\nDefault url where the user will be redirected after successful login\n\n\n\n\nNote\n\n\nDefault to \n/a/test/jwt\n\n\n\n\nLOGOUT_SUCCESS_REDIRECT\n\uf0c1\n\n\nDefault url where the user will be redirected after successful logout\n\n\n\n\nNote\n\n\nDefault to \n/a/test/jwt\n\n\n\n\nCLONE_SUCCESS_REDIRECT\n\uf0c1\n\n\nDefault url where the user will be redirected after successful final clone chain\n\n\n\n\nNote\n\n\nDefault to \n/a/test/jwt\n\n\n\n\nRECOVER_PASS_REQUEST_SUCCESS_REDIRECT\n\uf0c1\n\n\nDefault url where the user will be redirected after successful password reset request\n\n\n\n\nNote\n\n\nDefault to \n/a/login\n\n\n\n\nRESET_PASS_SUCCESS_REDIRECT\n\uf0c1\n\n\nDefault url where the user will be redirected after successful password reset\n\n\n\n\nNote\n\n\nDefault to \n/a/login\n\n\n\n\nIMPERSONATE_SUCCESS_REDIRECT\n\uf0c1\n\n\nDefault url where the user will be redirected after successful impersonation\n\n\n\n\nNote\n\n\nDefault to \n/a/test/jwt\n\n\n\n\nSFA_SUCCESS_REDIRECT\n\uf0c1\n\n\nDefault url where the user will be redirected after successful SFA login\n\n\n\n\nNote\n\n\nDefault to \n/a/login\n\n\n\n\nPassword reset settings\n\uf0c1\n\n\nSettings related with the password reset\n\n\nPASSWORD_RESET_EXPIRE_DELTA\n\uf0c1\n\n\nInteger value expressed in seconds that specifies how long the reset password\nlink will be valid\n\n\n\n\nNote\n\n\nDefault value is \n12 hours\n\n\n\n\nLOGIN_ON_PASSWORD_RESET\n\uf0c1\n\n\nBoolean value that specifies if the user needs to be logged-in after a password reset\n\n\n\n\nNote\n\n\nActivated by default\n\n\n\n\nAuthentication backends settings\n\uf0c1\n\n\nSettings related with wiggu authentication system\n\n\nWIGGUM_AUTHENTICATION_BACKENDS\n\uf0c1\n\n\nA list specifying the authentication backends used by wiggum to login the user\non wiggum appplication.\n\n\n\n\nNote\n\n\nDefault:\n\n\n\"authorization.backends.JWTAuthentication\",\n\"authorization.backends.RegularDatabaseAuthentication\",\n\n\n\n\n)\n\n\nMiscelanea settings\n\uf0c1\n\n\nSettings that don't fit in any section\n\n\nFORCE_LOGIN_FORM\n\uf0c1\n\n\nA boolean value that specifies if wiggum should ask for the login form always. Useful when developing\n\n\n\n\nNote\n\n\nDeactivated by default\n\n\n\n\nWIGGUM_DEFAULT_THEME\n\uf0c1\n\n\nA setting specifying the theme that will be loaded by default\n\n\n\n\nNote\n\n\nDefault theme is \nclancy\n\n\n\n\nREDIRECT_URL_VALID_PARAMS\n\uf0c1\n\n\nA list that specifies the valid querystring for url redirect forcing. For example\nwhen we want to redirect to \nmysite.com/something\n after a successful login we\ncould use \nwiggum.io/login?redirect_uri=mysite.com/something\n\n\n\n\nNote\n\n\nDefault ones are \nnext\n \n \nredirect_uri\n\n\n\n\nADMIN_UNATHORIZED_REDIRECTION_URL\n\uf0c1\n\n\nA string specifying the url that will be a user redirected when tries to access\nwiggum admin panel and that used doesn't have permissions to enter.\n\n\n\n\nNote\n\n\nDefault to \n/unauthorized/\n\n\n\n\nJWT_SET_DJANGO_SESSION_URLS\n\uf0c1\n\n\nA list containing the urls regexes where the Django session middleware will be applied\n\n\n\n\nNote\n\n\nDefault to \n/admin/.*\n\n\n\n\nEXCLUDE_DOMAIN_CHECK_URLS\n\uf0c1\n\n\nWiggum checks if the domain where the request is accessing is a valid one (this\nvalid domains are the ones that appear on \nJWT_COOKIE_CLONE_DOMAINS_ENDPOINT\n)\nThis setting is a list of regexes.\n\n\n\n\nNote\n\n\nOnly applied when \nJWT_COOKIE_CLONE\n is enabled\n\n\n\n\n\n\nNote\n\n\nDefault ones:\n/api/.*\n, \n/metrics/?\n, \n/?$\n and \n/robots.txt",
+            "title": "Wiggum"
+        },
+        {
+            "location": "/settings/wiggum/#jwt-authorization-settings",
+            "text": "In these settings are the common security settings as keys and algorithms to\nsign the JWT token.",
+            "title": "JWT authorization settings"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_secret_key",
+            "text": "This is the key used to sign the JWT token. This needs to be a valid   supported key\nfor the JWT stardard supported algorithms, check  PyJWT  library for the supported ones.  The algorithms can be of two types, symmetric and asymmetric, for the first one theres only one key, so this key will be place it here. In case of using an asymmetric one there will be 2 keys and here will be placed the private key.   Note  This can be set with  JWT_SECRET_KEY  env var    Warning  This key is secret! don't share with anybody",
+            "title": "JWT_SECRET_KEY"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_verification_key",
+            "text": "This is the key used to verificate signed JWT tokens. As with  JWT_SECRET_KEY  this key\nneeds to be a valid ans supported key by the standard. In case a symmetric key is used\nthen this will be set to the same key as the JWT_SECRET_KEY, in case of using asymmetric\nkeys then this will be set with the public key   Note  This can be set with  JWT_VERIFICATION_KEY  env var",
+            "title": "JWT_VERIFICATION_KEY"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_sign_algorithm",
+            "text": "This will be the algorithm used to sign the JWT token, Could be asymmetric or symmetric.   Note  Default to symmetric algorithm  HS256    Note  This can be set with  JWT_SIGN_ALGORITHM  env var    Warning  This setting needs valid  JWT_SECRET_KEY     JWT_VERIFICATION_KEY",
+            "title": "JWT_SIGN_ALGORITHM"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_transition_enable",
+            "text": "This setting (True/False) enables a second verification key for JWT tokens (usually an old key).\nThis is used because when we change our singing keys sometimes the old keys need to\nbe valid on little period of time while the transition occurs.   Note  Default deactivated    Note  This can be activated  settin  JWT_TRANSITION_ENABLE  env var to one of this:  True ,  true ,  Yes ,  yes , or  y",
+            "title": "JWT_TRANSITION_ENABLE"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_transition_verification_key",
+            "text": "Applies the same as  JWT_VERIFICATION_KEY  but for the transition verification key   Note  This can be set with  JWT_TRANSITION_VERIFICATION_KEY  env var",
+            "title": "JWT_TRANSITION_VERIFICATION_KEY"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_sign_valid_algorithms",
+            "text": "An array of the valid algorithms in order to check the JWT tokens with the keys.\nThe algorithms need to be JWT standard valid ones.   Note  This can be set with  JWT_SIGN_VALID_ALGORITHMS  env var, the values are set\nspace separated, for example:  JWT_SIGN_VALID_ALGORITHMS=\"HS256 RS256\"    Note  Default valid algorithms are  HS256     RS256",
+            "title": "JWT_SIGN_VALID_ALGORITHMS"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_expiration_time_delta",
+            "text": "An integer that describes the maximum time (in seconds) a token will be valid\nafter creating it   Note  Default to 15 days",
+            "title": "JWT_EXPIRATION_TIME_DELTA"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_nbf_leeway_seconds",
+            "text": "An integer that describes the maximum time (in seconds) a token creation time\ncan be valid. Used normally when multiple instances of wiggum are deployed and\nThey have small time offset making the token to be invalid when a machine created the token and then is validated in another machine with the timestamp in the future making\nthe token creation timestamp be in the future. Used by JWT  \u01f8BF  attribute   Note  Default to 15 seconds",
+            "title": "JWT_NBF_LEEWAY_SECONDS"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_issuer",
+            "text": "An string that describes the issuer of the JWT token. Used by JWT  \u00ecss  attribute   Note  Default to  wiggumio   !! note\n    This can be set with  JWT_ISSUER  env var",
+            "title": "JWT_ISSUER"
+        },
+        {
+            "location": "/settings/wiggum/#jwt-cookie-settings",
+            "text": "These settings are the ones that will determine how the JWT cookie is created and\nset.",
+            "title": "JWT cookie settings"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_cookie_name",
+            "text": "An string with the name of the cookie   Note  Default to  wiggumio_jwt",
+            "title": "JWT_COOKIE_NAME"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_cookie_expiration_time_delta",
+            "text": "The time in seconds where the cookie will be valid. Usually this is set to the\nsame time as the  JWT_EXPIRATION_TIME_DELTA   Note  Default to same as  JWT_EXPIRATION_TIME_DELTA",
+            "title": "JWT_COOKIE_EXPIRATION_TIME_DELTA"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_cookie_only_https",
+            "text": "A boolean value, if enabled the cookie that is set will only be valid in https   Note  Deactivated by default    Warning  If active be sure that all the applications using wiggum generated cookies are in HTTPS",
+            "title": "JWT_COOKIE_ONLY_HTTPS"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_cookie_domain",
+            "text": "The domain/subdomain/domain-wilcard  where the cookie will be sent.   Note  Default to  .wiggum.io    Note  This setting usually isn't used in favor of  JWT_COOKIE_DOMAIN_AUTO , this last setting has priority",
+            "title": "JWT_COOKIE_DOMAIN"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_cookie_domain_auto",
+            "text": "A boolean value that if is enabled will set the cookie valid for the domain/subdomain/wildcard where wiggum is listening.   Note  Active by default    Note  The way the domain/subdomain/wildcard is obtained is based on  JWT_COOKIE_DOMAIN_AUTO_LEVEL",
+            "title": "JWT_COOKIE_DOMAIN_AUTO"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_cookie_domain_auto_level",
+            "text": "An integer value specifying the level of the domain that will be obtained where\nwiggum is listening based on the request. For example.  User request from:  login.production.wiggum.org   level 2 :  .wiggum.org  level 3:  .production.wiggum.org   User request from: login.staging.wiggum2.com   level 4:  .login.staging.wiggum2.com    Note  If level is less or equal to  1  then the domain will be the request domain    Note  Default value to  2",
+            "title": "JWT_COOKIE_DOMAIN_AUTO_LEVEL"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_cookie_clone",
+            "text": "A boolean value. If activated then cloning the cookie is allowed to wiggum. This\nworks by cloning the cookie to a list of described domains when the user logs in.  For example if we have  3 applications that need to authenticate with wiggum token:   app1.company.org  app2.company.com  app3.comp.com   Wiggum should set the cookie on the  .company.org ,  .company.com  and  .comp.com \ndomains, this is done by cloning the cookie.   Note  Activated by default    Note  This can be activated  settin  JWT_COOKIE_CLONE  env var to one of this:  True ,  true ,  Yes ,  yes , or  y    Warning  To use the cookie cloning mechanism you should use  JWT_COOKIE_CLONE_DOMAINS_ENDPOINT ,  JWT_COOKIE_DOMAIN_AUTO     JWT_COOKIE_DOMAIN_AUTO_LEVEL",
+            "title": "JWT_COOKIE_CLONE"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_cookie_clone_domains_endpoint",
+            "text": "A list of strings containing the clone domains where wiggum is listening. Taking JWT_COOKIE_CLONE  example. We should set wiggum listening on these domains (can be the same wiggum instance, and point all these domains to the same one):  JWT_COOKIE_CLONE_DOMAINS_ENDPOINT = (\n     login.company.org ,\n     login.company.com ,\n     login.comp.com ,\n)",
+            "title": "JWT_COOKIE_CLONE_DOMAINS_ENDPOINT"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_set_permission_on_token",
+            "text": "A boolean value that sets the permissions of a user on the token. This is useful\nwhen you don't want to check by API each user authorization.   Warning  If you need real time permissions check you should avoid using this and check in wiggum (by API) each time you want to know a users permissions.    Note  Deactivated by default",
+            "title": "JWT_SET_PERMISSION_ON_TOKEN"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_version",
+            "text": "A float setting that will be set on each JWT token generation. Useful to identify\nthe version of the JWT issued token. Useful when an JWT is updated with new or\nmodified content.   Note  The default   initial version is  1.1",
+            "title": "JWT_VERSION"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_minimum_version",
+            "text": "A float settings that will specify which versi\u00f3n on JWT tokens are valid or invalid,\nfor example a 1.4 versioned JWT and a 1.5 of minimim JWT version, when validated on wiggum will be identify as an invalid token   Note  The default minimum version is  1",
+            "title": "JWT_MINIMUM_VERSION"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_destroy_token_on_lesser_version",
+            "text": "A boolean value than specifies if the action to be done on not version valid tokens\nneed to be deleted from the client   Note  Activated by default",
+            "title": "JWT_DESTROY_TOKEN_ON_LESSER_VERSION"
+        },
+        {
+            "location": "/settings/wiggum/#jwt-miscelanea-settings",
+            "text": "These settings don't alow to any type of JWT group of settings",
+            "title": "JWT miscelanea settings"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_impersonate_enable",
+            "text": "A boolean value that specifies if wiggum should allow impersonating users. Check impersonation  section to understand how it works.   Note  Activated by default",
+            "title": "JWT_IMPERSONATE_ENABLE"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_impersonate_expiration_time_delta",
+            "text": "An integer value specifying the number of seconds the JWT impersonated token is valid   Note  Default to  1 hour",
+            "title": "JWT_IMPERSONATE_EXPIRATION_TIME_DELTA"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_impersonate_cookie_expiration_time_delta",
+            "text": "An integer value specifying the number of seconds the cookie is valid   Note  Default to  JWT_IMPERSONATE_EXPIRATION_TIME_DELTA  value",
+            "title": "JWT_IMPERSONATE_COOKIE_EXPIRATION_TIME_DELTA"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_sfa_enable",
+            "text": "A boolean value that specifies if wigum should allow SFA logins. Check  SFA  section\nfor more information   Note  Activated by default",
+            "title": "JWT_SFA_ENABLE"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_sfa_expire_delta",
+            "text": "An integer value specifying the number of seconds the SFA token (link) will be valid   Note  Default to  1 hour",
+            "title": "JWT_SFA_EXPIRE_DELTA"
+        },
+        {
+            "location": "/settings/wiggum/#app-permission-settings",
+            "text": "Settings for authorization  stuff",
+            "title": "App permission settings"
+        },
+        {
+            "location": "/settings/wiggum/#app_permission_keys",
+            "text": "A dictionary/map of settings specifying the application used permissions.   Note  Default defined permissions  wiggum.all     wiggum.impersonate    Warning  This shouldn't be changed",
+            "title": "APP_PERMISSION_KEYS"
+        },
+        {
+            "location": "/settings/wiggum/#api-settings",
+            "text": "API settings, no more no less",
+            "title": "API settings"
+        },
+        {
+            "location": "/settings/wiggum/#api_version",
+            "text": "A string defining the api prefix version.   Note  Default to \"v1\"    Warning  This shouldn't be changed",
+            "title": "API_VERSION"
+        },
+        {
+            "location": "/settings/wiggum/#action-settings",
+            "text": "Action settings specify the flow of actions for each of the events that occur.\nCheck  actions  section to learn more about Wiggum actions",
+            "title": "Action settings"
+        },
+        {
+            "location": "/settings/wiggum/#login_pre_check",
+            "text": "List of actions that occur when a login is submitted and checked.   Note  Default action flow:  \"authorization.actions.login_pre_check.ForceLoginFormAction\",\n\"authorization.actions.login_pre_check.CheckUserAuthenticatedAlreadyAction\",\n\"authorization.actions.login_pre_check.CheckValidJWTVersionAction\",",
+            "title": "LOGIN_PRE_CHECK"
+        },
+        {
+            "location": "/settings/wiggum/#login_success_actions",
+            "text": "List of actions that occur when a login succeeds.   Note  Default action flow:  \"authorization.actions.login_success.CreateJWTAction\",\n\"authorization.actions.login_success.RedirectToCloneJWTSessionAction\",\n\"authorization.actions.login_success.SetJWTOnCookieAction\",\n\"authorization.actions.login_success.LoginSuccessMetricAction\",",
+            "title": "LOGIN_SUCCESS_ACTIONS"
+        },
+        {
+            "location": "/settings/wiggum/#login_failure_actions",
+            "text": "List of actions that occur when a login fails   Note  Default action flow:  \"authorization.actions.login_failure.AuthenticationErrorMessageAction\",\n\"authorization.actions.login_failure.LoginFailureMetricAction\",",
+            "title": "LOGIN_FAILURE_ACTIONS"
+        },
+        {
+            "location": "/settings/wiggum/#logout_actions",
+            "text": "List of actions that occur when a logout is done.   Note  Default action flow:  \"authorization.actions.logout.DeleteDjangoAuthSessionAction\",\n\"authorization.actions.logout.JWTDeleteCookieAction\",\n\"authorization.actions.logout.LogoutMetricsAction\",",
+            "title": "LOGOUT_ACTIONS"
+        },
+        {
+            "location": "/settings/wiggum/#clone_actions",
+            "text": "List of actions that occur when a cookie clone is done.   Note  Default action flow:  \"authorization.actions.login_success.SetJWTOnCookieAction\",",
+            "title": "CLONE_ACTIONS"
+        },
+        {
+            "location": "/settings/wiggum/#recover_pass_request_actions",
+            "text": "List of actions that occur when a password recover request is done.   Note  Default action flow:  \"authorization.actions.recover_pass_request.LoadUserFromDatabaseAction\",\n\"authorization.actions.recover_pass_request.CheckUserCorrectAction\",\n\"authorization.actions.recover_pass_request.CreateRecoverPasswordTokenAction\",\n\"authorization.actions.recover_pass_request.PasswordResetRequestMetricAction\",",
+            "title": "RECOVER_PASS_REQUEST_ACTIONS"
+        },
+        {
+            "location": "/settings/wiggum/#reset_pass_actions",
+            "text": "List of actions that occur when a password recover is done.   Note  Default action flow:  \"authorization.actions.reset_pass.CreateJwtOnViewOnPassResetAction\",\n\"authorization.actions.reset_pass.RedirectToCloneJWTSessionOnPassResetAction\",\n\"authorization.actions.reset_pass.SetJWTOnCookieOnPassResetAction\",\n\"authorization.actions.reset_pass.PasswordResetMetricAction\",",
+            "title": "RESET_PASS_ACTIONS"
+        },
+        {
+            "location": "/settings/wiggum/#impersonate_actions",
+            "text": "List of actions that occur when a user impersonation occurs.   Note  Default action flow:  \"authorization.actions.impersonate.CheckImpersonateActiveAction\",\n\"authorization.actions.impersonate.RedirectToLoginIfNotAuthenticatedAction\",\n\"authorization.actions.login_pre_check.CheckValidJWTVersionAction\",\n\"authorization.actions.impersonate.CheckImpersonatePermissionAction\",\n\"authorization.actions.impersonate.CheckImpersonateSameUserAction\",\n\"authorization.actions.impersonate.CreateImpersonateJWTAction\",\n\"authorization.actions.login_success.RedirectToCloneJWTSessionAction\",\n\"authorization.actions.impersonate.SetImpersonateJWTOnCookieAction\",\n\"authorization.actions.impersonate.ImpersonationMetricAction\",",
+            "title": "IMPERSONATE_ACTIONS"
+        },
+        {
+            "location": "/settings/wiggum/#sfa_actions",
+            "text": "List of actions that occur when a SFA login occurs.   Note  Default action flow:  \"authorization.actions.sfa.CheckSFAActiveAction\",\n\"authorization.actions.login_success.CreateJWTAction\",\n\"authorization.actions.login_success.RedirectToCloneJWTSessionAction\",\n\"authorization.actions.login_success.SetJWTOnCookieAction\",\n\"authorization.actions.sfa.ResetSFATokenAction\",",
+            "title": "SFA_ACTIONS"
+        },
+        {
+            "location": "/settings/wiggum/#default-redirections-settings",
+            "text": "Default redirections are the urls where the user will be redirected after the\naction was successfully finished",
+            "title": "Default redirections settings"
+        },
+        {
+            "location": "/settings/wiggum/#login_success_redirect",
+            "text": "Default url where the user will be redirected after successful login   Note  Default to  /a/test/jwt",
+            "title": "LOGIN_SUCCESS_REDIRECT"
+        },
+        {
+            "location": "/settings/wiggum/#logout_success_redirect",
+            "text": "Default url where the user will be redirected after successful logout   Note  Default to  /a/test/jwt",
+            "title": "LOGOUT_SUCCESS_REDIRECT"
+        },
+        {
+            "location": "/settings/wiggum/#clone_success_redirect",
+            "text": "Default url where the user will be redirected after successful final clone chain   Note  Default to  /a/test/jwt",
+            "title": "CLONE_SUCCESS_REDIRECT"
+        },
+        {
+            "location": "/settings/wiggum/#recover_pass_request_success_redirect",
+            "text": "Default url where the user will be redirected after successful password reset request   Note  Default to  /a/login",
+            "title": "RECOVER_PASS_REQUEST_SUCCESS_REDIRECT"
+        },
+        {
+            "location": "/settings/wiggum/#reset_pass_success_redirect",
+            "text": "Default url where the user will be redirected after successful password reset   Note  Default to  /a/login",
+            "title": "RESET_PASS_SUCCESS_REDIRECT"
+        },
+        {
+            "location": "/settings/wiggum/#impersonate_success_redirect",
+            "text": "Default url where the user will be redirected after successful impersonation   Note  Default to  /a/test/jwt",
+            "title": "IMPERSONATE_SUCCESS_REDIRECT"
+        },
+        {
+            "location": "/settings/wiggum/#sfa_success_redirect",
+            "text": "Default url where the user will be redirected after successful SFA login   Note  Default to  /a/login",
+            "title": "SFA_SUCCESS_REDIRECT"
+        },
+        {
+            "location": "/settings/wiggum/#password-reset-settings",
+            "text": "Settings related with the password reset",
+            "title": "Password reset settings"
+        },
+        {
+            "location": "/settings/wiggum/#password_reset_expire_delta",
+            "text": "Integer value expressed in seconds that specifies how long the reset password\nlink will be valid   Note  Default value is  12 hours",
+            "title": "PASSWORD_RESET_EXPIRE_DELTA"
+        },
+        {
+            "location": "/settings/wiggum/#login_on_password_reset",
+            "text": "Boolean value that specifies if the user needs to be logged-in after a password reset   Note  Activated by default",
+            "title": "LOGIN_ON_PASSWORD_RESET"
+        },
+        {
+            "location": "/settings/wiggum/#authentication-backends-settings",
+            "text": "Settings related with wiggu authentication system",
+            "title": "Authentication backends settings"
+        },
+        {
+            "location": "/settings/wiggum/#wiggum_authentication_backends",
+            "text": "A list specifying the authentication backends used by wiggum to login the user\non wiggum appplication.   Note  Default:  \"authorization.backends.JWTAuthentication\",\n\"authorization.backends.RegularDatabaseAuthentication\",   )",
+            "title": "WIGGUM_AUTHENTICATION_BACKENDS"
+        },
+        {
+            "location": "/settings/wiggum/#miscelanea-settings",
+            "text": "Settings that don't fit in any section",
+            "title": "Miscelanea settings"
+        },
+        {
+            "location": "/settings/wiggum/#force_login_form",
+            "text": "A boolean value that specifies if wiggum should ask for the login form always. Useful when developing   Note  Deactivated by default",
+            "title": "FORCE_LOGIN_FORM"
+        },
+        {
+            "location": "/settings/wiggum/#wiggum_default_theme",
+            "text": "A setting specifying the theme that will be loaded by default   Note  Default theme is  clancy",
+            "title": "WIGGUM_DEFAULT_THEME"
+        },
+        {
+            "location": "/settings/wiggum/#redirect_url_valid_params",
+            "text": "A list that specifies the valid querystring for url redirect forcing. For example\nwhen we want to redirect to  mysite.com/something  after a successful login we\ncould use  wiggum.io/login?redirect_uri=mysite.com/something   Note  Default ones are  next     redirect_uri",
+            "title": "REDIRECT_URL_VALID_PARAMS"
+        },
+        {
+            "location": "/settings/wiggum/#admin_unathorized_redirection_url",
+            "text": "A string specifying the url that will be a user redirected when tries to access\nwiggum admin panel and that used doesn't have permissions to enter.   Note  Default to  /unauthorized/",
+            "title": "ADMIN_UNATHORIZED_REDIRECTION_URL"
+        },
+        {
+            "location": "/settings/wiggum/#jwt_set_django_session_urls",
+            "text": "A list containing the urls regexes where the Django session middleware will be applied   Note  Default to  /admin/.*",
+            "title": "JWT_SET_DJANGO_SESSION_URLS"
+        },
+        {
+            "location": "/settings/wiggum/#exclude_domain_check_urls",
+            "text": "Wiggum checks if the domain where the request is accessing is a valid one (this\nvalid domains are the ones that appear on  JWT_COOKIE_CLONE_DOMAINS_ENDPOINT )\nThis setting is a list of regexes.   Note  Only applied when  JWT_COOKIE_CLONE  is enabled    Note  Default ones: /api/.* ,  /metrics/? ,  /?$  and  /robots.txt",
+            "title": "EXCLUDE_DOMAIN_CHECK_URLS"
+        },
+        {
+            "location": "/authentication/",
+            "text": "Authentication: is the act of confirming the truth of an attribute of a single piece of data (a datum) claimed true by an entity\n\n\nFrom the \nwikipedia\n\n\n\n\nLogin\n\uf0c1\n\n\nWhen you enter in \na/login\n url of a wiggum endpoint you will see the main\nform. You can force a redirect using querystring, by default you can use \nnext\n\nor \nredirect_uri\n. For example: \na/login?next=http://myapp.com/welcome\n\n\nIf the login is correct, wiggum will create a JWT token and will set on the cookie.\nif cloning cookie across domain is enabled, a chain of redirects will happen to set\nthe cookie on all the domains\n\n\nLogout\n\uf0c1\n\n\nTo logout you need to enter in \na/logout\n this will logout (delete the cookie)\nfrom user session, if clone across domain is enabled, a chain of redirects will\nhappend to remove the cookie from all the domains.\n\n\nAs with Login a redirect querystring can be pass in the url so wigumm redirects the\nuser after a successful logout. For example: \na/logout?next=http://myapp.com/goodbye\n\n\nPassword reset\n\uf0c1\n\n\nWiggum implements password reset, this has to be done in two steps, first you need\nto request a password recovery by entering your email on \na/recover-password\n. This\nwill generate a password reset token and URL with the form: \na/reset-password/1/b3297c67-ec25-4625-af56-1f14dfb1d5d4\n\n\nThis URL at this moment isn't sent by\nemail because this link can be send in many ways, so is up to the developer to\nimplement and customize a send URL action as you will see in \ncustomization section\n.\n\n\nThe generated token will last to the time the setting \nPASSWORD_RESET_EXPIRE_DELTA\n is set and after the first use the token will be invalidated\n\n\nCheck JWT cookie is correct\n\uf0c1\n\n\nWiggum has included a very handy endopint to check the JWT wiggum cookie is set\ncorrectly. After login in you can enter in \na/test/jwt\n to check JWT cookie\ninformation and validation",
+            "title": "Authentication"
+        },
+        {
+            "location": "/authentication/#login",
+            "text": "When you enter in  a/login  url of a wiggum endpoint you will see the main\nform. You can force a redirect using querystring, by default you can use  next \nor  redirect_uri . For example:  a/login?next=http://myapp.com/welcome  If the login is correct, wiggum will create a JWT token and will set on the cookie.\nif cloning cookie across domain is enabled, a chain of redirects will happen to set\nthe cookie on all the domains",
+            "title": "Login"
+        },
+        {
+            "location": "/authentication/#logout",
+            "text": "To logout you need to enter in  a/logout  this will logout (delete the cookie)\nfrom user session, if clone across domain is enabled, a chain of redirects will\nhappend to remove the cookie from all the domains.  As with Login a redirect querystring can be pass in the url so wigumm redirects the\nuser after a successful logout. For example:  a/logout?next=http://myapp.com/goodbye",
+            "title": "Logout"
+        },
+        {
+            "location": "/authentication/#password-reset",
+            "text": "Wiggum implements password reset, this has to be done in two steps, first you need\nto request a password recovery by entering your email on  a/recover-password . This\nwill generate a password reset token and URL with the form:  a/reset-password/1/b3297c67-ec25-4625-af56-1f14dfb1d5d4  This URL at this moment isn't sent by\nemail because this link can be send in many ways, so is up to the developer to\nimplement and customize a send URL action as you will see in  customization section .  The generated token will last to the time the setting  PASSWORD_RESET_EXPIRE_DELTA  is set and after the first use the token will be invalidated",
+            "title": "Password reset"
+        },
+        {
+            "location": "/authentication/#check-jwt-cookie-is-correct",
+            "text": "Wiggum has included a very handy endopint to check the JWT wiggum cookie is set\ncorrectly. After login in you can enter in  a/test/jwt  to check JWT cookie\ninformation and validation",
+            "title": "Check JWT cookie is correct"
+        },
+        {
+            "location": "/authorization/",
+            "text": "Authorization or authorisation is the function of specifying access rights to resources related to information security and computer security in general and to access control in particular\n\n\nFrom the \nwikipedia\n\n\n\n\nCheck User permissions\n\uf0c1\n\n\nUser permissions or rights are managed with a list of dot notation strings, as\nis explained in the \nintroduction\n\n\nTo check user permissions you will need to check the \nAPI\n. In this example\nwe request permissions for user with ID 1 in \napi/v1/users/1/\n, as you see,\n\nproject_permissions\n is an array of permissions:\n\n\n{\n    \nid\n: 1,\n    \nproject_permissions\n: [\n        \ncms.user\n,\n        \nlanderdash.all\n,\n        \nlanderdash.manage.any\n,\n        \nlanderdash.manage.own\n,\n        \nldap.user\n,\n        \nbackoffice.user\n,\n        \nlander.editor\n,\n        \nlander.admin\n,\n        \nwiggum.impersonate\n,\n        \nwiggum.all\n\n    ],\n    \nlast_login\n: \n2016-03-04T08:45:16.197905Z\n,\n    \nusername\n: \nslok\n,\n    \nemail\n: \nslok69@gmail.com\n,\n    \nfirst_name\n: \nXabier\n,\n    \nlast_name\n: \nLarrakoetxea\n,\n    \ndate_joined\n: \n2015-07-22T14:54:43Z\n,\n    \nactive\n: true,\n    \nexternal_service\n: \n\n}\n\n\n\n\n\n\nNote\n\n\nBefore checking user permissions, you should check that the user is\nauthenticated, this means that has a valid wiggum token",
+            "title": "Authorization"
+        },
+        {
+            "location": "/authorization/#check-user-permissions",
+            "text": "User permissions or rights are managed with a list of dot notation strings, as\nis explained in the  introduction  To check user permissions you will need to check the  API . In this example\nwe request permissions for user with ID 1 in  api/v1/users/1/ , as you see, project_permissions  is an array of permissions:  {\n     id : 1,\n     project_permissions : [\n         cms.user ,\n         landerdash.all ,\n         landerdash.manage.any ,\n         landerdash.manage.own ,\n         ldap.user ,\n         backoffice.user ,\n         lander.editor ,\n         lander.admin ,\n         wiggum.impersonate ,\n         wiggum.all \n    ],\n     last_login :  2016-03-04T08:45:16.197905Z ,\n     username :  slok ,\n     email :  slok69@gmail.com ,\n     first_name :  Xabier ,\n     last_name :  Larrakoetxea ,\n     date_joined :  2015-07-22T14:54:43Z ,\n     active : true,\n     external_service :  \n}   Note  Before checking user permissions, you should check that the user is\nauthenticated, this means that has a valid wiggum token",
+            "title": "Check User permissions"
+        },
+        {
+            "location": "/utils/api/",
+            "text": "Wiggum has a simple but powerful JSON API to get the information, about users,\npermissions and applications.\n\n\nDocumentation\n\uf0c1\n\n\nYou can read all the API documentation on \n/api/v1\n url. Needs authorization, read the next section.\n\n\nAuthorization\n\uf0c1\n\n\nyou will need to set the \nAuthorization\n header in order to use the API. To do that first you need to\nenter on the admin panel \n/admin\n, create a new application and there generate a\ntoken. Now you can authorize API calls using \nAuthorization: Bearer {TOKEN}\n header\n\n\ncurl -H \nContent-Type: application/json\n -H \nAuthorization: Bearer f3d3a3f40e054c3b979f1dbceb05a712\n http://xxxxxxxx.com/api/v1/users/1/\n{\nid\n:1,\nproject_permissions\n:[\ncms.user\n,\nwiggum.impersonate\n,\nlanderdash.all\n,\nlanderdash.manage.any\n,\nlanderdash.manage.own\n,\nldap.user\n,\nbackoffice.user\n,\nlander.editor\n,\nlander.admin\n,\nwiggum.user.read\n,\nwiggum.user.write\n,\nwiggum.permission.write\n,\nwiggum.all\n],\nlast_login\n:\n2016-03-04T08:45:16.197905Z\n,\nusername\n:\nslok\n,\nemail\n:\nslok69@gmail.com\n,\nfirst_name\n:\nXabier\n,\nlast_name\n:\nLarrakoetxea\n,\ndate_joined\n:\n2015-07-22T14:54:43Z\n,\nactive\n:true,\nexternal_service\n:\n}\n\n\n\n\nEndpoints\n\uf0c1\n\n\nThe main endpoints for resuources are:\n\n\n\n\n/api/v1/users\n: User model API endpoint\n\n\n/api/v1/usernames\n: Same as user, using usernames as user ID instead\n\n\n/api/v1/applications\n: Application model API enpoint\n\n\n/api/v1/permissions\n: Permissions model API endpoint\n\n\n\n\nthese endpoints allow to create, update, delete and retrieve data from each resource\n\n\nSpecial actions\n\uf0c1\n\n\nWiggum has some special actions on the API appart fro the regular resource API.\n\n\n\n\n/api/v1/users/{ID}/reset-password-url?expiration_seconds=XXX\n: Will get a link to reset the password of a user with a valid time of \nexpiration_seconds\n querystring\n\n\n/api/v1/users/{ID}/reset-password-url?expiration_seconds=XXX\n: Same as above but with username as ID\n\n\n/api/v1/usernames/{username}/sfa_url?expiration_seconds=XXX\n: Will get a link to login with SFA mode, the link will be valid for the \nexpiration_seconds\n querystring seconds\n\n\n\n\n/api/v1/usernames/{username}/sfa_url?expiration_seconds=XXX\n: Same as above but with username as ID\n\n\n\n\n\n\n/api/v1/applications/{ID}/reset_token\n: Resets application authorization token",
+            "title": "API"
+        },
+        {
+            "location": "/utils/api/#documentation",
+            "text": "You can read all the API documentation on  /api/v1  url. Needs authorization, read the next section.",
+            "title": "Documentation"
+        },
+        {
+            "location": "/utils/api/#authorization",
+            "text": "you will need to set the  Authorization  header in order to use the API. To do that first you need to\nenter on the admin panel  /admin , create a new application and there generate a\ntoken. Now you can authorize API calls using  Authorization: Bearer {TOKEN}  header  curl -H  Content-Type: application/json  -H  Authorization: Bearer f3d3a3f40e054c3b979f1dbceb05a712  http://xxxxxxxx.com/api/v1/users/1/\n{ id :1, project_permissions :[ cms.user , wiggum.impersonate , landerdash.all , landerdash.manage.any , landerdash.manage.own , ldap.user , backoffice.user , lander.editor , lander.admin , wiggum.user.read , wiggum.user.write , wiggum.permission.write , wiggum.all ], last_login : 2016-03-04T08:45:16.197905Z , username : slok , email : slok69@gmail.com , first_name : Xabier , last_name : Larrakoetxea , date_joined : 2015-07-22T14:54:43Z , active :true, external_service : }",
+            "title": "Authorization"
+        },
+        {
+            "location": "/utils/api/#endpoints",
+            "text": "The main endpoints for resuources are:   /api/v1/users : User model API endpoint  /api/v1/usernames : Same as user, using usernames as user ID instead  /api/v1/applications : Application model API enpoint  /api/v1/permissions : Permissions model API endpoint   these endpoints allow to create, update, delete and retrieve data from each resource",
+            "title": "Endpoints"
+        },
+        {
+            "location": "/utils/api/#special-actions",
+            "text": "Wiggum has some special actions on the API appart fro the regular resource API.   /api/v1/users/{ID}/reset-password-url?expiration_seconds=XXX : Will get a link to reset the password of a user with a valid time of  expiration_seconds  querystring  /api/v1/users/{ID}/reset-password-url?expiration_seconds=XXX : Same as above but with username as ID  /api/v1/usernames/{username}/sfa_url?expiration_seconds=XXX : Will get a link to login with SFA mode, the link will be valid for the  expiration_seconds  querystring seconds   /api/v1/usernames/{username}/sfa_url?expiration_seconds=XXX : Same as above but with username as ID    /api/v1/applications/{ID}/reset_token : Resets application authorization token",
+            "title": "Special actions"
+        },
+        {
+            "location": "/utils/admin/",
+            "text": "Admin panel\n\uf0c1\n\n\nAs many of Django applicatiosn wiggum aslo has an admin panel to manage the data.\nYou can enter in \n/admin\n.\n\n\nOnly the users with \nwiggum.all\n permission can enter. The super user created when\ninstalling Wiggum has this permission.",
+            "title": "Admin panel"
+        },
+        {
+            "location": "/utils/admin/#admin-panel",
+            "text": "As many of Django applicatiosn wiggum aslo has an admin panel to manage the data.\nYou can enter in  /admin .  Only the users with  wiggum.all  permission can enter. The super user created when\ninstalling Wiggum has this permission.",
+            "title": "Admin panel"
+        },
+        {
+            "location": "/utils/sfa/",
+            "text": "SFA\n\uf0c1\n\n\nSingle factor authentication or SFA is a way of authenticating the user by one\ncheck. Companies like twitter implement this by sending a link to a trusted medium\nSo the user can click on a link that will authenticate.\n\n\nIn Wiggum case, wiggum can generate a token that entering in the token will\ngenerate  a JWT token and set to the user as if it entered the username \n password.\n\n\nThis is useful as an alternative to the users that always forget the password. Wiggum\nlike reset token link, doesn't send the link by email. but you could easily send\nit by email implementing a custom action.\n\n\nthe SFA links can be generate by [API], this will generate a url of the\n\na/sfa/{ID}/{UUID}\n type",
+            "title": "SFA"
+        },
+        {
+            "location": "/utils/sfa/#sfa",
+            "text": "Single factor authentication or SFA is a way of authenticating the user by one\ncheck. Companies like twitter implement this by sending a link to a trusted medium\nSo the user can click on a link that will authenticate.  In Wiggum case, wiggum can generate a token that entering in the token will\ngenerate  a JWT token and set to the user as if it entered the username   password.  This is useful as an alternative to the users that always forget the password. Wiggum\nlike reset token link, doesn't send the link by email. but you could easily send\nit by email implementing a custom action.  the SFA links can be generate by [API], this will generate a url of the a/sfa/{ID}/{UUID}  type",
+            "title": "SFA"
+        },
+        {
+            "location": "/utils/impersonation/",
+            "text": "Wiggum has the ability to impersonate a user. This is to act as an specific user\nwithout being that user.\n\n\nImpersonate\n\uf0c1\n\n\nThis is useful when you want to debug, how an application acts being a specific\nuser to fix bugs and  stuff. To impersoante an user you will need to be logged\nalready in wigum and have \nwiggum.impersonate\n permission, \nwith great power comes\ngreat responsibility\n.\n\n\nYou can impersonate a user using \na/impersonate/{ID}\n. One impersoante an special\nJWT token will replace your existing token.\n\n\nIn the admin panel each user has an impersonate button in his/her details to\nhelp impersonating this user in an easy way.\n\n\nImpersonate token\n\uf0c1\n\n\n{\n  \nreal_user_id\n: 1,\n  \nimpersonate\n: true,\n  \niss\n: \nwiggum\n,\n  \nnbf\n: 1457344554,\n  \niat\n: 1457344569,\n  \nuser\n: {\n    \nusername\n: \nxilarrakoetxea\n,\n    \nlast_name\n: \nLarrakoetxea Gallego\n,\n    \nid\n: 7052,\n    \nemail\n: \nxilarrakoetxea@qdqmedia.com\n,\n    \nfirst_name\n: \nXabier I\u00f1igo\n\n  },\n  \nversion\n: 1.1,\n  \nexp\n: 1457348169\n}\n\n\n\n\nWhen impersonating the JWT token will be the same as if the impersoante user was\nlogged, but also will have \n\"impersonate\": true\n \n \n\"real_user_id\": \"XX\"\n with the\nID of the user that impersonated the actual user. As a security, the impersonated\nTokens will expire in less time that regular ones. by default expire in \n1h\n, you\ncan change this with \nJWT_IMPERSONATE_EXPIRATION_TIME_DELTA\n setting.\n\n\n\n\nNote\n\n\nImpersonating destroys the current session.",
+            "title": "Impersonation"
+        },
+        {
+            "location": "/utils/impersonation/#impersonate",
+            "text": "This is useful when you want to debug, how an application acts being a specific\nuser to fix bugs and  stuff. To impersoante an user you will need to be logged\nalready in wigum and have  wiggum.impersonate  permission,  with great power comes\ngreat responsibility .  You can impersonate a user using  a/impersonate/{ID} . One impersoante an special\nJWT token will replace your existing token.  In the admin panel each user has an impersonate button in his/her details to\nhelp impersonating this user in an easy way.",
+            "title": "Impersonate"
+        },
+        {
+            "location": "/utils/impersonation/#impersonate-token",
+            "text": "{\n   real_user_id : 1,\n   impersonate : true,\n   iss :  wiggum ,\n   nbf : 1457344554,\n   iat : 1457344569,\n   user : {\n     username :  xilarrakoetxea ,\n     last_name :  Larrakoetxea Gallego ,\n     id : 7052,\n     email :  xilarrakoetxea@qdqmedia.com ,\n     first_name :  Xabier I\u00f1igo \n  },\n   version : 1.1,\n   exp : 1457348169\n}  When impersonating the JWT token will be the same as if the impersoante user was\nlogged, but also will have  \"impersonate\": true     \"real_user_id\": \"XX\"  with the\nID of the user that impersonated the actual user. As a security, the impersonated\nTokens will expire in less time that regular ones. by default expire in  1h , you\ncan change this with  JWT_IMPERSONATE_EXPIRATION_TIME_DELTA  setting.   Note  Impersonating destroys the current session.",
+            "title": "Impersonate token"
+        },
+        {
+            "location": "/metrics/",
+            "text": "Wiggum has some common metrics for \nPrometheus\n system\n\n\nMetrics endpoint\n\uf0c1\n\n\nPrometheus metrics are in \n/metrics\n url, you should point prometheus on that\nenpoint in order it can scrape wiggum metrics.\n\n\nMetrics\n\uf0c1\n\n\nWiggum uses \ndjango-prometheus\n project. So will have this project metrics, this\nhas metrics like request latencies, request enpodints, response codes...\n\n\nAppart from this Wiggum also has custom metrics for:\n\n\n\n\nSuccess logins\n\n\nFailed logins\n\n\nLogouts\n\n\nPassword requests\n\n\nPassword resets\n\n\nImpersonations\n\n\n\n\nTo check which ones and their names, go to \n/metrics\n\n\n\n\nIn this image you see a wiggum dashboard in \ngrafana\n querying wiggum metrics\non prometheus.\n\n\n\n\nNote\n\n\nMetrics are per process so you will need to set wiggum instances as 1 process,\nIf you are using these metrics you shouldn't use multiple uwsgi workers\n(if you are using uwsgi) or similar and use single workers per instance and Load\nbalancers instead.",
+            "title": "Metrics"
+        },
+        {
+            "location": "/metrics/#metrics-endpoint",
+            "text": "Prometheus metrics are in  /metrics  url, you should point prometheus on that\nenpoint in order it can scrape wiggum metrics.",
+            "title": "Metrics endpoint"
+        },
+        {
+            "location": "/metrics/#metrics",
+            "text": "Wiggum uses  django-prometheus  project. So will have this project metrics, this\nhas metrics like request latencies, request enpodints, response codes...  Appart from this Wiggum also has custom metrics for:   Success logins  Failed logins  Logouts  Password requests  Password resets  Impersonations   To check which ones and their names, go to  /metrics   In this image you see a wiggum dashboard in  grafana  querying wiggum metrics\non prometheus.   Note  Metrics are per process so you will need to set wiggum instances as 1 process,\nIf you are using these metrics you shouldn't use multiple uwsgi workers\n(if you are using uwsgi) or similar and use single workers per instance and Load\nbalancers instead.",
+            "title": "Metrics"
+        },
+        {
+            "location": "/custom/introduction/",
+            "text": "TODO",
+            "title": "Introduction"
+        },
+        {
+            "location": "/contributing/",
+            "text": "Run wiggum dev\n\uf0c1\n\n\nYou can check how to run on dev mode in the \nquickstart\n\n\nRun tests\n\uf0c1\n\n\nmake test",
+            "title": "Contributing"
+        },
+        {
+            "location": "/contributing/#run-wiggum-dev",
+            "text": "You can check how to run on dev mode in the  quickstart",
+            "title": "Run wiggum dev"
+        },
+        {
+            "location": "/contributing/#run-tests",
+            "text": "make test",
+            "title": "Run tests"
+        },
+        {
+            "location": "/about/",
+            "text": "Wiggum has been developed at \nQDQMedia\n, we released as open source project so we give something\nback for all the awesome open source projects that we use every day, at work and as free time. This is our way to say thank you.\n\n\nLicense\n\uf0c1\n\n\nCopyright (c) 2016, wiggum authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n   * Redistributions of source code must retain the above copyright\nnotice, this list of conditions and the following disclaimer.\n   * Redistributions in binary form must reproduce the above copyright\nnotice, this list of conditions and the following disclaimer in the\ndocumentation and/or other materials provided with the distribution.\n   * The names of its contributors may not be used to endorse or promote products\n   derived from this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\nAS IS\n AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n\n\n\nAuthors\n\uf0c1\n\n\n# This is the official list of wiggum authors for copyright purposes.\n# This file is distinct from the CONTRIBUTORS files.\n#\n# See the latter for an explanation.\n\nQDQ Media S.A.U.",
+            "title": "About"
+        },
+        {
+            "location": "/about/#license",
+            "text": "Copyright (c) 2016, wiggum authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n   * Redistributions of source code must retain the above copyright\nnotice, this list of conditions and the following disclaimer.\n   * Redistributions in binary form must reproduce the above copyright\nnotice, this list of conditions and the following disclaimer in the\ndocumentation and/or other materials provided with the distribution.\n   * The names of its contributors may not be used to endorse or promote products\n   derived from this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS AS IS  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.",
+            "title": "License"
+        },
+        {
+            "location": "/about/#authors",
+            "text": "# This is the official list of wiggum authors for copyright purposes.\n# This file is distinct from the CONTRIBUTORS files.\n#\n# See the latter for an explanation.\n\nQDQ Media S.A.U.",
+            "title": "Authors"
+        }
+    ]
+}
