@@ -1,6 +1,7 @@
 app:
   working_dir: "/code"
   hostname: wiggum-ci
+  user: root
   environment:
     DJANGO_SETTINGS_MODULE: wiggum.settings.ci
   command: "/bin/bash -ci '/code/environment/ci/build.sh;/code/environment/ci/run.sh'"
