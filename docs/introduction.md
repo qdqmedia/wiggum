@@ -6,7 +6,7 @@ applications can check if the user is authenticated. So the user authentication
 is stateless
 
 
-![Wiggm flow](img/wiggum.png)
+![Wiggum flow](img/wiggum.png)
 
 
 When wiggum authenticates a user the applications that use wiggum as a login system

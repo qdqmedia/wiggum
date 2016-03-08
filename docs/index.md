@@ -5,6 +5,8 @@ The aim of wiggum is to allow users to login once and authenticate in all your
 aplications based on [JWT] standard and cookies. Also has an authorization system
 based on permissions that applications can check with its API.
 
+![Wiggum login](img/login.png)
+
 Wiggum is a Django project, if you already know how Django works then [setting up and running] will be very easy, wiggum is very easy to customize as you will see in [customization] section.
 
 [JWT]: https://en.wikipedia.org/wiki/JSON_Web_Token
