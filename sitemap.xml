@@ -4,7 +4,7 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +12,7 @@
     
     <url>
      <loc>None/introduction/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,7 +20,7 @@
     
     <url>
      <loc>None/quick-start/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -29,13 +29,13 @@
         
     <url>
      <loc>None/install/manual-install/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/install/docker-install/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -45,13 +45,13 @@
         
     <url>
      <loc>None/settings/django/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/settings/wiggum/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -60,7 +60,7 @@
     
     <url>
      <loc>None/authentication/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -68,7 +68,7 @@
     
     <url>
      <loc>None/authorization/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -77,25 +77,25 @@
         
     <url>
      <loc>None/utils/api/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/utils/admin/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/utils/sfa/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/utils/impersonation/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -104,7 +104,7 @@
     
     <url>
      <loc>None/metrics/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -113,7 +113,7 @@
         
     <url>
      <loc>None/custom/introduction/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -122,7 +122,7 @@
     
     <url>
      <loc>None/contributing/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -130,7 +130,7 @@
     
     <url>
      <loc>None/about/</loc>
-     <lastmod>2016-03-07</lastmod>
+     <lastmod>2016-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
