@@ -29,8 +29,8 @@ The user has very few attributes:
 You can create a new user with the [admin] panel that wiggum has or with the
 wiggum [API]
 
-[admin] utils/admin
-[API] utils/api
+[admin]: utils/admin
+[API]: utils/api
 
 # Permissions
 Permissions are linked with the User model, ths model specifies what are the user
